@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import AppLayout from './ui/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Diet from './pages/Diet';
+import GlobalStyles from './styles/GlobalStyles';
 
 const router = createBrowserRouter([
   {
@@ -14,16 +15,16 @@ const router = createBrowserRouter([
     errorElement: <PageNotFound />,
   },
   {
-    path: 'login',
-    element: <Login />,
-  },
-  {
     path: 'app',
     element: <AppLayout />,
     children: [
       {
         element: <Navigate replace to="dashboard" />,
         index: true,
+      },
+      {
+        path: 'login',
+        element: <Login />,
       },
       {
         path: 'dashboard',
@@ -38,7 +39,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <>
+      <GlobalStyles />
+      <RouterProvider router={router}></RouterProvider>
+    </>
+  );
 }
 
 export default App;
