@@ -98,12 +98,14 @@ body {
   @media screen  and (min-width: ${breakpoint.laptop}){
     font-size: 1.5rem;
   }
+  @media screen  and (min-width: ${breakpoint.desktop}){
+    font-size: 1.6rem;
+  }
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: "Lato", sans-serif;
-  color: var(--color-grey-700);
-}
+
+
+
 
 input,
 button,
@@ -148,12 +150,18 @@ button:has(svg) {
 }
 
 a {
+  font-family: inherit;
   color: inherit;
-  text-decoration: none;
 }
 
 ul {
   list-style: none;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Lato", sans-serif;
+  color: var(--color-brand-800);
 }
 
 p,
@@ -166,6 +174,20 @@ h6 {
   overflow-wrap: break-word;
   hyphens: auto;
 }
+
+h1 {
+  font-size: 3rem;
+  @media screen  and (min-width: ${breakpoint.laptop}){
+    font-size: 4rem;
+  }
+}
+h2 {
+  font-size: 2.2rem;
+  @media screen  and (min-width: ${breakpoint.laptop}){
+    font-size: 2.6rem;
+  }
+}
+
 
 img {
   max-width: 100%;

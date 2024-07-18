@@ -17,7 +17,7 @@ function LoginForm() {
         <Input type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </FormRow>
       <FormRow>
-        <Button variation="primary">Sign in</Button>
+        <Button $variation="primary">Sign in</Button>
       </FormRow>
     </Form>
   );

@@ -12,18 +12,18 @@ function Logo() {
     <StyledLogo>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        clip-rule="evenodd"
-        fill-rule="evenodd"
+        clipRule="evenodd"
+        fillRule="evenodd"
         height="211.63"
-        image-rendering="optimizeQuality"
-        shape-rendering="geometricPrecision"
-        text-rendering="geometricPrecision"
+        imageRendering="optimizeQuality"
+        shapeRendering="geometricPrecision"
+        textRendering="geometricPrecision"
         viewBox="0 0 212.61 211.63"
         width="212.61">
         <defs>
           <linearGradient gradientUnits="userSpaceOnUse" id="a" x1="128.19" x2="10.05" y1="89.65" y2="214.61">
-            <stop offset="0" stop-color="#06b6d4" />
-            <stop offset="1" stop-color="#a8cf45" />
+            <stop offset="0" stopColor="#06b6d4" />
+            <stop offset="1" stopColor="#a8cf45" />
           </linearGradient>
         </defs>
         <g>

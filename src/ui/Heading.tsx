@@ -1,19 +1,10 @@
 import styled from 'styled-components';
 
-const StyledHeading = styled.h2`
-  font-size: 3rem;
+const Heading = styled.h1`
+  letter-spacing: 1px;
   span {
     color: var(--color-brand-500);
   }
 `;
-
-type HeadingProps = {
-  as: React.ElementType;
-  children: React.ReactNode;
-};
-
-function Heading({ as, children }: HeadingProps) {
-  return <StyledHeading as={as}>{children}</StyledHeading>;
-}
 
 export default Heading;

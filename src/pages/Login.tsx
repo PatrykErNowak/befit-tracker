@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import LoginForm from '../features/auth/LoginForm';
@@ -7,32 +6,13 @@ import BreakLine from '../ui/BreakLine';
 import Logo from '../ui/Logo';
 import Container from '../ui/Container';
 
-import LoginBgDesktop from '../assets/img/login-bg-desktop.jpg';
 import { breakpoint } from '../styles/configStyles';
+import Link from '../ui/LinkCustom';
 
 const LoginPageLayout = styled(Container)`
   gap: 3.5rem;
   padding: 3rem 2rem;
-  background-color: var(--color-brand-100);
   min-height: 100dvh;
-
-  &:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.4;
-    background-image: url(${LoginBgDesktop});
-    background-repeat: no-repeat;
-    background-position: 50% 0;
-    background-size: cover;
-  }
-  * {
-    z-index: 10;
-  }
 `;
 
 const LoginContent = styled(Container)`
@@ -41,7 +21,7 @@ const LoginContent = styled(Container)`
   max-width: 40rem;
 `;
 const LoginFooter = styled.p`
-  a {
+  /* a {
     color: var(--color-brand-500);
     text-decoration: underline;
     font-weight: 600;
@@ -51,7 +31,7 @@ const LoginFooter = styled.p`
         color: var(--color-brand-600);
       }
     }
-  }
+  } */
 `;
 
 function Login() {
@@ -59,7 +39,7 @@ function Login() {
     <LoginPageLayout>
       <Container>
         <Logo />
-        <Heading as="h2">
+        <Heading as="h1">
           Be<span>Fit</span> Tracker
         </Heading>
       </Container>

@@ -11,6 +11,10 @@ const Input = styled.input`
   border: 1px solid var(--color-grey-200);
   border-radius: var(--border-radius-md);
 
+  &::placeholder {
+    color: var(--color-grey-400);
+  }
+
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 1.2rem 2rem;
   }

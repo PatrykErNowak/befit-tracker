@@ -11,13 +11,14 @@ const StyledFormRow = styled.div`
 const Label = styled.label`
   font-size: 1.2rem;
   font-weight: 500;
-  color: var(--color-grey-500);
+  color: var(--color-grey-600);
 `;
 
 const Error = styled.span`
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
+  transform: translateY(100%);
   font-size: 1.2rem;
   color: var(--error-color);
 `;

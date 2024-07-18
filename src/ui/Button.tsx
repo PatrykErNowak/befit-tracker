@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { breakpoint } from '../styles/configStyles';
 
 const variations = {
   primary: css`
@@ -20,17 +21,24 @@ const variations = {
   `,
 };
 
-const Button = styled.button<{ variation?: keyof typeof variations }>`
+const Button = styled.button<{ $variation?: keyof typeof variations }>`
   padding: 1rem 1.5rem;
 
   font-size: inherit;
   font-weight: 500;
+  text-decoration: none;
   color: var(--color-grey-50);
   background-color: var(--color-grey-800);
-  border: 1px solid var(--color-grey-200);
   border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-grey-800);
 
-  ${({ variation = 'primary' }) => variations[variation]}
+  ${({ $variation = 'primary' }) => variations[$variation]}
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    &:hover {
+      color: var(--color-grey-50);
+    }
+  }
 `;
 
 export default Button;

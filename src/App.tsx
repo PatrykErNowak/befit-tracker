@@ -7,6 +7,7 @@ import AppLayout from './ui/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Diet from './pages/Diet';
 import GlobalStyles from './styles/GlobalStyles';
+import CreateAccount from './pages/CreateAccount';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
+      },
+      {
+        path: 'create-account',
+        element: <CreateAccount />,
       },
       {
         path: 'dashboard',
