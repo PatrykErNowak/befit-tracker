@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
-const StyledFormRow = styled.div`
+const StyledFormRow = styled.fieldset`
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
   gap: 0.4rem;
   margin-bottom: 2rem;
+
+  border: none;
 `;
 
-const Label = styled.label`
+const Label = styled.legend`
+  padding-bottom: 0.5rem;
   font-size: 1.2rem;
   font-weight: 500;
   color: var(--color-grey-600);
@@ -26,19 +30,17 @@ const Error = styled.span`
 type FormRowProps = {
   label: string;
   error?: string;
-  children: React.ReactElement<HTMLInputElement>;
+  children: React.ReactElement<HTMLDivElement>[];
 };
 
-function FormRow({ children, label, error }: FormRowProps) {
-  const htmlForAttribute = children.props.id;
-
+function FormRadioRow({ label, error, children }: FormRowProps) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={htmlForAttribute}>{label}</Label>}
+      {label && <Label>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>
   );
 }
 
-export default FormRow;
+export default FormRadioRow;

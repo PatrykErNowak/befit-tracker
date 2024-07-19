@@ -3,6 +3,7 @@ import Button from '../../ui/Button';
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
+import FormButtonsRow from '../../ui/Form/FormButtonsRow';
 
 type IFormInput = {
   nickname: string;
@@ -80,14 +81,11 @@ function SignupForm() {
         />
       </FormRow>
 
-      <FormRow>
-        {/* <Button variation="secondary" type="reset" disabled={isLoading} onClick={reset}>
-          Cancel
-        </Button> */}
+      <FormButtonsRow>
         <Button type="submit" disabled={isLoading}>
           Create Account
         </Button>
-      </FormRow>
+      </FormButtonsRow>
     </Form>
   );
 }

@@ -136,13 +136,7 @@ select:focus {
   outline: 2px solid var(--color-brand-600);
   outline-offset: -1px;
 }
-@media screen  and (min-width: ${breakpoint.laptop}){
-  input:hover,
-  textarea:hover,
-  select:hover {
-    border: 1px solid var(--color-brand-600);
-  }
-  }
+
 
 /* Parent selector, finally 😃 */
 button:has(svg) {

@@ -8,7 +8,7 @@ const ExtContainer = styled(Container)`
   }
 `;
 
-function StepperExt(props) {
+function StepperExt(props: typeof Stepper) {
   return (
     <ExtContainer className={props.className}>
       <Stepper

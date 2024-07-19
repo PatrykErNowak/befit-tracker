@@ -17,6 +17,9 @@ const Input = styled.input`
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 1.2rem 2rem;
+    &:hover {
+      border: 1px solid var(--color-brand-600);
+    }
   }
 `;
 

@@ -6,8 +6,8 @@ import BreakLine from '../ui/BreakLine';
 import Logo from '../ui/Logo';
 import Container from '../ui/Container';
 
-import { breakpoint } from '../styles/configStyles';
 import Link from '../ui/LinkCustom';
+import Text from '../ui/Text';
 
 const LoginPageLayout = styled(Container)`
   gap: 3.5rem;
@@ -19,19 +19,6 @@ const LoginContent = styled(Container)`
   gap: 3.5rem;
   width: 100%;
   max-width: 40rem;
-`;
-const LoginFooter = styled.p`
-  /* a {
-    color: var(--color-brand-500);
-    text-decoration: underline;
-    font-weight: 600;
-
-    @media screen and (min-width: ${breakpoint.laptop}) {
-      &:hover {
-        color: var(--color-brand-600);
-      }
-    }
-  } */
 `;
 
 function Login() {
@@ -46,9 +33,9 @@ function Login() {
       <LoginContent>
         <LoginForm />
         <BreakLine text="or" />
-        <LoginFooter>
+        <Text>
           Are you new? <Link to={'/app/create-account'}>Create an account</Link>
-        </LoginFooter>
+        </Text>
       </LoginContent>
     </LoginPageLayout>
   );

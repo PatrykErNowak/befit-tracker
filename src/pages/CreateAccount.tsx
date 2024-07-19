@@ -82,7 +82,7 @@ const infoHeading = {
 };
 
 function CreateAccount() {
-  const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0);
+  const [activeStep, setActiveStep] = useState<0 | 1 | 2>(1);
 
   return (
     <StyledCreateAccount>
