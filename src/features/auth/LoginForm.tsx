@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
-import Button from '../../ui/Button';
+import Button from '../../ui/Buttons/Button';
 
 function LoginForm() {
   const [email, setEmail] = useState('test.email.data@gmail.com');

@@ -7,7 +7,8 @@ import AppLayout from './ui/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Diet from './pages/Diet';
 import GlobalStyles from './styles/GlobalStyles';
-import CreateAccount from './pages/CreateAccount';
+import CreateAccount from './pages/CreateAccount/CreateAccount';
+import { SignUpProvider } from './contexts/SignUpContext';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'create-account',
-        element: <CreateAccount />,
+        element: (
+          <SignUpProvider>
+            <CreateAccount />
+          </SignUpProvider>
+        ),
       },
       {
         path: 'dashboard',

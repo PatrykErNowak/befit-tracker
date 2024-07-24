@@ -14,8 +14,8 @@ function StepperExt(props: typeof Stepper) {
       <Stepper
         {...props}
         circleTop={0}
-        activeColor="#06b6d4"
-        completeColor="#a8cf45"
+        activeColor="#6366f1"
+        completeColor="#a5b4fc"
         defaultColor={'#d1d5db'}
         size={34}
         circleFontSize={14}

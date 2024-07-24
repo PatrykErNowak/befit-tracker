@@ -1,9 +1,10 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Button from '../../ui/Button';
+import Button from '../../ui/Buttons/Button';
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
 import FormButtonsRow from '../../ui/Form/FormButtonsRow';
+import { useSignUp } from '../../contexts/SignUpContext';
 
 type IFormInput = {
   nickname: string;
@@ -13,13 +14,22 @@ type IFormInput = {
 };
 
 function SignupForm() {
-  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>();
+  const { goToNextStep } = useSignUp();
+  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>({
+    defaultValues: {
+      nickname: 'nvcrox',
+      email: 'example@gmail.com',
+      password: 'Testpass99',
+      passwordConfirm: 'Testpass99',
+    },
+  });
   const { errors } = formState;
 
   const isLoading = false; // temp data
 
   const onSubmit: SubmitHandler<IFormInput> = ({ nickname, email, password }) => {
     console.log({ nickname, email, password });
+    goToNextStep();
   };
 
   return (

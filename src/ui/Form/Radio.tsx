@@ -1,20 +1,25 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 
 type RadioProps = {
   label: string;
+  labelDesc?: string;
 } & React.ComponentProps<'input'>;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
+  width: 100%;
 `;
 
 const Input = styled.input`
+  flex-shrink: 0;
+
   position: relative;
   appearance: none;
-  width: 2rem;
-  height: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   background-color: var(--color-brand-50);
   border-radius: 50%;
 
@@ -34,13 +39,27 @@ const Input = styled.input`
   }
 `;
 
-function Radio({ label, id, value, name, ...props }: RadioProps) {
+const Label = styled.label`
+  font-weight: 500;
+  width: 100%;
+`;
+
+const LabelDesc = styled.p`
+  font-size: 0.8em;
+  color: var(--color-grey-500);
+`;
+
+const Radio = forwardRef<HTMLInputElement, RadioProps>(function ({ label, labelDesc, id, value, ...props }: RadioProps, ref) {
   return (
     <Wrapper>
-      <Input type="radio" id={id} name={name} value={value} {...props} />
-      <label htmlFor={id}>{label}</label>
+      <Input type="radio" id={id} value={value} aria-describedby={`${id}Desc`} {...props} ref={ref} />
+
+      <Label htmlFor={id}>
+        <span>{label}</span>
+        {labelDesc && <LabelDesc id={`${id}Desc`}>{labelDesc}</LabelDesc>}
+      </Label>
     </Wrapper>
   );
-}
+});
 
 export default Radio;

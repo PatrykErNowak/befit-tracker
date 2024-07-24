@@ -1,14 +1,19 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const StyledFormRow = styled.fieldset`
+const StyledFormRow = styled.fieldset<{ $horizontal?: boolean }>`
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
   justify-items: start;
   gap: 0.4rem;
   margin-bottom: 2rem;
 
   border: none;
+  ${({ $horizontal }) =>
+    $horizontal &&
+    css`
+      grid-template-columns: 1fr 1fr;
+    `}
 `;
 
 const Label = styled.legend`
@@ -31,11 +36,12 @@ type FormRowProps = {
   label: string;
   error?: string;
   children: React.ReactElement<HTMLDivElement>[];
+  horizontal?: boolean;
 };
 
-function FormRadioRow({ label, error, children }: FormRowProps) {
+function FormRadioRow({ label, error, horizontal = false, children }: FormRowProps) {
   return (
-    <StyledFormRow>
+    <StyledFormRow $horizontal={horizontal}>
       {label && <Label>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}

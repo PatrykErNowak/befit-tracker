@@ -6,7 +6,7 @@ const ContainerWithBg = styled(Container)`
   gap: 1rem;
   padding: 2rem 1rem 3rem;
   height: 100%;
-  background: linear-gradient(15deg, #a8cf45 0%, rgba(6, 182, 212, 1) 30%, #0891b2 100%);
+  background: linear-gradient(25deg, var(--color-brand-400) 0%, var(--color-brand-600) 30%, var(--color-brand-800) 100%);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
 
@@ -20,9 +20,6 @@ const ContainerWithBg = styled(Container)`
   h2,
   p {
     color: var(--color-brand-50);
-  }
-  a {
-    color: var(--color-brand-900);
   }
 
   @media screen and (min-width: ${breakpoint.laptop}) {

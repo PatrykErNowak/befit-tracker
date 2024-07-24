@@ -30,6 +30,7 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-800: #065f46;
   --color-brand-900: #064e3b;
 
+  
   /* Secondaru color */
   --color-brand-50: #ecfeff;
   --color-brand-100: #cffafe;
@@ -41,6 +42,17 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-700: #0e7490;
   --color-brand-800: #155e75;
   --color-brand-900: #164e63;
+
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
 
 
   /* State color */

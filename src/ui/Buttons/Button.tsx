@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { breakpoint } from '../styles/configStyles';
+import { breakpoint } from '../../styles/configStyles';
 
 const variations = {
   primary: css`

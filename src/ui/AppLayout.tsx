@@ -28,7 +28,7 @@ const StyledAppLayout = styled.div`
 
   &::after {
     z-index: -10;
-    background-color: var(--color-brand-100);
+    background-color: var(--color-brand-200);
   }
 `;
 

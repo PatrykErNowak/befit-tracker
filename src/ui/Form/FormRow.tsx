@@ -23,19 +23,30 @@ const Error = styled.span`
   color: var(--error-color);
 `;
 
+const ChildrenContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  width: 100%;
+  & > :first-child {
+    flex-grow: 1;
+  }
+`;
+
 type FormRowProps = {
   label: string;
+  id?: string;
   error?: string;
-  children: React.ReactElement<HTMLInputElement>;
+  children: React.ReactElement<HTMLInputElement> | React.ReactNode[];
 };
 
-function FormRow({ children, label, error }: FormRowProps) {
-  const htmlForAttribute = children.props.id;
+function FormRow({ children, label, id, error }: FormRowProps) {
+  // const htmlForAttribute = children.props.id;
 
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={htmlForAttribute}>{label}</Label>}
-      {children}
+      {label && <Label htmlFor={id}>{label}</Label>}
+      <ChildrenContainer>{children}</ChildrenContainer>
       {error && <Error>{error}</Error>}
     </StyledFormRow>
   );
