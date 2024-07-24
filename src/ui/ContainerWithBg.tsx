@@ -22,6 +22,18 @@ const ContainerWithBg = styled(Container)`
     color: var(--color-brand-50);
   }
 
+  a {
+    color: var(--color-brand-50);
+    text-decoration: underline;
+    font-weight: 700;
+
+    @media screen and (min-width: ${breakpoint.laptop}) {
+      &:hover {
+        color: var(--color-brand-400);
+      }
+    }
+  }
+
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 3rem;
   }

@@ -9,7 +9,7 @@ import CreateAccountFinishScreen from './CreateAccountFinishScreen';
 import SetUpProfileForm from '../../features/auth/SetUpProfileForm';
 import CreateAccontStartScreen from './CreateAccontStartScreen';
 
-import { useSignUp } from '../../contexts/SignUpContext';
+import { useSignUpSteps } from '../../contexts/SignUpContext';
 
 const StyledCreateAccount = styled(Container)`
   gap: 2rem;
@@ -36,7 +36,7 @@ const StepperExt = styled(Stepper)`
 `;
 
 function CreateAccount() {
-  const { step } = useSignUp();
+  const { step } = useSignUpSteps();
 
   return (
     <StyledCreateAccount>

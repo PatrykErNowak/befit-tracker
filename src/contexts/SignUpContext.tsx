@@ -18,10 +18,10 @@ function SignUpProvider({ children }: { children: React.ReactNode }) {
   return <SignUpContext.Provider value={{ step, goToNextStep }}>{children}</SignUpContext.Provider>;
 }
 
-function useSignUp() {
+function useSignUpSteps() {
   const context = useContext(SignUpContext);
-  if (!context) throw new Error('useSignUp muse be used with SignUpProvider');
+  if (!context) throw new Error('useSignUpSteps muse be used with SignUpProvider');
   return context;
 }
 
-export { SignUpProvider, useSignUp };
+export { SignUpProvider, useSignUpSteps };

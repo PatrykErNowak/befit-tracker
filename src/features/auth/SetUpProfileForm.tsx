@@ -13,7 +13,7 @@ import Counter from '../../ui/Counter';
 
 import { breakpoint } from '../../styles/configStyles';
 import { getTodayDate } from '../../utils/helpers';
-import { useSignUp } from '../../contexts/SignUpContext';
+import { useSignUpSteps } from '../../contexts/SignUpContext';
 import { useCollapse } from 'react-collapsed';
 import { BsCaretDownFill } from 'react-icons/bs';
 import RadioGroup from '../../ui/Buttons/RadioGroup';
@@ -88,7 +88,7 @@ type Inputs = {
 };
 
 function SetUpProfileForm() {
-  const { goToNextStep } = useSignUp();
+  const { goToNextStep } = useSignUpSteps();
   const { getCollapseProps, getToggleProps } = useCollapse({ defaultExpanded: !isMobile });
   const { register, handleSubmit, formState, setValue, getValues, trigger } = useForm<Inputs>({
     defaultValues: {

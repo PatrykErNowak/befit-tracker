@@ -4,7 +4,8 @@ import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
 import FormButtonsRow from '../../ui/Form/FormButtonsRow';
-import { useSignUp } from '../../contexts/SignUpContext';
+import { useSignUpSteps } from '../../contexts/SignUpContext';
+import { useSignUp } from './useSignUp';
 
 type IFormInput = {
   nickname: string;
@@ -14,22 +15,14 @@ type IFormInput = {
 };
 
 function SignupForm() {
-  const { goToNextStep } = useSignUp();
-  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>({
-    defaultValues: {
-      nickname: 'nvcrox',
-      email: 'example@gmail.com',
-      password: 'Testpass99',
-      passwordConfirm: 'Testpass99',
-    },
-  });
+  const { signUp, isPending } = useSignUp();
+  const { goToNextStep } = useSignUpSteps();
+  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>();
+
   const { errors } = formState;
 
-  const isLoading = false; // temp data
-
-  const onSubmit: SubmitHandler<IFormInput> = ({ nickname, email, password }) => {
-    console.log({ nickname, email, password });
-    goToNextStep();
+  const onSubmit: SubmitHandler<IFormInput> = async ({ email, nickname, password }) => {
+    signUp({ nickname, email, password }, { onSuccess: goToNextStep, onSettled: () => reset() });
   };
 
   return (
@@ -38,7 +31,8 @@ function SignupForm() {
         <Input
           type="text"
           id="nickname"
-          disabled={isLoading}
+          autoComplete="nickname"
+          disabled={isPending}
           {...register('nickname', {
             required: 'This field is required',
             minLength: {
@@ -53,7 +47,8 @@ function SignupForm() {
         <Input
           type="email"
           id="email"
-          disabled={isLoading}
+          autoComplete="email"
+          disabled={isPending}
           {...register('email', {
             required: 'This field is required',
             pattern: {
@@ -68,7 +63,8 @@ function SignupForm() {
         <Input
           type="password"
           id="password"
-          disabled={isLoading}
+          autoComplete="new-password"
+          disabled={isPending}
           {...register('password', {
             required: 'This field is required',
             minLength: {
@@ -83,7 +79,8 @@ function SignupForm() {
         <Input
           type="password"
           id="passwordConfirm"
-          disabled={isLoading}
+          autoComplete="new-password"
+          disabled={isPending}
           {...register('passwordConfirm', {
             required: 'This field is required',
             validate: (value) => value === getValues().password || 'Passwords need to match',
@@ -92,7 +89,7 @@ function SignupForm() {
       </FormRow>
 
       <FormButtonsRow>
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isPending}>
           Create Account
         </Button>
       </FormButtonsRow>

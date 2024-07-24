@@ -199,6 +199,19 @@ img {
   max-width: 100%;
 }
 
+.toast {
+  font-size: 1.5rem;
+
+  @media screen  and (min-width: ${breakpoint.laptop}){
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    font-weight: 400;
+    background-color: var(--color-brand-50);
+  }
+}
+
+
+
 `;
 
 export default GlobalStyles;
