@@ -1,6 +1,7 @@
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+
 import LoginBgDesktop from '../assets/img/login-bg-desktop.jpg';
+import { Outlet } from 'react-router-dom';
 
 const StyledAppLayout = styled.div`
   min-height: 100dvh;
@@ -35,7 +36,10 @@ const StyledAppLayout = styled.div`
 function AppLayout() {
   return (
     <StyledAppLayout>
-      <Outlet />
+      <aside></aside>
+      <main>
+        <Outlet />
+      </main>
     </StyledAppLayout>
   );
 }
