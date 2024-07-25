@@ -17,6 +17,7 @@ import { useSignUpSteps } from '../../contexts/SignUpContext';
 import { useCollapse } from 'react-collapsed';
 import { BsCaretDownFill } from 'react-icons/bs';
 import RadioGroup from '../../ui/Buttons/RadioGroup';
+import useUpdateUser from './useUpdateUser';
 
 const FormExt = styled(Form)`
   display: grid;
@@ -67,47 +68,45 @@ const AdvancedOptionsButton = styled.button`
   }
 `;
 
-type Inputs = {
+export type SetUpProfileInputs = {
   gender: string;
   birthdate: string;
   height: {
     value: string;
     unit: 'cm' | 'in';
   };
-  weightActual: {
-    value: string;
+  weight: {
+    actual: string;
+    desired: string;
     unit: 'kg' | 'lb';
-  };
-  weightGoal: {
-    value: string;
-    unit: 'kg' | 'lb';
+    rateChange: string;
   };
   movementLvl: string;
   trainingLvl: string;
-  rateWeightChange: string;
 };
 
 function SetUpProfileForm() {
+  const { updateUser, isPending } = useUpdateUser();
   const { goToNextStep } = useSignUpSteps();
   const { getCollapseProps, getToggleProps } = useCollapse({ defaultExpanded: !isMobile });
-  const { register, handleSubmit, formState, setValue, getValues, trigger } = useForm<Inputs>({
+  const { register, handleSubmit, formState, setValue, getValues, trigger } = useForm<SetUpProfileInputs>({
     defaultValues: {
-      gender: 'male',
-      height: { value: '178', unit: 'cm' },
-      weightActual: { value: '80', unit: 'kg' },
-      weightGoal: { value: '85', unit: 'kg' },
-      birthdate: '1993-08-20',
+      height: { unit: 'cm' },
+      weight: {
+        unit: 'kg',
+      },
+      movementLvl: '1',
+      trainingLvl: '0',
     },
   });
   const { errors } = formState;
-  const { name } = register('rateWeightChange');
+  const { name } = register('weight.rateChange');
 
-  // console.log(errors);
+  const isWeightEqual = getValues('weight.actual') === getValues('weight.desired');
+  const weightUnit = getValues('weight.unit');
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    console.log('submit');
-    goToNextStep();
+  const onSubmit: SubmitHandler<SetUpProfileInputs> = (userData) => {
+    updateUser({ ...userData }, { onSuccess: goToNextStep });
   };
 
   return (
@@ -131,31 +130,30 @@ function SetUpProfileForm() {
           <RadioGroup legend="Height unit" buttons={['cm', 'in']} {...register('height.unit')} />
         </FormRow>
 
-        <FormRow id="weightActual" label="Body weight (actual)" error={errors.weightActual?.message}>
-          <Input type="number" id="weightActual" {...register('weightActual.value', { required: 'Actual body weight is required' })} />
-          <RadioGroup legend="Weight unit" buttons={['kg', 'lb']} {...register('weightActual.unit')} />
+        <FormRow id="weightActual" label="Body weight (actual)" error={errors.weight?.actual?.message}>
+          <Input type="number" id="weightActual" {...register('weight.actual', { required: 'Actual body weight is required' })} />
+          <RadioGroup legend="Weight unit" buttons={['kg', 'lb']} {...register('weight.unit', { onChange: () => trigger('weight.unit') })} />
         </FormRow>
 
-        <FormRow id="weightGoal" label="Body weight (goal)" error={errors.weightGoal?.message}>
+        <FormRow id="weightGoal" label="Body weight (goal)" error={errors.weight?.desired?.message}>
           <Input
             type="number"
             id="weightGoal"
-            {...register('weightGoal.value', {
+            {...register('weight.desired', {
               required: 'Desired body weight is required',
-              onChange: () => trigger(['weightActual.value', 'weightGoal.value']),
+              onChange: () => trigger(['weight.actual', 'weight.desired']),
             })}
           />
-          <RadioGroup legend="Weight unit" buttons={['kg', 'lb']} {...register('weightGoal.unit')} />
         </FormRow>
 
         <FormRow label="Rate of weight change per week">
           <Counter
             step={0.25}
-            unit="kg"
+            unit={weightUnit}
             minCounter={0}
-            reset={getValues('weightActual.value') === getValues('weightGoal.value')}
+            reset={isWeightEqual}
             onChangeCounter={(value) => setValue(name, String(value))}
-            disabled={getValues('weightActual.value') === getValues('weightGoal.value')}
+            disabled={isWeightEqual}
           />
         </FormRow>
       </div>
@@ -178,7 +176,6 @@ function SetUpProfileForm() {
               label="Low"
               labelDesc="Sedentary or standing work with movement during the day, heavier housework"
               value={1}
-              defaultChecked
               {...register('movementLvl')}
             />
             <Radio id="movAverage" label="Average" labelDesc="Physical work, a lot of movement during the day" value={2} {...register('movementLvl')} />
@@ -192,7 +189,7 @@ function SetUpProfileForm() {
           </FormRadioRow>
 
           <FormRadioRow label="Level of training activity">
-            <Radio id="trainVerylow" label="Very low" labelDesc="No training" value={0} {...register('trainingLvl')} defaultChecked />
+            <Radio id="trainVerylow" label="Very low" labelDesc="No training" value={0} {...register('trainingLvl')} />
             <Radio id="trainLow" label="Low" labelDesc="Trainings 1-3 days a week" value={1} {...register('trainingLvl')} />
             <Radio id="trainAverage" label="Average" labelDesc="Trainings 4-5 days a week" value={2} {...register('trainingLvl')} />
             <Radio id="trainHigh" label="High" labelDesc="Daily training" value={3} {...register('trainingLvl')} />
@@ -200,7 +197,7 @@ function SetUpProfileForm() {
         </div>
       </AdditionalForm>
       <FormButtonsRow>
-        <Button>Submit</Button>
+        <Button disabled={isPending}>Submit</Button>
       </FormButtonsRow>
     </FormExt>
   );
