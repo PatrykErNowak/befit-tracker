@@ -16,6 +16,9 @@ import GlobalStyles from './styles/GlobalStyles';
 import { Toaster } from 'react-hot-toast';
 import AppLayout from './layouts/AppLayout';
 import AuthProtectedRoute from './ui/AuthProtectedRoute';
+import Profile from './pages/Profile';
+import Workout from './pages/Workout';
+import Places from './pages/Places';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +66,18 @@ const router = createBrowserRouter([
           {
             path: 'diet',
             element: <Diet />,
+          },
+          {
+            path: 'workout',
+            element: <Workout />,
+          },
+          {
+            path: 'places',
+            element: <Places />,
+          },
+          {
+            path: 'profile',
+            element: <Profile />,
           },
         ],
       },
