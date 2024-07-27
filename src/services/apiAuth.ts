@@ -15,6 +15,7 @@ export async function signUp({ nickname, email, password }: SignUpProps) {
     options: {
       data: {
         nickname,
+        avatar: '',
       },
     },
   });
@@ -41,6 +42,14 @@ export async function signIn({ email, password }: SignInProps) {
   if (error) throw new Error(error.message);
 
   return data.user;
+}
+
+// ---------------------------------------------------------------------------
+// Logout User
+
+export async function logoutUser() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
 }
 
 // ---------------------------------------------------------------------------

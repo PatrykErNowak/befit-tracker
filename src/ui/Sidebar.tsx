@@ -1,13 +1,15 @@
 import styled from 'styled-components';
-import { breakpoint } from '../styles/configStyles';
+import { NavLink } from 'react-router-dom';
+import { IoIosSettings } from 'react-icons/io';
+
 import MainNav from './MainNav';
 import MenuButton from './Buttons/MenuButton';
-import { IoLogOut } from 'react-icons/io5';
-import { IoIosSettings } from 'react-icons/io';
-import { NavLink } from 'react-router-dom';
-import ProfileAvatarInfo from '../features/auth/ProfileAvatarInfo';
 import Logo from './Logo';
 import Heading from './Heading';
+import ProfileAvatarInfo from '../features/auth/ProfileAvatarInfo';
+import LogoutButton from '../features/auth/LogoutButton';
+
+import { breakpoint } from '../styles/configStyles';
 
 const StyledSidebar = styled.aside`
   position: relative;
@@ -67,7 +69,7 @@ function Sidebar({ ...props }) {
         <ProfileAvatarInfo />
         <Menu>
           <MenuButton icon={<IoIosSettings />} label="Profile" as={NavLink} to={'profile'} />
-          <MenuButton icon={<IoLogOut />} label="Logout" />
+          <LogoutButton />
         </Menu>
       </StyledSidebarFooter>
     </StyledSidebar>

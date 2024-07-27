@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import useUser from './useUser';
+import { UserMetaData } from '../../services/types';
 
 const StyledProfileAvatarInfo = styled.div`
   display: flex;
+  align-items: center;
   gap: 1.5rem;
   padding: 1.5rem 0;
 `;
@@ -42,12 +44,12 @@ const Info = styled.div`
 
 function ProfileAvatarInfo() {
   const { user } = useUser();
-  const { email, nickname, gender } = user?.user_metadata;
+  const { avatar, email, nickname, gender } = user?.user_metadata as UserMetaData;
 
   return (
     <StyledProfileAvatarInfo>
       <Avatar>
-        <img src={`https://sukgorleigsryfzeblhv.supabase.co/storage/v1/object/public/avatars/avatar-${gender}.jpg`} alt="" />
+        <img src={avatar || `https://sukgorleigsryfzeblhv.supabase.co/storage/v1/object/public/avatars/avatar-${gender}.jpg`} alt="User Avatar" />
       </Avatar>
       <Info>
         <p>{nickname}</p>

@@ -1,12 +1,12 @@
-import { useClickAway } from 'react-use';
-
-import { IoLogOut, IoMenuOutline } from 'react-icons/io5';
-
-import styled from 'styled-components';
 import { useRef, useState } from 'react';
-import { IoIosSettings } from 'react-icons/io';
-import MenuButton from './Buttons/MenuButton';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { useClickAway } from 'react-use';
+import { IoMenuOutline } from 'react-icons/io5';
+import { IoIosSettings } from 'react-icons/io';
+
+import MenuButton from './Buttons/MenuButton';
+import LogoutButton from '../features/auth/LogoutButton';
 
 const StyledNavMoreOptions = styled.div`
   width: 100%;
@@ -58,7 +58,7 @@ function NavMoreOptions() {
             <MenuButton icon={<IoIosSettings />} label="Profile" as={NavLink} to={'profile'} />
           </li>
           <li>
-            <MenuButton icon={<IoLogOut />} label="Logout" />
+            <LogoutButton />
           </li>
         </OptionsList>
       )}
