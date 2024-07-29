@@ -21,7 +21,7 @@ const StyledSidebar = styled.aside`
   box-shadow: 0 0 0.8rem 0.3rem rgba(0, 0, 0, 0.1);
 
   @media screen and (min-width: ${breakpoint.laptop}) {
-    min-width: 30rem;
+    min-width: 35rem;
     padding: 3rem;
   }
 `;

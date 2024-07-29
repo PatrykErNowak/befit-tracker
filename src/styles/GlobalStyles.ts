@@ -166,7 +166,8 @@ ul {
 
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: "Lato", sans-serif;
+  /* font-family: "Lato", sans-serif; */
+  font-family: "Inter", sans-serif;
   color: var(--color-brand-800);
 }
 
@@ -182,9 +183,9 @@ h6 {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   @media screen  and (min-width: ${breakpoint.laptop}){
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }
 h2 {

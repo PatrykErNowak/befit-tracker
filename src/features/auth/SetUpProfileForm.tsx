@@ -18,6 +18,9 @@ import { useCollapse } from 'react-collapsed';
 import { BsCaretDownFill } from 'react-icons/bs';
 import RadioGroup from '../../ui/Buttons/RadioGroup';
 import useUpdateUser from './useUpdateUser';
+import BirthdayInput from './UserInputs/BirthdayInput';
+import HeightInput from './UserInputs/HeightInput';
+import GenderInput from './UserInputs/GenderInput';
 
 const FormExt = styled(Form)`
   display: grid;
@@ -106,29 +109,31 @@ function SetUpProfileForm() {
   const weightUnit = getValues('weight.unit');
 
   const onSubmit: SubmitHandler<SetUpProfileInputs> = (userData) => {
+    console.log(userData);
     updateUser({ ...userData }, { onSuccess: goToNextStep });
   };
 
   return (
     <FormExt onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <FormRadioRow label="Gender" error={errors.gender?.message} horizontal>
-          <Radio id="female" label="Female" value="female" {...register('gender', { validate: (value) => value !== null || 'Gender is required' })} />
-          <Radio id="male" label="Male" value="male" {...register('gender')} />
-        </FormRadioRow>
+        <GenderInput
+          errorMessage={errors.gender?.message}
+          inputRegister={register('gender', { validate: (value) => value !== null || 'Gender is required' })}
+          disabled={isPending}
+        />
 
-        <FormRow id="birthdate" label="Birthdate" error={errors.birthdate?.message}>
-          <Input
-            type="date"
-            id="birthdate"
-            {...register('birthdate', { required: 'Birthdate is required', max: { message: 'Date must be in past', value: getTodayDate() } })}
-          />
-        </FormRow>
+        <BirthdayInput
+          errorMessage={errors.birthdate?.message}
+          inputRegister={register('birthdate', { required: 'Birthdate is required', max: { message: 'Date must be in past', value: getTodayDate() } })}
+          disabled={isPending}
+        />
 
-        <FormRow id="height" label="Height" error={errors.height?.message}>
-          <Input type="number" id="height" {...register('height.value', { required: 'Height is required' })} />
-          <RadioGroup legend="Height unit" buttons={['cm', 'in']} {...register('height.unit')} />
-        </FormRow>
+        <HeightInput
+          errorMessage={errors.height?.value?.message}
+          inputRegister={register('height.value', { required: 'Height is required' })}
+          radioRegister={register('height.unit')}
+          disabled={isPending}
+        />
 
         <FormRow id="weightActual" label="Body weight (actual)" error={errors.weight?.actual?.message}>
           <Input type="number" id="weightActual" {...register('weight.actual', { required: 'Actual body weight is required' })} />

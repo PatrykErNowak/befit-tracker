@@ -22,7 +22,9 @@ const SidebarExt = styled(Sidebar)`
   }
 `;
 
-const Main = styled.main``;
+const Main = styled.main`
+  background-color: var(--color-brand-50);
+`;
 
 function AppLayout() {
   return (

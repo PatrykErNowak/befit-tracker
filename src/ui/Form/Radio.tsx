@@ -22,6 +22,7 @@ const Input = styled.input`
   height: 2.2rem;
   background-color: var(--color-brand-50);
   border-radius: 50%;
+  border: 1px solid var(--color-brand-500);
 
   &::before {
     content: '';

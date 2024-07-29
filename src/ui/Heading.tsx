@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const Heading = styled.h1<{ $inverted?: boolean }>`
+const Heading = styled.h1<{ $inverted?: boolean; $opacity?: number }>`
   letter-spacing: 1px;
   span {
     font-weight: 600;
@@ -15,6 +15,7 @@ const Heading = styled.h1<{ $inverted?: boolean }>`
         color: var(--color-brand-300);
       }
     `}
+  opacity: ${({ $opacity = 1 }) => $opacity}
 `;
 
 export default Heading;

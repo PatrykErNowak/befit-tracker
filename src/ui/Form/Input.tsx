@@ -10,6 +10,7 @@ const Input = styled.input`
   background-color: var(--color-brand-50);
   border: 1px solid var(--color-grey-200);
   border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
 
   &::placeholder {
     color: var(--color-grey-400);

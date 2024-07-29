@@ -6,6 +6,7 @@ import Input from '../../ui/Form/Input';
 import FormButtonsRow from '../../ui/Form/FormButtonsRow';
 import { useSignUpSteps } from '../../contexts/SignUpContext';
 import { useSignUp } from './useSignUp';
+import NicknameInput from './UserInputs/NicknameInput';
 
 type IFormInput = {
   nickname: string;
@@ -17,7 +18,14 @@ type IFormInput = {
 function SignupForm() {
   const { signUp, isPending } = useSignUp();
   const { goToNextStep } = useSignUpSteps();
-  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>();
+  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>({
+    defaultValues: {
+      nickname: 'lolek',
+      email: 'example@gmail.com',
+      password: 'test1234',
+      passwordConfirm: 'test1234',
+    },
+  });
 
   const { errors } = formState;
 
@@ -27,21 +35,17 @@ function SignupForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Nickname" error={errors?.nickname?.message}>
-        <Input
-          type="text"
-          id="nickname"
-          autoComplete="nickname"
-          disabled={isPending}
-          {...register('nickname', {
-            required: 'This field is required',
-            minLength: {
-              value: 2,
-              message: 'Nickname needs a minimum of 2 characters',
-            },
-          })}
-        />
-      </FormRow>
+      <NicknameInput
+        errorMessage={errors?.nickname?.message}
+        disabled={isPending}
+        inputRegister={register('nickname', {
+          required: 'This field is required',
+          minLength: {
+            value: 2,
+            message: 'Nickname needs a minimum of 2 characters',
+          },
+        })}
+      />
 
       <FormRow label="Email address" error={errors?.email?.message}>
         <Input
