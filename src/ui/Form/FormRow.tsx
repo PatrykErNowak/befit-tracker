@@ -10,7 +10,8 @@ const StyledFormRow = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 1.2rem;
+  margin-bottom: 0.1em;
+  font-size: clamp(1.2rem, 0.5rem + 0.6vw, 1.4rem);
   font-weight: 500;
   color: var(--color-grey-600);
 `;

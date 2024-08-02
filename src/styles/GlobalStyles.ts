@@ -102,17 +102,7 @@ body {
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;
-  font-size: 1.3rem;
-
-  @media screen  and (min-width: ${breakpoint.tablet}){
-    font-size: 1.4rem;
-  }
-  @media screen  and (min-width: ${breakpoint.laptop}){
-    font-size: 1.5rem;
-  }
-  @media screen  and (min-width: ${breakpoint.desktop}){
-    font-size: 1.6rem;
-  }
+  font-size: clamp(1.3rem, 0.5rem + 0.6vw, 1.9rem);
 }
 
 
@@ -183,16 +173,10 @@ h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
-  @media screen  and (min-width: ${breakpoint.laptop}){
-    font-size: 3.5rem;
-  }
+  font-size: clamp(2.5rem, 1.5rem + 1.4vw, 5rem);
 }
 h2 {
-  font-size: 2.2rem;
-  @media screen  and (min-width: ${breakpoint.laptop}){
-    font-size: 2.6rem;
-  }
+  font-size: clamp(2rem, 1.2rem + 1vw, 3.5rem);
 }
 
 

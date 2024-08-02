@@ -17,8 +17,8 @@ const StyledFormRow = styled.fieldset<{ $horizontal?: boolean }>`
 `;
 
 const Label = styled.legend`
-  padding-bottom: 0.5rem;
-  font-size: 1.2rem;
+  padding-bottom: 0.5em;
+  font-size: clamp(1.2rem, 0.5rem + 0.6vw, 1.4rem);
   font-weight: 500;
   color: var(--color-grey-600);
 `;

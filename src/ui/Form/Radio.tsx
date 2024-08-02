@@ -23,6 +23,7 @@ const Input = styled.input`
   background-color: var(--color-brand-50);
   border-radius: 50%;
   border: 1px solid var(--color-brand-500);
+  cursor: pointer;
 
   &::before {
     content: '';

@@ -24,6 +24,10 @@ const StyledSidebar = styled.aside`
     min-width: 35rem;
     padding: 3rem;
   }
+  @media screen and (min-width: ${breakpoint.desktop}) {
+    min-width: 40rem;
+    padding: 4rem;
+  }
 `;
 const SidebarHeader = styled.header`
   display: none;
@@ -68,7 +72,7 @@ function Sidebar({ ...props }) {
       <StyledSidebarFooter>
         <ProfileAvatarInfo />
         <Menu>
-          <MenuButton icon={<IoIosSettings />} label="Profile" as={NavLink} to={'profile'} />
+          <MenuButton icon={<IoIosSettings />} label="Settings" as={NavLink} to={'profile'} />
           <LogoutButton />
         </Menu>
       </StyledSidebarFooter>

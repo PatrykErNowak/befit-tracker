@@ -14,6 +14,30 @@ import InputFile from '../../ui/Form/InputFile';
 import Text from '../../ui/Text';
 import styled from 'styled-components';
 import { breakpoint } from '../../styles/configStyles';
+import Heading from '../../ui/Heading';
+
+const Header = styled.header`
+  position: relative;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-grey-200);
+  }
+`;
+
+const BreakLine = styled.div`
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-grey-200);
+`;
 
 const FormExt = styled(Form)`
   display: flex;
@@ -38,18 +62,32 @@ function UpdateUserProfileForm() {
   });
 
   return (
-    <FormExt>
-      <FormRow label="Profile picture" id="avatar" vertical>
-        <UserAvatar size="medium" />
-        <Text>Upload Your avatar image</Text>
-        <InputFile accept="image/*" />
-      </FormRow>
+    <>
+      <Header>
+        <Heading as="h2" $opacity={1}>
+          Profile Details
+        </Heading>
+        <Text $opacity={0.8}>You can change your profile details here seamlessly.</Text>
+      </Header>
+      <FormExt>
+        <FormRow label="Profile picture" id="avatar" vertical>
+          <UserAvatar size="medium" />
+          <Text $small $opacity={0.9}>
+            Upload Your avatar image
+          </Text>
+          <InputFile accept="image/*" />
+        </FormRow>
+        <BreakLine />
 
-      <NicknameInput inputRegister={register('nickname')} />
-      <GenderInput inputRegister={register('gender')} />
-      <BirthdayInput inputRegister={register('birthdate')} />
-      <HeightInput inputRegister={register('height.value')} radioRegister={register('height.unit')} />
-    </FormExt>
+        <NicknameInput inputRegister={register('nickname')} />
+        <BreakLine />
+        <GenderInput inputRegister={register('gender')} />
+        <BreakLine />
+        <BirthdayInput inputRegister={register('birthdate')} />
+        <BreakLine />
+        <HeightInput inputRegister={register('height.value')} radioRegister={register('height.unit')} />
+      </FormExt>
+    </>
   );
 }
 

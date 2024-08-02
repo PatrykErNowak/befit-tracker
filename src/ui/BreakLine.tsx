@@ -32,7 +32,7 @@ const Span = styled.span`
 `;
 
 type BreakLineProps = {
-  text: string;
+  text?: string;
 };
 
 function BreakLine({ text }: BreakLineProps) {

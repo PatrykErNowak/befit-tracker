@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const InputFile = styled.input.attrs({ type: 'file' })`
   border-radius: var(--border-radius-sm);
+  font-size: 0.9em;
 
   &::file-selector-button {
     font: inherit;

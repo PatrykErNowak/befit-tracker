@@ -8,6 +8,7 @@ import { LayoutContainerBG } from '../ui/LayoutContainerBG';
 const StyledAppLayout = styled(LayoutContainerBG)`
   display: grid;
   grid-template-rows: 1fr auto;
+  max-height: 100dvh;
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     grid-template-rows: 1fr;
@@ -29,6 +30,7 @@ const SidebarExt = styled(Sidebar)`
 
 const Main = styled.main`
   background-color: var(--color-brand-50);
+  overflow-y: auto;
 `;
 
 function AppLayout() {

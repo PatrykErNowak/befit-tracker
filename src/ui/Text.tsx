@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
-const Text = styled.p<{ $grey?: boolean; $light?: boolean; $opacity?: number }>`
+const Text = styled.p<{ $grey?: boolean; $light?: boolean; $opacity?: number; $small?: boolean }>`
   line-height: 1.6;
+  font-size: ${({ $small }) => ($small ? '0.8em' : 'inherit')};
 
   ${({ $grey, $light }) => {
     if ($grey)
