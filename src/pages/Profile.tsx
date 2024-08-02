@@ -32,7 +32,11 @@ const Header = styled.header`
 `;
 
 const Content = styled.div`
-  padding: 3rem;
+  padding: 2rem;
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    padding: 3rem 5rem;
+  }
 `;
 
 function Profile() {

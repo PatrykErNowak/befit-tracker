@@ -16,7 +16,12 @@ const StyledAppLayout = styled(LayoutContainerBG)`
 `;
 
 const SidebarExt = styled(Sidebar)`
+  position: sticky;
+  bottom: 0;
+  left: 0;
+
   @media screen and (min-width: ${breakpoint.laptop}) {
+    position: static;
     grid-column: 1/2;
     grid-row: 1/2;
   }

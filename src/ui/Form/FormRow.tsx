@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { breakpoint } from '../../styles/configStyles';
 
 const StyledFormRow = styled.div`
   position: relative;
@@ -23,13 +24,24 @@ const Error = styled.span`
   color: var(--error-color);
 `;
 
-const ChildrenContainer = styled.div`
+const ChildrenContainer = styled.div<{ $vertical?: boolean }>`
   display: flex;
+  ${({ $vertical }) =>
+    $vertical
+      ? css`
+          flex-direction: column;
+        `
+      : ''}
   justify-content: space-between;
-  gap: 3rem;
+  gap: 1rem;
   width: 100%;
   & > :first-child {
     flex-grow: 1;
+  }
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    column-gap: 3rem;
+    row-gap: 1rem;
   }
 `;
 
@@ -38,15 +50,16 @@ type FormRowProps = {
   id?: string;
   error?: string;
   children: React.ReactElement<HTMLInputElement> | React.ReactNode[];
+  vertical?: boolean;
 };
 
-function FormRow({ children, label, id, error }: FormRowProps) {
+function FormRow({ children, label, id, error, vertical = false }: FormRowProps) {
   // const htmlForAttribute = children.props.id;
 
   return (
     <StyledFormRow>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <ChildrenContainer>{children}</ChildrenContainer>
+      <ChildrenContainer $vertical={vertical}>{children}</ChildrenContainer>
       {error && <Error>{error}</Error>}
     </StyledFormRow>
   );

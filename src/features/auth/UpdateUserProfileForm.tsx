@@ -11,6 +11,19 @@ import HeightInput from './UserInputs/HeightInput';
 import useUser from './useUser';
 import NicknameInput from './UserInputs/NicknameInput';
 import InputFile from '../../ui/Form/InputFile';
+import Text from '../../ui/Text';
+import styled from 'styled-components';
+import { breakpoint } from '../../styles/configStyles';
+
+const FormExt = styled(Form)`
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    gap: 1rem;
+    max-width: 80rem;
+  }
+`;
 
 function UpdateUserProfileForm() {
   const { user } = useUser();
@@ -25,18 +38,18 @@ function UpdateUserProfileForm() {
   });
 
   return (
-    <Form>
-      <UserAvatar size="medium" />
-      <FormRow label="Profile picture" id="avatar">
-        {/* <input type="file" name="" id="avatar" accept="image/*" /> */}
-        <InputFile />
+    <FormExt>
+      <FormRow label="Profile picture" id="avatar" vertical>
+        <UserAvatar size="medium" />
+        <Text>Upload Your avatar image</Text>
+        <InputFile accept="image/*" />
       </FormRow>
 
       <NicknameInput inputRegister={register('nickname')} />
       <GenderInput inputRegister={register('gender')} />
       <BirthdayInput inputRegister={register('birthdate')} />
       <HeightInput inputRegister={register('height.value')} radioRegister={register('height.unit')} />
-    </Form>
+    </FormExt>
   );
 }
 

@@ -28,12 +28,7 @@ const PageHeading = styled(Heading)`
   }
 `;
 
-const StepperExt = styled(Stepper)`
-  margin-bottom: 1rem;
-  @media screen and (min-width: ${breakpoint.laptop}) {
-    margin-bottom: 3rem;
-  }
-`;
+const steps = ['Create Account', 'Set Up Profile', 'Log in!'];
 
 function CreateAccount() {
   const { step } = useSignUpSteps();
@@ -41,7 +36,8 @@ function CreateAccount() {
   return (
     <StyledCreateAccount>
       <PageHeading as="h1">Signup</PageHeading>
-      <StepperExt steps={[{ title: 'Create Account' }, { title: 'Set Up Profile' }, { title: 'Log in!' }]} activeStep={step} />
+      <Stepper steps={steps} activeStep={step} />
+
       {step === 0 && <CreateAccontStartScreen />}
       {step === 1 && <SetUpProfileForm />}
       {step === 2 && <CreateAccountFinishScreen />}
