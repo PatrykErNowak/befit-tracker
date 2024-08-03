@@ -13,7 +13,7 @@ type HeightInputProps = {
 const HeightInput = forwardRef<HTMLInputElement, HeightInputProps>(function ({ errorMessage, inputRegister, radioRegister, ...props }, ref) {
   return (
     <FormRow id="height" label="Height" error={errorMessage}>
-      <Input type="number" id="height" ref={ref} name="height.value" {...props} {...inputRegister} />
+      <Input min={1} type="number" id="height" ref={ref} name="height.value" {...props} {...inputRegister} />
       <RadioGroup legend="Height unit" buttons={['cm', 'in']} name="height.unit" {...radioRegister} />
     </FormRow>
   );

@@ -36,7 +36,7 @@ const Units = styled.span`
   right: 1.5rem;
 `;
 
-type CounterProps = {
+export type CounterProps = {
   step: number;
   unit?: string;
   minCounter?: number;
@@ -44,10 +44,11 @@ type CounterProps = {
   reset?: boolean;
   onChangeCounter: (value: number) => void;
   disabled?: boolean;
+  initValue?: number;
 };
 
-function Counter({ step, unit, minCounter, maxCounter, reset, onChangeCounter, disabled = false }: CounterProps) {
-  const [count, setCount] = useState(0);
+function Counter({ step, unit, minCounter, maxCounter, reset, onChangeCounter, disabled = false, initValue = 0 }: CounterProps) {
+  const [count, setCount] = useState(initValue);
 
   useEffect(() => {
     onChangeCounter(count);

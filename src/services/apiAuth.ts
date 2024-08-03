@@ -1,5 +1,5 @@
-import { SetUpProfileInputs } from '../features/auth/SetUpProfileForm';
 import supabase from './supabase';
+import { AtLeastOnePropertyOf, UserUpdateData } from './types';
 
 // Sign Up User
 type SignUpProps = {
@@ -69,7 +69,7 @@ export async function getUser() {
 // ---------------------------------------------------------------------------
 // Update data of Current User
 
-export async function updateCurrentUser(userData: SetUpProfileInputs) {
+export async function updateCurrentUser(userData: AtLeastOnePropertyOf<UserUpdateData>) {
   const { data, error } = await supabase.auth.updateUser({
     data: { ...userData },
   });

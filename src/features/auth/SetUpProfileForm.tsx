@@ -4,11 +4,8 @@ import { isMobile } from 'react-device-detect';
 
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
-import Input from '../../ui/Form/Input';
 import FormButtonsRow from '../../ui/Form/FormButtonsRow';
 import Button from '../../ui/Buttons/Button';
-import FormRadioRow from '../../ui/Form/FormRadioRow';
-import Radio from '../../ui/Form/Radio';
 import Counter from '../../ui/Counter';
 
 import { breakpoint } from '../../styles/configStyles';
@@ -16,11 +13,15 @@ import { getTodayDate } from '../../utils/helpers';
 import { useSignUpSteps } from '../../contexts/SignUpContext';
 import { useCollapse } from 'react-collapsed';
 import { BsCaretDownFill } from 'react-icons/bs';
-import RadioGroup from '../../ui/Buttons/RadioGroup';
 import useUpdateUser from './useUpdateUser';
 import BirthdayInput from './UserInputs/BirthdayInput';
 import HeightInput from './UserInputs/HeightInput';
 import GenderInput from './UserInputs/GenderInput';
+import WeightActualInput from './UserInputs/WeightActualInput';
+import WeightGoalInput from './UserInputs/WeightGoalInput';
+import MovementLvlInput from './UserInputs/MovementLvlInput';
+import TrainingLvlInput from './UserInputs/TrainingLvlInput';
+import { UserUpdateData } from '../../services/types';
 
 const FormExt = styled(Form)`
   display: grid;
@@ -71,22 +72,7 @@ const AdvancedOptionsButton = styled.button`
   }
 `;
 
-export type SetUpProfileInputs = {
-  gender: string;
-  birthdate: string;
-  height: {
-    value: string;
-    unit: 'cm' | 'in';
-  };
-  weight: {
-    actual: string;
-    desired: string;
-    unit: 'kg' | 'lb';
-    rateChange: string;
-  };
-  movementLvl: string;
-  trainingLvl: string;
-};
+export type SetUpProfileInputs = UserUpdateData;
 
 function SetUpProfileForm() {
   const { updateUser, isPending } = useUpdateUser();
@@ -109,7 +95,6 @@ function SetUpProfileForm() {
   const weightUnit = getValues('weight.unit');
 
   const onSubmit: SubmitHandler<SetUpProfileInputs> = (userData) => {
-    console.log(userData);
     updateUser({ ...userData }, { onSuccess: goToNextStep });
   };
 
@@ -135,21 +120,21 @@ function SetUpProfileForm() {
           disabled={isPending}
         />
 
-        <FormRow id="weightActual" label="Body weight (actual)" error={errors.weight?.actual?.message}>
-          <Input type="number" id="weightActual" {...register('weight.actual', { required: 'Actual body weight is required' })} />
-          <RadioGroup legend="Weight unit" buttons={['kg', 'lb']} {...register('weight.unit', { onChange: () => trigger('weight.unit') })} />
-        </FormRow>
+        <WeightActualInput
+          errorMessage={errors.weight?.actual?.message}
+          inputRegister={register('weight.actual', { required: 'Actual body weight is required' })}
+          radioRegister={register('weight.unit', { onChange: () => trigger('weight.unit') })}
+          disabled={isPending}
+        />
 
-        <FormRow id="weightGoal" label="Body weight (goal)" error={errors.weight?.desired?.message}>
-          <Input
-            type="number"
-            id="weightGoal"
-            {...register('weight.desired', {
-              required: 'Desired body weight is required',
-              onChange: () => trigger(['weight.actual', 'weight.desired']),
-            })}
-          />
-        </FormRow>
+        <WeightGoalInput
+          errorMessage={errors.weight?.desired?.message}
+          inputRegister={register('weight.desired', {
+            required: 'Desired body weight is required',
+            onChange: () => trigger(['weight.actual', 'weight.desired']),
+          })}
+          disabled={isPending}
+        />
 
         <FormRow label="Rate of weight change per week">
           <Counter
@@ -162,45 +147,18 @@ function SetUpProfileForm() {
           />
         </FormRow>
       </div>
+
       <AdditionalForm>
         <AdvancedOptionsButton {...getToggleProps()}>
           Advanced Options <BsCaretDownFill />
         </AdvancedOptionsButton>
 
         <div {...getCollapseProps()}>
-          <FormRadioRow label="Level of movement during the day (without training)">
-            <Radio
-              id="movVerylow"
-              label="Very low"
-              labelDesc="Sedentary work, light housework, walking only to the bus"
-              value={0}
-              {...register('movementLvl')}
-            />
-            <Radio
-              id="movLow"
-              label="Low"
-              labelDesc="Sedentary or standing work with movement during the day, heavier housework"
-              value={1}
-              {...register('movementLvl')}
-            />
-            <Radio id="movAverage" label="Average" labelDesc="Physical work, a lot of movement during the day" value={2} {...register('movementLvl')} />
-            <Radio
-              id="movHigh"
-              label="High"
-              labelDesc="Many hours of hard physical work, very much movement during the day"
-              value={3}
-              {...register('movementLvl')}
-            />
-          </FormRadioRow>
-
-          <FormRadioRow label="Level of training activity">
-            <Radio id="trainVerylow" label="Very low" labelDesc="No training" value={0} {...register('trainingLvl')} />
-            <Radio id="trainLow" label="Low" labelDesc="Trainings 1-3 days a week" value={1} {...register('trainingLvl')} />
-            <Radio id="trainAverage" label="Average" labelDesc="Trainings 4-5 days a week" value={2} {...register('trainingLvl')} />
-            <Radio id="trainHigh" label="High" labelDesc="Daily training" value={3} {...register('trainingLvl')} />
-          </FormRadioRow>
+          <MovementLvlInput inputRegister={register('movementLvl')} />
+          <TrainingLvlInput inputRegister={register('trainingLvl')} />
         </div>
       </AdditionalForm>
+
       <FormButtonsRow>
         <Button disabled={isPending}>Submit</Button>
       </FormButtonsRow>

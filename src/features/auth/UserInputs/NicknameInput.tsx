@@ -11,7 +11,7 @@ type NicknameInputProps = {
 const NicknameInput = forwardRef<HTMLInputElement, NicknameInputProps>(function ({ errorMessage, inputRegister, ...props }, ref) {
   return (
     <FormRow label="Nickname" error={errorMessage}>
-      <Input type="text" id="nickname" autoComplete="nickname" name="nickname" ref={ref} {...inputRegister} {...props} />
+      <Input type="text" id="nickname" autoComplete="nickname" name="nickname" ref={ref} {...props} {...inputRegister} />
     </FormRow>
   );
 });
