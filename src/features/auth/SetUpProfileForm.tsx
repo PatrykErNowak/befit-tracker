@@ -21,7 +21,7 @@ import WeightActualInput from './UserInputs/WeightActualInput';
 import WeightGoalInput from './UserInputs/WeightGoalInput';
 import MovementLvlInput from './UserInputs/MovementLvlInput';
 import TrainingLvlInput from './UserInputs/TrainingLvlInput';
-import { UserUpdateData } from '../../services/types';
+import { UserPhysicsData } from '../../services/types';
 
 const FormExt = styled(Form)`
   display: grid;
@@ -72,7 +72,7 @@ const AdvancedOptionsButton = styled.button`
   }
 `;
 
-export type SetUpProfileInputs = UserUpdateData;
+export type SetUpProfileInputs = UserPhysicsData;
 
 function SetUpProfileForm() {
   const { updateUser, isPending } = useUpdateUser();

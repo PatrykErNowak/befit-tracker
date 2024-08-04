@@ -67,7 +67,7 @@ const Content = styled.div`
   }
 `;
 
-function Profile() {
+function Settings() {
   return (
     <Tabs defaultTabOpen="profile">
       <Header>
@@ -94,4 +94,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Settings;

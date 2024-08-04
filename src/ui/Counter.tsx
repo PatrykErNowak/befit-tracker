@@ -21,19 +21,18 @@ const ButtonExt = styled(Button)`
 
 const InputContainer = styled(Container)`
   position: relative;
-  max-width: 10rem;
+  max-width: 7em;
 `;
 
 const InputExt = styled(Input)`
-  padding-right: 3.5rem;
+  padding-right: 2em;
   width: 100%;
   text-align: center;
 `;
 
 const Units = styled.span`
   position: absolute;
-
-  right: 1.5rem;
+  right: 1.4rem;
 `;
 
 export type CounterProps = {

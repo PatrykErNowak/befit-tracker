@@ -11,10 +11,12 @@ type WeightActualInputProps = {
 } & React.ComponentProps<'input'>;
 
 const WeightActualInput = forwardRef<HTMLInputElement, WeightActualInputProps>(function ({ errorMessage, inputRegister, radioRegister, ...props }, ref) {
+  const radioDisabled = { ...props }.disabled;
+
   return (
     <FormRow id="weightActual" label="Body weight (actual)" error={errorMessage}>
       <Input min={1} type="number" id="weightActual" ref={ref} name="weight.actual" {...props} {...inputRegister} />
-      <RadioGroup legend="Weight unit" buttons={['kg', 'lb']} name="weight.unit" {...radioRegister} />
+      <RadioGroup legend="Weight unit" buttons={['kg', 'lb']} name="weight.unit" disabled={radioDisabled} {...radioRegister} />
     </FormRow>
   );
 });

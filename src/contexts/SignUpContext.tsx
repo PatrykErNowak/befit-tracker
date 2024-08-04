@@ -20,7 +20,7 @@ function SignUpProvider({ children }: { children: React.ReactNode }) {
 
 function useSignUpSteps() {
   const context = useContext(SignUpContext);
-  if (!context) throw new Error('useSignUpSteps muse be used with SignUpProvider');
+  if (!context) throw new Error('useSignUpSteps must be used with SignUpProvider');
   return context;
 }
 

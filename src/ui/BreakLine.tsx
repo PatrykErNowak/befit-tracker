@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 
 const StyledBreakLine = styled.div`
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-grey-200);
+`;
+
+const StyledBreakLinewithText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,11 +43,14 @@ type BreakLineProps = {
 };
 
 function BreakLine({ text }: BreakLineProps) {
-  return (
-    <StyledBreakLine>
-      <Span>{text}</Span>
-    </StyledBreakLine>
-  );
+  if (text)
+    return (
+      <StyledBreakLinewithText>
+        <Span>{text}</Span>
+      </StyledBreakLinewithText>
+    );
+
+  return <StyledBreakLine />;
 }
 
 export default BreakLine;

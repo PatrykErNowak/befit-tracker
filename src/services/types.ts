@@ -1,30 +1,27 @@
-import { SetUpProfileInputs } from '../features/auth/SetUpProfileForm';
-
 export type UserMetaData = {
-  nickname: string;
-  avatar: string;
-  email: string;
-  email_verified: boolean;
-  phone_verified: boolean;
-  sub: string;
-} & SetUpProfileInputs;
+  nickname?: string;
+  avatar?: FileList | string;
+  email?: string;
+  email_verified?: boolean;
+  phone_verified?: boolean;
+  sub?: string;
+} & UserPhysicsData;
 
-export type UserUpdateData = {
-  gender: string;
-  birthdate: string;
-  height: {
+export type UserPhysicsData = {
+  gender?: string;
+  birthdate?: string;
+  height?: {
     value: string;
     unit: 'cm' | 'in';
   };
-  weight: {
+  weight?: {
     actual: string;
     desired: string;
     unit: 'kg' | 'lb';
     rateChange: string;
   };
-  movementLvl: string;
-  trainingLvl: string;
-  avatar?: string;
+  movementLvl?: string;
+  trainingLvl?: string;
 };
 
 export type AtLeastOnePropertyOf<T> = {

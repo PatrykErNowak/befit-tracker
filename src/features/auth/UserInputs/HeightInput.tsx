@@ -11,10 +11,12 @@ type HeightInputProps = {
 } & React.ComponentProps<'input'>;
 
 const HeightInput = forwardRef<HTMLInputElement, HeightInputProps>(function ({ errorMessage, inputRegister, radioRegister, ...props }, ref) {
+  const radioDisabled = { ...props }.disabled;
+
   return (
     <FormRow id="height" label="Height" error={errorMessage}>
       <Input min={1} type="number" id="height" ref={ref} name="height.value" {...props} {...inputRegister} />
-      <RadioGroup legend="Height unit" buttons={['cm', 'in']} name="height.unit" {...radioRegister} />
+      <RadioGroup legend="Height unit" buttons={['cm', 'in']} name="height.unit" disabled={radioDisabled} {...radioRegister} />
     </FormRow>
   );
 });

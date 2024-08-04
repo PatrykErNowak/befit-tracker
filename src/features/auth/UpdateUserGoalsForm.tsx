@@ -1,48 +1,27 @@
 import styled from 'styled-components';
-import Form from '../../ui/Form/Form';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+
+import { UserMetaData, UserPhysicsData } from '../../services/types';
 import { breakpoint } from '../../styles/configStyles';
-import { UserMetaData } from '../../services/types';
+
 import useUser from './useUser';
+import useUpdateUser from './useUpdateUser';
+
 import Heading from '../../ui/Heading';
 import Text from '../../ui/Text';
 import WeightActualInput from './UserInputs/WeightActualInput';
 import WeightGoalInput from './UserInputs/WeightGoalInput';
-import FormRow from '../../ui/Form/FormRow';
-import Counter from '../../ui/Counter';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import MovementLvlInput from './UserInputs/MovementLvlInput';
 import TrainingLvlInput from './UserInputs/TrainingLvlInput';
-import { SetUpProfileInputs } from './SetUpProfileForm';
-import useUpdateUser from './useUpdateUser';
+import Form from '../../ui/Form/Form';
+import FormRow from '../../ui/Form/FormRow';
+import Counter from '../../ui/Counter';
 import Button from '../../ui/Buttons/Button';
-import { useEffect } from 'react';
+import BreakLine from '../../ui/BreakLine';
+import HeaderApp from '../../ui/HeaderAppSection';
 
-const Header = styled.header`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-
-  position: relative;
-  padding-bottom: 1.5rem;
-  margin-bottom: 1.5rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-grey-200);
-  }
-`;
-
-const BreakLine = styled.div`
-  margin-bottom: 1rem;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-grey-200);
-`;
 const BreakLineExt = styled(BreakLine)`
   @media screen and (min-width: ${breakpoint.laptop}) {
     display: none;
@@ -62,9 +41,9 @@ const FormExt = styled(Form)`
 `;
 
 type UpdateUserGoalsForm = {
-  movementLvl: SetUpProfileInputs['movementLvl'];
-  trainingLvl: SetUpProfileInputs['trainingLvl'];
-  weight: SetUpProfileInputs['weight'];
+  movementLvl: UserPhysicsData['movementLvl'];
+  trainingLvl: UserPhysicsData['trainingLvl'];
+  weight: UserPhysicsData['weight'];
 };
 
 function UpdateUserGoalsForm() {
@@ -88,12 +67,12 @@ function UpdateUserGoalsForm() {
   const weightUnit = getValues('weight.unit');
 
   const onSubmit: SubmitHandler<UpdateUserGoalsForm> = (userData) => {
-    updateUser({ ...userData });
+    updateUser({ ...userData }, { onSuccess: () => toast.success('Goals data successfuly updated!') });
   };
 
   return (
     <>
-      <Header>
+      <HeaderApp>
         <div>
           <Heading as="h2" $opacity={1}>
             Weight Goals
@@ -103,7 +82,7 @@ function UpdateUserGoalsForm() {
         <Button onClick={handleSubmit(onSubmit)} disabled={isPending}>
           Update
         </Button>
-      </Header>
+      </HeaderApp>
       <FormExt>
         <div>
           <WeightActualInput
@@ -130,17 +109,17 @@ function UpdateUserGoalsForm() {
               unit={weightUnit}
               minCounter={0}
               reset={isWeightEqual}
-              initValue={Number(weight.rateChange)}
+              initValue={Number(weight?.rateChange)}
               onChangeCounter={(value) => setValue('weight.rateChange', String(value))}
-              disabled={isWeightEqual}
+              disabled={isWeightEqual || isPending}
             />
           </FormRow>
           <BreakLineExt />
         </div>
         <div>
-          <MovementLvlInput inputRegister={register('movementLvl')} />
+          <MovementLvlInput inputRegister={register('movementLvl')} disabled={isPending} />
           <BreakLine />
-          <TrainingLvlInput inputRegister={register('trainingLvl')} />
+          <TrainingLvlInput inputRegister={register('trainingLvl')} disabled={isPending} />
         </div>
       </FormExt>
     </>

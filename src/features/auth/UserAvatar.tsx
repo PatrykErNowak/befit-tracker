@@ -39,9 +39,11 @@ function UserAvatar({ size }: { size: 'small' | 'medium' | 'large' }) {
   const { user } = useUser();
   const { avatar, gender } = user?.user_metadata as UserMetaData;
 
+  const imageSrc = typeof avatar === 'string' ? avatar : ``;
+
   return (
     <StyledUserAvatar $size={size}>
-      <img src={avatar || `https://sukgorleigsryfzeblhv.supabase.co/storage/v1/object/public/avatars/avatar-${gender}.jpg`} alt="User Avatar" />
+      <img src={imageSrc || `https://sukgorleigsryfzeblhv.supabase.co/storage/v1/object/public/avatars/avatar-${gender}.jpg`} alt="User Avatar" />
     </StyledUserAvatar>
   );
 }

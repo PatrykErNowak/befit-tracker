@@ -65,16 +65,20 @@ type ButtonGroupProps = {
   buttons: string[];
   defaultChecked?: number;
   legend?: string;
+  disabled?: boolean;
 };
 
-const RadioGroup = forwardRef<HTMLInputElement, ButtonGroupProps>(function ({ name, buttons, defaultChecked, legend, ...props }: ButtonGroupProps, ref) {
+const RadioGroup = forwardRef<HTMLInputElement, ButtonGroupProps>(function (
+  { name, buttons, defaultChecked, legend, disabled = false, ...props }: ButtonGroupProps,
+  ref
+) {
   return (
     <StyledButtonGroup>
       {legend && <legend>{legend}</legend>}
       {buttons.map((btn, i) => (
         <Button key={i}>
           <label htmlFor={`${name}-${i}`}>{btn}</label>
-          <input defaultChecked={defaultChecked === i} value={btn} type="radio" name={name} id={`${name}-${i}`} ref={ref} {...props} />
+          <input defaultChecked={defaultChecked === i} value={btn} type="radio" name={name} id={`${name}-${i}`} ref={ref} {...props} disabled={disabled} />
         </Button>
       ))}
     </StyledButtonGroup>
