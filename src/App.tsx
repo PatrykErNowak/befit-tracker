@@ -2,12 +2,12 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import LandingPage from './pages/LandingPage';
-import PageNotFound from './pages/PageNotFound';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Diet from './pages/Diet';
-import CreateAccount from './pages/CreateAccount/CreateAccount';
+import LandingPage from './pages/Page/LandingPage';
+import PageNotFound from './pages/Page/PageNotFound';
+import Login from './pages/App/Login';
+import Dashboard from './pages/App/Dashboard';
+import Diet from './pages/App/Diet';
+import CreateAccount from './pages/App/CreateAccount/CreateAccount';
 
 import AuthLayout from './layouts/AuthLayout';
 
@@ -16,9 +16,9 @@ import GlobalStyles from './styles/GlobalStyles';
 import { Toaster } from 'react-hot-toast';
 import AppLayout from './layouts/AppLayout';
 import AuthProtectedRoute from './ui/AuthProtectedRoute';
-import Profile from './pages/Profile';
-import Workout from './pages/Workout';
-import Places from './pages/Places';
+import Profile from './pages/App/Profile';
+import Workout from './pages/App/Workout';
+import Places from './pages/App/Places';
 
 const router = createBrowserRouter([
   {

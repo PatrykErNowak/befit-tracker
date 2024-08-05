@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-import { breakpoint } from '../../styles/configStyles';
+import { breakpoint } from '../../../styles/configStyles';
 
-import Container from '../../ui/Container';
-import Heading from '../../ui/Heading';
-import Stepper from '../../ui/Stepper';
+import Container from '../../../ui/Container';
+import Heading from '../../../ui/Heading';
+import Stepper from '../../../ui/Stepper';
 import CreateAccountFinishScreen from './CreateAccountFinishScreen';
-import SetUpProfileForm from '../../features/auth/SetUpProfileForm';
+import SetUpProfileForm from '../../../features/auth/SetUpProfileForm';
 import CreateAccontStartScreen from './CreateAccontStartScreen';
 
-import { useSignUpSteps } from '../../contexts/SignUpContext';
+import { useSignUpSteps } from '../../../contexts/SignUpContext';
 
 const StyledCreateAccount = styled(Container)`
   gap: 2rem;

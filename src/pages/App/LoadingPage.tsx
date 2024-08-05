@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Spinner from '../ui/Spinner';
+import Spinner from '../../ui/Spinner';
 
-import LoginBgDesktop from '../assets/img/login-bg-desktop.jpg';
+import LoginBgDesktop from '../../assets/img/login-bg-desktop.jpg';
 
 const StyledLoadingPage = styled.div`
   height: 100dvh;

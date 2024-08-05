@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import useUser from '../features/auth/useUser';
 import { useEffect } from 'react';
-import LoadingPage from '../pages/LoadingPage';
+import LoadingPage from '../pages/App/LoadingPage';
 
 type AuthProtectedRouteProps = {
   children: React.ReactElement;

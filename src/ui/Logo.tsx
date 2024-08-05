@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 
-const StyledLogo = styled.div<{ $size: 'small' | 'medium' }>`
+const StyledLogo = styled.div`
+  width: 2em;
+  height: 2em;
   svg {
-    width: ${({ $size }) => ($size === 'small' ? '50px' : '100px')};
-    height: ${({ $size }) => ($size === 'small' ? '50px' : '100px')};
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
   }
 `;
 
-type LogoProps = {
-  size?: 'small' | 'medium';
-};
-
-function Logo({ size = 'medium' }: LogoProps) {
+function Logo({ ...props }) {
   return (
-    <StyledLogo $size={size}>
+    <StyledLogo {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         clipRule="evenodd"

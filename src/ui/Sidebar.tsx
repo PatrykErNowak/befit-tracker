@@ -4,12 +4,11 @@ import { IoIosSettings } from 'react-icons/io';
 
 import MainNav from './MainNav';
 import MenuButton from './Buttons/MenuButton';
-import Logo from './Logo';
-import Heading from './Heading';
 import ProfileAvatarInfo from '../features/auth/ProfileAvatarInfo';
 import LogoutButton from '../features/auth/LogoutButton';
 
 import { breakpoint } from '../styles/configStyles';
+import Brand from './Brand';
 
 const StyledSidebar = styled.aside`
   position: relative;
@@ -61,10 +60,7 @@ function Sidebar({ ...props }) {
   return (
     <StyledSidebar {...props}>
       <SidebarHeader>
-        <Logo size="small" />
-        <Heading as={'p'} $inverted>
-          Be<span>Fit</span> Tracker
-        </Heading>
+        <Brand />
       </SidebarHeader>
 
       <MainNav />

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import ContainerWithBg from '../../ui/ContainerWithBg';
-import Heading from '../../ui/Heading';
-import Text from '../../ui/Text';
-import LinkCustom from '../../ui/LinkCustom';
-import Container from '../../ui/Container';
-import SignupForm from '../../features/auth/SignUpForm';
-import { breakpoint } from '../../styles/configStyles';
+import ContainerWithBg from '../../../ui/ContainerWithBg';
+import Heading from '../../../ui/Heading';
+import Text from '../../../ui/Text';
+import LinkCustom from '../../../ui/LinkCustom';
+import Container from '../../../ui/Container';
+import SignupForm from '../../../features/auth/SignUpForm';
+import { breakpoint } from '../../../styles/configStyles';
 
 const StyledCreateAccontStartScreen = styled.div`
   display: grid;

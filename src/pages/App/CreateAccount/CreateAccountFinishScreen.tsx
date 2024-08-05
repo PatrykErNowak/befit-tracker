@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import Container from '../../ui/Container';
-import Heading from '../../ui/Heading';
-import Icon from '../../ui/Icon';
+import Container from '../../../ui/Container';
+import Heading from '../../../ui/Heading';
+import Icon from '../../../ui/Icon';
 import { BsFillPersonCheckFill } from 'react-icons/bs';
-import Text from '../../ui/Text';
-import Button from '../../ui/Buttons/Button';
+import Text from '../../../ui/Text';
+import Button from '../../../ui/Buttons/Button';
 import { Link } from 'react-router-dom';
 
 const StyledCreateAccountFinishScreen = styled(Container)`

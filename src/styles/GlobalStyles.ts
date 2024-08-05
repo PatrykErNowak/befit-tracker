@@ -98,6 +98,7 @@ html {
 body {
   font-family: "Inter", sans-serif;
   color: var(--color-grey-800);
+  background-color: var(--color-brand-50);
 
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import Heading from '../ui/Heading';
-import { breakpoint } from '../styles/configStyles';
-import UpdateUserProfileForm from '../features/auth/UpdateUserProfileForm';
-import Tabs from '../ui/Tabs';
-import UpdateUserGoalsForm from '../features/auth/UpdateUserGoalsForm';
+import Heading from '../../ui/Heading';
+import { breakpoint } from '../../styles/configStyles';
+import UpdateUserProfileForm from '../../features/auth/UpdateUserProfileForm';
+import Tabs from '../../ui/Tabs';
+import UpdateUserGoalsForm from '../../features/auth/UpdateUserGoalsForm';
 
 const Header = styled.header`
   display: flex;
