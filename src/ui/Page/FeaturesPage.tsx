@@ -7,7 +7,7 @@ import { breakpoint } from '../../styles/configStyles';
 const StyledFeaturesPage = styled.section`
   display: grid;
   gap: 3rem;
-  padding: 5rem 0;
+  margin: 5rem 0;
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 10rem 0;

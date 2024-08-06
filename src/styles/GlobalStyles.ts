@@ -30,6 +30,9 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-800: #505f60;
   --color-brand-900: #282f30;
 
+  // Call to Action color
+  --color-cta: #E76F51;
+
 
   /* State color */
   --success-color: #22c55e;

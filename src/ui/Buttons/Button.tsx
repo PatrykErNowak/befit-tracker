@@ -16,6 +16,20 @@ const variations = {
       }
     }
   `,
+  secondary: css`
+    color: var(--color-brand-50);
+    background-color: var(--color-cta);
+    border: 2px solid var(--color-cta);
+
+    @media screen and (min-width: ${breakpoint.laptop}) {
+      &:hover,
+      &:focus {
+        color: var(--color-cta);
+        background-color: transparent;
+        border: 2px solid var(--color-cta);
+      }
+    }
+  `,
   link: css`
     outline: none;
 
@@ -38,7 +52,7 @@ const Button = styled.button<{ $variation?: keyof typeof variations }>`
   font-weight: 600;
   letter-spacing: 1px;
   text-decoration: none;
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-lg);
   transition: transform 0.3s, background-color 0.3s;
 
   &:active {
