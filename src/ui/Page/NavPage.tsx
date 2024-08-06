@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import Brand from './Brand';
+import Brand from '../Brand';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { breakpoint } from '../styles/configStyles';
-import Wrapper from './Wrapper';
-import Button from './Buttons/Button';
+import { breakpoint } from '../../styles/configStyles';
+import Wrapper from '../Wrapper';
+import Button from '../Buttons/Button';
 
 const Nav = styled.nav`
   position: fixed;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { breakpoint } from '../styles/configStyles';
-import Wrapper from './Wrapper';
+import { breakpoint } from '../../styles/configStyles';
+import Wrapper from '../Wrapper';
 
 const Header = styled.header`
   padding-top: 7rem;
