@@ -5,7 +5,7 @@ import useUser from './useUser';
 const StyledUserAvatar = styled.div<{
   $size?: 'small' | 'medium' | 'large';
 }>`
-  background-color: var(--color-brand-300);
+  background-color: var(--color-brand-600);
   width: 5rem;
   height: 5rem;
   padding: 3px;

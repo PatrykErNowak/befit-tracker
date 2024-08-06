@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const StyledLogo = styled.div`
   width: 2em;
   height: 2em;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.15));
+
   svg {
     width: 100%;
     height: 100%;
@@ -25,8 +27,8 @@ function Logo({ ...props }) {
         width="212.61">
         <defs>
           <linearGradient gradientUnits="userSpaceOnUse" id="a" x1="128.19" x2="10.05" y1="89.65" y2="214.61">
-            <stop offset="0" stopColor="#06b6d4" />
-            <stop offset="1" stopColor="#a8cf45" />
+            <stop offset="0" stopColor="#10b981" />
+            <stop offset="1" stopColor="#10b981" />
           </linearGradient>
         </defs>
         <g>
@@ -36,7 +38,7 @@ function Logo({ ...props }) {
           />
           <path
             d="M76.05 33.28L99.11 33.28 99.11 57.39 123.22 57.39 123.22 80.45 99.11 80.45 99.11 104.56 76.05 104.56 76.05 80.45 51.94 80.45 51.94 57.39 76.05 57.39z"
-            fill="#0d97c9"
+            fill="#10b981"
           />
         </g>
       </svg>

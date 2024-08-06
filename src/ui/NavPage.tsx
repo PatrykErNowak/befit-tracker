@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import Brand from './Brand';
-import { IoMdMenu } from 'react-icons/io';
+import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { breakpoint } from '../styles/configStyles';
 import Wrapper from './Wrapper';
+import Button from './Buttons/Button';
 
 const Nav = styled.nav`
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
   padding: 1.5rem 0;
   color: var(--color-brand-50);
@@ -21,6 +25,7 @@ const Nav = styled.nav`
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 2rem 0;
+    background-color: transparent;
   }
 `;
 
@@ -56,9 +61,27 @@ const NavList = styled.ul`
 
 const BrandExt = styled(Brand)`
   font-size: 1.4em;
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -10%;
+      width: 1000%;
+      height: 135%;
+      transform: translateY(-50%);
+      background-color: var(--color-brand-600);
+      z-index: -1;
+      pointer-events: none;
+      border-radius: 15px;
+    }
+  }
 `;
 
-const HamButton = styled.button`
+const HamburgerButton = styled.button`
   padding: 0.5rem;
   font-size: 3rem;
   background-color: transparent;
@@ -70,33 +93,17 @@ const HamButton = styled.button`
 `;
 
 // ---------------------------------------------------------------
-// Custom Links
+// Custom CTA Link
 
-const LinkExt = styled(Link)`
-  font-weight: 600;
-  display: inline-block;
-  padding: 1rem 2rem;
-  transition: transform 0.3s;
-  outline: none;
-
-  &:hover,
-  &:focus {
-    color: var(--color-brand-200);
-    transform: rotate(-3deg);
-  }
-`;
-
-const CTALink = styled(LinkExt)`
+const CTALink = styled(Button)`
   color: var(--color-brand-600);
-  background-color: var(--color-brand-50);
-  border-radius: 100px;
+  background-color: var(--color-brand-100);
   border: 2px solid transparent;
 
-  &:hover,
-  &:focus {
+  @media screen and (min-width: ${breakpoint.laptop}) {
     color: var(--color-brand-50);
     background-color: var(--color-brand-600);
-    border: 2px solid var(--color-brand-50);
+    border: 2px solid var(--color-brand-600);
   }
 `;
 
@@ -119,16 +126,18 @@ function NavPage() {
 
         <NavList className={`${isOpen ? 'isOpen' : ''}`}>
           <li>
-            <LinkExt to={'/app/login'}>Log in</LinkExt>
+            <Button $variation="link" as={Link} to={'/app/login'}>
+              Log in
+            </Button>
           </li>
           <li>
-            <CTALink to={'/app/create-account'}>Sign Up</CTALink>
+            <CTALink as={Link} $variation="primary" to={'/app/create-account'}>
+              Sign Up
+            </CTALink>
           </li>
         </NavList>
 
-        <HamButton onClick={toggleNav}>
-          <IoMdMenu />
-        </HamButton>
+        <HamburgerButton onClick={toggleNav}>{isOpen ? <IoMdClose /> : <IoMdMenu />}</HamburgerButton>
       </WrappperExt>
     </Nav>
   );

@@ -5,34 +5,45 @@ const variations = {
   primary: css`
     color: var(--color-brand-50);
     background-color: var(--color-brand-600);
-    border: 1px solid var(--color-brand-600);
+    border: 2px solid var(--color-brand-600);
 
     @media screen and (min-width: ${breakpoint.laptop}) {
-      &:hover {
-        background-color: var(--color-brand-800);
+      &:hover,
+      &:focus {
+        color: var(--color-brand-600);
+        background-color: transparent;
+        border: 2px solid var(--color-brand-600);
       }
     }
   `,
-  secondary: css`
-    color: var(--color-grey-100);
-    background: var(--color-grey-700);
-    border: 1px solid var(--color-grey-200);
+  link: css`
+    outline: none;
 
     @media screen and (min-width: ${breakpoint.laptop}) {
-      &:hover {
-        background-color: var(--color-grey-600);
+      color: var(--color-brand-600);
+
+      &:hover,
+      &:focus {
+        color: var(--color-brand-800);
       }
     }
   `,
 };
 
 const Button = styled.button<{ $variation?: keyof typeof variations }>`
-  padding: 1rem 1.5rem;
+  display: inline-block;
+  padding: 1rem 2rem;
 
   font-size: inherit;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 1px;
   text-decoration: none;
   border-radius: var(--border-radius-md);
+  transition: transform 0.3s, background-color 0.3s;
+
+  &:active {
+    transform: translateY(1px);
+  }
 
   ${({ $variation = 'primary' }) => variations[$variation]}
 `;

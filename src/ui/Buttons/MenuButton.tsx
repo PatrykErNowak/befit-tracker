@@ -22,7 +22,7 @@ const OptionItem = styled.button`
   @media screen and (min-width: ${breakpoint.laptop}) {
     &:hover,
     &:focus {
-      background-color: var(--color-brand-800);
+      background-color: var(--color-brand-700);
     }
   }
 `;

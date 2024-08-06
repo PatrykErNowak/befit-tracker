@@ -12,7 +12,7 @@ const Heading = styled.h1<{ $inverted?: boolean; $opacity?: number }>`
     css`
       color: var(--color-brand-100);
       span {
-        color: var(--color-brand-300);
+        color: var(--color-brand-400);
       }
     `}
   opacity: ${({ $opacity = 1 }) => $opacity}

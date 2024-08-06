@@ -12,7 +12,7 @@ const Header = styled.header`
   position: relative;
   padding: 1.5rem 1rem 0;
   text-align: center;
-  background-color: var(--color-brand-100);
+  background-color: var(--color-brand-200);
 
   h1 {
     color: var(--color-brand-900);

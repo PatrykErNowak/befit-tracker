@@ -36,7 +36,7 @@ const SidebarHeader = styled.header`
     gap: 2rem;
     padding: 2rem 0;
     font-size: 2.5rem;
-    border-bottom: 1px solid var(--color-brand-400);
+    border-bottom: 1px solid var(--color-brand-500);
   }
 `;
 
@@ -53,7 +53,7 @@ const Menu = styled.div`
   display: flex;
   padding-top: 0.5rem;
   color: var(--color-brand-50);
-  border-top: 1px solid var(--color-brand-400);
+  border-top: 1px solid var(--color-brand-500);
 `;
 
 function Sidebar({ ...props }) {

@@ -19,40 +19,16 @@ const GlobalStyles = createGlobalStyle`
   
   
   /* Brand color */
-  --color-brand-50: #ecfdf5;
-  --color-brand-100: #d1fae5;
-  --color-brand-200: #a7f3d0;
-  --color-brand-300: #6ee7b7;
-  --color-brand-400: #34d399;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
-  --color-brand-700: #047857;
-  --color-brand-800: #065f46;
-  --color-brand-900: #064e3b;
-
-  
-  /* Secondaru color */
-  --color-brand-50: #ecfeff;
-  --color-brand-100: #cffafe;
-  --color-brand-200: #a5f3fc;
-  --color-brand-300: #67e8f9;
-  --color-brand-400: #22d3ee;
-  --color-brand-500: #06b6d4;
-  --color-brand-600: #0891b2;
-  --color-brand-700: #0e7490;
-  --color-brand-800: #155e75;
-  --color-brand-900: #164e63;
-
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-300: #a5b4fc;
-  --color-brand-400: #818cf8;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #e8f8f6;
+  --color-brand-200: #b9eae4;
+  --color-brand-300: #8adcd3;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #505f60;
+  --color-brand-900: #282f30;
 
 
   /* State color */
@@ -101,9 +77,9 @@ body {
   background-color: var(--color-brand-50);
 
   transition: color 0.3s, background-color 0.3s;
-  min-height: 100vh;
   line-height: 1.5;
   font-size: clamp(1.3rem, 0.5rem + 0.6vw, 1.9rem);
+  overflow-x: hidden;
 }
 
 
@@ -175,6 +151,7 @@ h6 {
 
 h1 {
   font-size: clamp(2.5rem, 1.5rem + 1.4vw, 5rem);
+  font-weight: 800;
 }
 h2 {
   font-size: clamp(2rem, 1.2rem + 1vw, 3.5rem);
