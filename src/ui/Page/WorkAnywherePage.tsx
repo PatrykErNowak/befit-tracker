@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from '../Buttons/Button';
 import { breakpoint } from '../../styles/configStyles';
+import { Link } from 'react-router-dom';
 
 const StyledWorkAnywherePage = styled.section`
   display: grid;
@@ -80,10 +81,12 @@ function WorkAnywherePage() {
           Work anywhere, <br /> with any device
         </h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          asperiores doloremque unde voluptate doloribus libero?
+          From your cell phone, tablet or desktop computer, use our app from
+          where you want and when you want - you don't have to pay for anything!
         </p>
-        <Button $variation="secondary">Get Started</Button>
+        <Button as={Link} to={'app/create-account'} $variation="secondary">
+          Get Started
+        </Button>
       </ContentBox>
     </StyledWorkAnywherePage>
   );

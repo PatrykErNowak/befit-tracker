@@ -26,7 +26,13 @@ function Logo({ ...props }) {
         viewBox="0 0 212.61 211.63"
         width="212.61">
         <defs>
-          <linearGradient gradientUnits="userSpaceOnUse" id="a" x1="128.19" x2="10.05" y1="89.65" y2="214.61">
+          <linearGradient
+            gradientUnits="userSpaceOnUse"
+            id="a"
+            x1="128.19"
+            x2="10.05"
+            y1="89.65"
+            y2="214.61">
             <stop offset="0" stopColor="#10b981" />
             <stop offset="1" stopColor="#10b981" />
           </linearGradient>

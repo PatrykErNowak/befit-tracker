@@ -1,7 +1,8 @@
-import { IoIosPulse } from 'react-icons/io';
-import { MdDirectionsBike } from 'react-icons/md';
-import { TbTargetArrow } from 'react-icons/tb';
 import styled from 'styled-components';
+
+import { TbTargetArrow } from 'react-icons/tb';
+import { FaHeartbeat, FaRegChartBar } from 'react-icons/fa';
+
 import { breakpoint } from '../../styles/configStyles';
 
 const StyledFeaturesPage = styled.section`
@@ -19,10 +20,10 @@ function FeaturesPage() {
   return (
     <StyledFeaturesPage>
       <FeatureItem
-        icon={<MdDirectionsBike />}
+        icon={<FaHeartbeat />}
         iconColor="#da765e"
-        title="Learn, track and record"
-        text="See all the details, track and analyse them in aby way."
+        title="Log meals, exercise and health metrics"
+        text="Plus, you can create custom foods, recipes, exercises and metrics."
       />
       <FeatureItem
         icon={<TbTargetArrow />}
@@ -31,10 +32,10 @@ function FeaturesPage() {
         text="Set any goals which you see deem fit and start working towards it."
       />
       <FeatureItem
-        icon={<IoIosPulse />}
+        icon={<FaRegChartBar />}
         iconColor="#4377c3"
-        title="Stay active and fit"
-        text="See all the details, track and analyse them in aby way."
+        title="Get valuable health reports and charts"
+        text="Learn how nutrients and metrics correlate over time."
       />
     </StyledFeaturesPage>
   );
@@ -56,6 +57,7 @@ const StyledFeatureItem = styled.div<{ $iconColor?: string }>`
   h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
+    width: 70%;
     font-size: 1.5em;
     color: var(--color-grey-600);
   }

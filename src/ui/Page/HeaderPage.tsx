@@ -91,7 +91,10 @@ function HeaderPage() {
           <h1>
             Helthy living. <br /> Simplified.
           </h1>
-          <p>Take controls of your goals. Track calories, breakdown ingredients and log activities with BeFit Tracker app.</p>
+          <p>
+            Take controls of your goals. Track your diet, exercise, and health
+            data with BeFit Tracker app.
+          </p>
         </Heading>
         <Hero>
           <img src="./woman-mobile.png" alt="" />
