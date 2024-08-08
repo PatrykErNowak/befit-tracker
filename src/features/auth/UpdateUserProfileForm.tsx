@@ -43,8 +43,13 @@ type UpdateUserProfileForm = {
 function UpdateUserProfileForm() {
   const { updateUser, isPending } = useUpdateUser();
   const { user } = useUser();
-  const { avatar, nickname, gender, birthdate, height } = user?.user_metadata as UserMetaData;
-  const { handleSubmit, register } = useForm({
+  const { avatar, nickname, gender, birthdate, height } =
+    user?.user_metadata as UserMetaData;
+  const {
+    handleSubmit,
+    register,
+    formState: { isDirty },
+  } = useForm({
     defaultValues: {
       avatar,
       nickname,
@@ -55,7 +60,10 @@ function UpdateUserProfileForm() {
   });
 
   const onSubmit: SubmitHandler<UpdateUserProfileForm> = (userData) => {
-    updateUser({ ...userData }, { onSuccess: () => toast.success('Profile data successfuly updated!') });
+    updateUser(
+      { ...userData },
+      { onSuccess: () => toast.success('Profile data successfuly updated!') }
+    );
   };
 
   return (
@@ -65,9 +73,13 @@ function UpdateUserProfileForm() {
           <Heading as="h2" $opacity={1}>
             Profile Details
           </Heading>
-          <Text $opacity={0.8}>You can change your profile details here seamlessly.</Text>
+          <Text $opacity={0.8}>
+            You can change your profile details here seamlessly.
+          </Text>
         </div>
-        <Button onClick={handleSubmit(onSubmit)} disabled={isPending}>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          disabled={isPending || !isDirty}>
           Update
         </Button>
       </HeaderApp>
@@ -77,17 +89,31 @@ function UpdateUserProfileForm() {
           <Text $small $opacity={0.9}>
             Upload Your avatar image
           </Text>
-          <InputFile accept="image/*" disabled={isPending} {...register('avatar')} />
+          <InputFile
+            accept="image/*"
+            disabled={isPending}
+            {...register('avatar')}
+          />
         </FormRow>
         <BreakLine />
 
-        <NicknameInput inputRegister={register('nickname')} disabled={isPending} />
+        <NicknameInput
+          inputRegister={register('nickname')}
+          disabled={isPending}
+        />
         <BreakLine />
         <GenderInput inputRegister={register('gender')} disabled={isPending} />
         <BreakLine />
-        <BirthdayInput inputRegister={register('birthdate')} disabled={isPending} />
+        <BirthdayInput
+          inputRegister={register('birthdate')}
+          disabled={isPending}
+        />
         <BreakLine />
-        <HeightInput inputRegister={register('height.value')} radioRegister={register('height.unit')} disabled={isPending} />
+        <HeightInput
+          inputRegister={register('height.value')}
+          radioRegister={register('height.unit')}
+          disabled={isPending}
+        />
       </FormExt>
     </>
   );

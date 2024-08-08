@@ -49,25 +49,31 @@ type UpdateUserGoalsForm = {
 function UpdateUserGoalsForm() {
   const { updateUser, isPending } = useUpdateUser();
   const { user } = useUser();
-  const { movementLvl, trainingLvl, weight } = user?.user_metadata as UserMetaData;
-  const { handleSubmit, register, getValues, formState, setValue, trigger } = useForm({
-    defaultValues: {
-      movementLvl,
-      trainingLvl,
-      weight,
-    },
-  });
-  const { errors } = formState;
+  const { movementLvl, trainingLvl, weight } =
+    user?.user_metadata as UserMetaData;
+  const { handleSubmit, register, getValues, formState, setValue, trigger } =
+    useForm({
+      defaultValues: {
+        movementLvl,
+        trainingLvl,
+        weight,
+      },
+    });
+  const { errors, isDirty } = formState;
 
   useEffect(() => {
     register('weight.rateChange');
   }, [register]);
 
-  const isWeightEqual = getValues('weight.actual') === getValues('weight.desired');
+  const isWeightEqual =
+    getValues('weight.actual') === getValues('weight.desired');
   const weightUnit = getValues('weight.unit');
 
   const onSubmit: SubmitHandler<UpdateUserGoalsForm> = (userData) => {
-    updateUser({ ...userData }, { onSuccess: () => toast.success('Goals data successfuly updated!') });
+    updateUser(
+      { ...userData },
+      { onSuccess: () => toast.success('Goals data successfuly updated!') }
+    );
   };
 
   return (
@@ -79,7 +85,9 @@ function UpdateUserGoalsForm() {
           </Heading>
           <Text $opacity={0.8}>You can change your weight goals here.</Text>
         </div>
-        <Button onClick={handleSubmit(onSubmit)} disabled={isPending}>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          disabled={isPending || !isDirty}>
           Update
         </Button>
       </HeaderApp>
@@ -87,8 +95,12 @@ function UpdateUserGoalsForm() {
         <div>
           <WeightActualInput
             errorMessage={errors.weight?.actual?.message}
-            inputRegister={register('weight.actual', { required: 'Actual body weight is required' })}
-            radioRegister={register('weight.unit', { onChange: () => trigger('weight.unit') })}
+            inputRegister={register('weight.actual', {
+              required: 'Actual body weight is required',
+            })}
+            radioRegister={register('weight.unit', {
+              onChange: () => trigger('weight.unit'),
+            })}
             disabled={isPending}
           />
 
@@ -110,16 +122,24 @@ function UpdateUserGoalsForm() {
               minCounter={0}
               reset={isWeightEqual}
               initValue={Number(weight?.rateChange)}
-              onChangeCounter={(value) => setValue('weight.rateChange', String(value))}
+              onChangeCounter={(value) =>
+                setValue('weight.rateChange', String(value))
+              }
               disabled={isWeightEqual || isPending}
             />
           </FormRow>
           <BreakLineExt />
         </div>
         <div>
-          <MovementLvlInput inputRegister={register('movementLvl')} disabled={isPending} />
+          <MovementLvlInput
+            inputRegister={register('movementLvl')}
+            disabled={isPending}
+          />
           <BreakLine />
-          <TrainingLvlInput inputRegister={register('trainingLvl')} disabled={isPending} />
+          <TrainingLvlInput
+            inputRegister={register('trainingLvl')}
+            disabled={isPending}
+          />
         </div>
       </FormExt>
     </>

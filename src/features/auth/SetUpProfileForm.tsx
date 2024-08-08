@@ -22,6 +22,8 @@ import WeightGoalInput from './UserInputs/WeightGoalInput';
 import MovementLvlInput from './UserInputs/MovementLvlInput';
 import TrainingLvlInput from './UserInputs/TrainingLvlInput';
 import { UserPhysicsData } from '../../services/types';
+import { useEffect } from 'react';
+import { useLogout } from './useLogout';
 
 const FormExt = styled(Form)`
   display: grid;
@@ -76,26 +78,44 @@ export type SetUpProfileInputs = UserPhysicsData;
 
 function SetUpProfileForm() {
   const { updateUser, isPending } = useUpdateUser();
+  const { logout } = useLogout({ redirect: false });
   const { goToNextStep } = useSignUpSteps();
-  const { getCollapseProps, getToggleProps } = useCollapse({ defaultExpanded: !isMobile });
-  const { register, handleSubmit, formState, setValue, getValues, trigger } = useForm<SetUpProfileInputs>({
-    defaultValues: {
-      height: { unit: 'cm' },
-      weight: {
-        unit: 'kg',
-      },
-      movementLvl: '1',
-      trainingLvl: '0',
-    },
+  const { getCollapseProps, getToggleProps } = useCollapse({
+    defaultExpanded: !isMobile,
   });
+  const { register, handleSubmit, formState, setValue, getValues, trigger } =
+    useForm<SetUpProfileInputs>({
+      defaultValues: {
+        height: { unit: 'cm' },
+        weight: {
+          unit: 'kg',
+        },
+        movementLvl: '1',
+        trainingLvl: '0',
+      },
+    });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { errors } = formState;
   const { name } = register('weight.rateChange');
 
-  const isWeightEqual = getValues('weight.actual') === getValues('weight.desired');
+  const isWeightEqual =
+    getValues('weight.actual') === getValues('weight.desired');
   const weightUnit = getValues('weight.unit');
 
   const onSubmit: SubmitHandler<SetUpProfileInputs> = (userData) => {
-    updateUser({ ...userData }, { onSuccess: goToNextStep });
+    updateUser(
+      { ...userData },
+      {
+        onSuccess: () => {
+          goToNextStep();
+          logout();
+        },
+      }
+    );
   };
 
   return (
@@ -103,27 +123,38 @@ function SetUpProfileForm() {
       <div>
         <GenderInput
           errorMessage={errors.gender?.message}
-          inputRegister={register('gender', { validate: (value) => value !== null || 'Gender is required' })}
+          inputRegister={register('gender', {
+            validate: (value) => value !== null || 'Gender is required',
+          })}
           disabled={isPending}
         />
 
         <BirthdayInput
           errorMessage={errors.birthdate?.message}
-          inputRegister={register('birthdate', { required: 'Birthdate is required', max: { message: 'Date must be in past', value: getTodayDate() } })}
+          inputRegister={register('birthdate', {
+            required: 'Birthdate is required',
+            max: { message: 'Date must be in past', value: getTodayDate() },
+          })}
           disabled={isPending}
         />
 
         <HeightInput
           errorMessage={errors.height?.value?.message}
-          inputRegister={register('height.value', { required: 'Height is required' })}
+          inputRegister={register('height.value', {
+            required: 'Height is required',
+          })}
           radioRegister={register('height.unit')}
           disabled={isPending}
         />
 
         <WeightActualInput
           errorMessage={errors.weight?.actual?.message}
-          inputRegister={register('weight.actual', { required: 'Actual body weight is required' })}
-          radioRegister={register('weight.unit', { onChange: () => trigger('weight.unit') })}
+          inputRegister={register('weight.actual', {
+            required: 'Actual body weight is required',
+          })}
+          radioRegister={register('weight.unit', {
+            onChange: () => trigger('weight.unit'),
+          })}
           disabled={isPending}
         />
 

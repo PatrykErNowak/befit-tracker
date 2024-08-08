@@ -8,8 +8,8 @@ const variations = {
     border: 2px solid var(--color-brand-600);
 
     @media screen and (min-width: ${breakpoint.laptop}) {
-      &:hover,
-      &:focus {
+      &:not(:disabled):hover,
+      &:not(:disabled):focus {
         color: var(--color-brand-600);
         background-color: transparent;
         border: 2px solid var(--color-brand-600);
@@ -22,8 +22,8 @@ const variations = {
     border: 2px solid var(--color-cta);
 
     @media screen and (min-width: ${breakpoint.laptop}) {
-      &:hover,
-      &:focus {
+      &:not(:disabled):hover,
+      &:not(:disabled):focus {
         color: var(--color-cta);
         background-color: transparent;
         border: 2px solid var(--color-cta);
@@ -58,6 +58,14 @@ const Button = styled.button<{ $variation?: keyof typeof variations }>`
 
   &:active {
     transform: translateY(1px);
+  }
+
+  &:disabled {
+    &,
+    &:hover,
+    &:focus {
+      opacity: 0.5;
+    }
   }
 
   ${({ $variation = 'primary' }) => variations[$variation]}

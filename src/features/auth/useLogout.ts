@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { logoutUser } from '../../services/apiAuth';
 import { useNavigate } from 'react-router-dom';
 
-export function useLogout() {
+export function useLogout({ redirect } = { redirect: true }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -10,7 +10,7 @@ export function useLogout() {
     mutationFn: logoutUser,
     onSuccess: () => {
       queryClient.removeQueries();
-      navigate('login', { replace: true });
+      if (redirect) navigate('login', { replace: true });
     },
   });
 

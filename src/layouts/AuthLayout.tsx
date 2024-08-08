@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { LayoutContainerBG } from '../ui/LayoutContainerBG';
 import NavPage from '../ui/Page/NavPage';
 
@@ -7,6 +7,7 @@ function AuthLayout() {
     <LayoutContainerBG>
       <NavPage hideLinks />
       <Outlet />
+      <ScrollRestoration />
     </LayoutContainerBG>
   );
 }

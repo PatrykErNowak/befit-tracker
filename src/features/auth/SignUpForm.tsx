@@ -18,19 +18,20 @@ type IFormInput = {
 function SignupForm() {
   const { signUp, isPending } = useSignUp();
   const { goToNextStep } = useSignUpSteps();
-  const { register, formState, getValues, handleSubmit, reset } = useForm<IFormInput>({
-    defaultValues: {
-      nickname: 'lolek',
-      email: 'example@gmail.com',
-      password: 'test1234',
-      passwordConfirm: 'test1234',
-    },
-  });
+  const { register, formState, getValues, handleSubmit, reset } =
+    useForm<IFormInput>();
 
   const { errors } = formState;
 
-  const onSubmit: SubmitHandler<IFormInput> = async ({ email, nickname, password }) => {
-    signUp({ nickname, email, password }, { onSuccess: goToNextStep, onSettled: () => reset() });
+  const onSubmit: SubmitHandler<IFormInput> = async ({
+    email,
+    nickname,
+    password,
+  }) => {
+    signUp(
+      { nickname, email, password },
+      { onSuccess: goToNextStep, onSettled: () => reset() }
+    );
   };
 
   return (
@@ -63,7 +64,9 @@ function SignupForm() {
         />
       </FormRow>
 
-      <FormRow label="Password (min 8 characters)" error={errors?.password?.message}>
+      <FormRow
+        label="Password (min 8 characters)"
+        error={errors?.password?.message}>
         <Input
           type="password"
           id="password"
@@ -87,7 +90,8 @@ function SignupForm() {
           disabled={isPending}
           {...register('passwordConfirm', {
             required: 'This field is required',
-            validate: (value) => value === getValues().password || 'Passwords need to match',
+            validate: (value) =>
+              value === getValues().password || 'Passwords need to match',
           })}
         />
       </FormRow>
