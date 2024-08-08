@@ -3,13 +3,13 @@ import { breakpoint } from '../../styles/configStyles';
 import Wrapper from '../Wrapper';
 
 const Header = styled.header`
-  padding-top: 7rem;
   width: 100%;
-  height: 100dvh;
+  height: calc(100dvh - 7rem);
   position: relative;
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding-top: 0;
+    height: 100dvh;
   }
 `;
 
@@ -89,7 +89,7 @@ function HeaderPage() {
       <WrapperExt>
         <Heading>
           <h1>
-            Helthy living. <br /> Simplified.
+            Healthy living. <br /> Simplified.
           </h1>
           <p>
             Take controls of your goals. Track your diet, exercise, and health

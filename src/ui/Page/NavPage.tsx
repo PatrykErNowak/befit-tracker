@@ -8,7 +8,7 @@ import Wrapper from '../Wrapper';
 import Button from '../Buttons/Button';
 
 const Nav = styled.nav`
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -24,6 +24,7 @@ const Nav = styled.nav`
   }
 
   @media screen and (min-width: ${breakpoint.laptop}) {
+    position: fixed;
     padding: 2rem 0;
     background-color: transparent;
   }
@@ -110,7 +111,7 @@ const CTALink = styled(Button)`
 // ---------------------------------------------------------------
 // COMPONENT
 
-function NavPage() {
+function NavPage({ hideLinks = false }: { hideLinks?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleNav() {
@@ -120,24 +121,33 @@ function NavPage() {
   return (
     <Nav>
       <WrappperExt>
-        <Link to={'/'}>
+        <Link to={'/'} aria-label="Back to home page">
           <BrandExt />
         </Link>
 
-        <NavList className={`${isOpen ? 'isOpen' : ''}`}>
-          <li>
-            <Button $variation="link" as={Link} to={'/app/login'}>
-              Log in
-            </Button>
-          </li>
-          <li>
-            <CTALink as={Link} $variation="primary" to={'/app/create-account'}>
-              Sign Up
-            </CTALink>
-          </li>
-        </NavList>
+        {!hideLinks && (
+          <>
+            <NavList className={`${isOpen ? 'isOpen' : ''}`}>
+              <li>
+                <Button $variation="link" as={Link} to={'/app/login'}>
+                  Log in
+                </Button>
+              </li>
+              <li>
+                <CTALink
+                  as={Link}
+                  $variation="primary"
+                  to={'/app/create-account'}>
+                  Sign Up
+                </CTALink>
+              </li>
+            </NavList>
 
-        <HamburgerButton onClick={toggleNav}>{isOpen ? <IoMdClose /> : <IoMdMenu />}</HamburgerButton>
+            <HamburgerButton onClick={toggleNav}>
+              {isOpen ? <IoMdClose /> : <IoMdMenu />}
+            </HamburgerButton>
+          </>
+        )}
       </WrappperExt>
     </Nav>
   );

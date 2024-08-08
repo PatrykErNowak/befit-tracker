@@ -52,6 +52,7 @@ const Button = styled.button<{ $variation?: keyof typeof variations }>`
   font-weight: 600;
   letter-spacing: 1px;
   text-decoration: none;
+  text-align: center;
   border-radius: var(--border-radius-lg);
   transition: transform 0.3s, background-color 0.3s;
 
