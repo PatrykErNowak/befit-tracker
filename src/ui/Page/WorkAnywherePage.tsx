@@ -73,7 +73,11 @@ function WorkAnywherePage() {
   return (
     <StyledWorkAnywherePage>
       <Hero>
-        <img src="./crossplatform.jpg" alt="" />
+        <img
+          src="./img/crossplatform.webp"
+          alt="3 device types: laptop, tablet and mobile phone"
+          loading="lazy"
+        />
       </Hero>
 
       <ContentBox>

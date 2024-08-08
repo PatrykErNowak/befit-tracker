@@ -97,7 +97,21 @@ function HeaderPage() {
           </p>
         </Heading>
         <Hero>
-          <img src="./woman-mobile.png" alt="" />
+          <picture>
+            <source
+              media={`(max-width: ${breakpoint.laptop})`}
+              srcSet="./img/woman-mobile.webp"
+            />
+
+            <source
+              media={`(min-width: ${breakpoint.laptop})`}
+              srcSet="./img/woman-desktop.webp"
+            />
+            <img
+              src="./img/woman-desktop.webp"
+              alt="Woman on yoga mat thinks about life balance"
+            />
+          </picture>
         </Hero>
       </WrapperExt>
     </Header>
