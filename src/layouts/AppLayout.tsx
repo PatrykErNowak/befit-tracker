@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom';
 import { breakpoint } from '../styles/configStyles';
 import Sidebar from '../ui/Sidebar';
 import { LayoutContainerBG } from '../ui/LayoutContainerBG';
+import { Suspense } from 'react';
+import LoadingPage from '../pages/App/LoadingPage';
 
 const StyledAppLayout = styled(LayoutContainerBG)`
   display: grid;
@@ -37,7 +39,9 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Main>
-        <Outlet />
+        <Suspense fallback={<LoadingPage />}>
+          <Outlet />
+        </Suspense>
       </Main>
       <SidebarExt />
     </StyledAppLayout>

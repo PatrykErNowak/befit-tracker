@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import {
   createBrowserRouter,
   Navigate,
@@ -6,23 +7,27 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import LandingPage from './pages/Page/LandingPage';
-import PageNotFound from './pages/Page/PageNotFound';
-import Login from './pages/App/Login';
-import Dashboard from './pages/App/Dashboard';
-import Diet from './pages/App/Diet';
-import CreateAccount from './pages/App/CreateAccount/CreateAccount';
-
-import AuthLayout from './layouts/AuthLayout';
-
 import { SignUpProvider } from './contexts/SignUpContext';
 import GlobalStyles from './styles/GlobalStyles';
 import { Toaster } from 'react-hot-toast';
+
+const LandingPage = lazy(() => import('./pages/Page/LandingPage'));
+const PageNotFound = lazy(() => import('./pages/Page/PageNotFound'));
+const Login = lazy(() => import('./pages/App/Login'));
+const CreateAccount = lazy(
+  () => import('./pages/App/CreateAccount/CreateAccount')
+);
+
+const Dashboard = lazy(() => import('./pages/App/Dashboard'));
+const Diet = lazy(() => import('./pages/App/Diet'));
+const Workout = lazy(() => import('./pages/App/Workout'));
+const Places = lazy(() => import('./pages/App/Places'));
+const Settings = lazy(() => import('./pages/App/Settings'));
+
+import AuthLayout from './layouts/AuthLayout';
 import AppLayout from './layouts/AppLayout';
 import AuthProtectedRoute from './ui/AuthProtectedRoute';
-import Profile from './pages/App/Profile';
-import Workout from './pages/App/Workout';
-import Places from './pages/App/Places';
+import LoadingPage from './pages/App/LoadingPage';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +39,11 @@ const router = createBrowserRouter([
     path: 'app',
     children: [
       {
-        element: <AuthLayout />,
+        element: (
+          <Suspense fallback={<LoadingPage />}>
+            <AuthLayout />,
+          </Suspense>
+        ),
         children: [
           {
             path: 'login',
@@ -81,7 +90,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'profile',
-            element: <Profile />,
+            element: <Settings />,
           },
         ],
       },
