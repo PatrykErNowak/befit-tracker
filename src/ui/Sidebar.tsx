@@ -68,7 +68,12 @@ function Sidebar({ ...props }) {
       <StyledSidebarFooter>
         <ProfileAvatarInfo />
         <Menu>
-          <MenuButton icon={<IoIosSettings />} label="Settings" as={NavLink} to={'profile'} />
+          <MenuButton
+            icon={<IoIosSettings />}
+            label="Settings"
+            as={NavLink}
+            to={'settings'}
+          />
           <LogoutButton />
         </Menu>
       </StyledSidebarFooter>

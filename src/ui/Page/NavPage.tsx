@@ -143,7 +143,10 @@ function NavPage({ hideLinks = false }: { hideLinks?: boolean }) {
               </li>
             </NavList>
 
-            <HamburgerButton onClick={toggleNav}>
+            <HamburgerButton
+              onClick={toggleNav}
+              aria-label="Menu"
+              aria-expanded={isOpen}>
               {isOpen ? <IoMdClose /> : <IoMdMenu />}
             </HamburgerButton>
           </>

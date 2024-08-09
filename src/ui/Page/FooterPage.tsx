@@ -49,13 +49,17 @@ function FooterPage() {
     <Wrapper>
       <StyledFooterPage>
         <SocialsBox>
-          <Social href="https://pendev.me/">
+          <Social href="https://pendev.me/" aria-label="Author page">
             <MdWebAsset />
           </Social>
-          <Social href="https://github.com/PatrykErNowak">
+          <Social
+            href="https://github.com/PatrykErNowak"
+            aria-label="Author linkedin profile">
             <FaGithub />
           </Social>
-          <Social href="https://www.linkedin.com/in/patryk-ernest-nowak/">
+          <Social
+            href="https://www.linkedin.com/in/patryk-ernest-nowak/"
+            aria-label="Author github profile">
             <FaLinkedinIn />
           </Social>
         </SocialsBox>

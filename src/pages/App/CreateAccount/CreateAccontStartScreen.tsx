@@ -25,10 +25,14 @@ function CreateAccontStartScreen() {
     <StyledCreateAccontStartScreen>
       <InfoContainer>
         <Heading as="h2">Come join us!</Heading>
-        <Text>"We are so excited to have you here. If you haven't already, create an account to get access to store and track your lifestyle data.</Text>
+        <Text>
+          We are so excited to have you here. If you haven't already, create an
+          account to get access to store and track your lifestyle data.
+        </Text>
 
         <Text>
-          Already have an account? <LinkCustom to="/app/login">Log in &rarr;</LinkCustom>
+          Already have an account?{' '}
+          <LinkCustom to="/app/login">Log in &rarr;</LinkCustom>
         </Text>
       </InfoContainer>
       <Container>

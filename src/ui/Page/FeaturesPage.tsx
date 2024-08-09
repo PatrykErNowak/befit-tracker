@@ -54,11 +54,12 @@ const StyledFeatureItem = styled.div<{ $iconColor?: string }>`
     font-size: 4em;
     color: ${({ $iconColor = 'inherit' }) => $iconColor};
   }
-  h3 {
+  .title {
     margin-top: 2rem;
     margin-bottom: 1rem;
     width: 70%;
     font-size: 1.5em;
+    font-weight: 600;
     color: var(--color-grey-600);
   }
 
@@ -80,7 +81,7 @@ function FeatureItem({ icon, iconColor, title, text }: FeatureItemProps) {
   return (
     <StyledFeatureItem $iconColor={iconColor}>
       {icon}
-      <h3>{title}</h3>
+      <p className="title">{title}</p>
       <p>{text}</p>
     </StyledFeatureItem>
   );

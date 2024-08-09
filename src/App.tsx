@@ -89,7 +89,7 @@ const router = createBrowserRouter([
             element: <Places />,
           },
           {
-            path: 'profile',
+            path: 'settings',
             element: <Settings />,
           },
         ],

@@ -47,7 +47,7 @@ const ContentBox = styled.div`
   flex-direction: column;
   padding: 0 0 3rem;
 
-  h3 {
+  h2 {
     font-weight: 800;
     font-size: clamp(3rem, 2.5rem + 1.5vw, 4.5rem);
   }
@@ -81,9 +81,9 @@ function WorkAnywherePage() {
       </Hero>
 
       <ContentBox>
-        <h3>
+        <h2>
           Work anywhere, <br /> with any device
-        </h3>
+        </h2>
         <p>
           From your cell phone, tablet or desktop computer, use our app from
           where you want and when you want - you don't have to pay for anything!
