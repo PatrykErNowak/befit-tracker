@@ -1,5 +1,7 @@
+import AvailableSoon from '../../ui/AvailableSoon';
+
 function Workout() {
-  return <div>Workout</div>;
+  return <AvailableSoon />;
 }
 
 export default Workout;

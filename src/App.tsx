@@ -11,7 +11,7 @@ import { SignUpProvider } from './contexts/SignUpContext';
 import GlobalStyles from './styles/GlobalStyles';
 import { Toaster } from 'react-hot-toast';
 
-const LandingPage = lazy(() => import('./pages/Page/LandingPage'));
+import LandingPage from './pages/Page/LandingPage';
 const PageNotFound = lazy(() => import('./pages/Page/PageNotFound'));
 const Login = lazy(() => import('./pages/App/Login'));
 const CreateAccount = lazy(

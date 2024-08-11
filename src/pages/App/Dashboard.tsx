@@ -1,5 +1,7 @@
+import AvailableSoon from '../../ui/AvailableSoon';
+
 function Dashboard() {
-  return <div>Dashboard</div>;
+  return <AvailableSoon />;
 }
 
 export default Dashboard;

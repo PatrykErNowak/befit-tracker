@@ -1,5 +1,7 @@
+import AvailableSoon from '../../ui/AvailableSoon';
+
 function Diet() {
-  return <div>Diet</div>;
+  return <AvailableSoon />;
 }
 
 export default Diet;
