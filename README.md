@@ -1,4 +1,4 @@
-# BeFit Tracker - react app
+# BeFit Tracker - react app (still in development phase)
 
 An app that allows you to conveniently count calories and macronutrients, track physical activity and compare results.
 
