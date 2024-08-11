@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       {
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <AuthLayout />,
+            <AuthLayout />
           </Suspense>
         ),
         children: [
