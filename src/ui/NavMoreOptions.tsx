@@ -45,17 +45,27 @@ const OptionsList = styled.ul`
 function NavMoreOptions() {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
-  useClickAway(ref, () => setIsOpen(false));
+  const buttonRef = useRef(null);
+  useClickAway(ref, (e) => {
+    if (e.target === buttonRef.current) return;
+    setIsOpen(false);
+  });
 
   return (
     <StyledNavMoreOptions>
-      <ButtonExt onClick={() => setIsOpen((prev) => !prev)}>
+      <ButtonExt onClick={() => setIsOpen((prev) => !prev)} ref={buttonRef}>
         <IoMenuOutline />
       </ButtonExt>
       {isOpen && (
         <OptionsList ref={ref}>
           <li>
-            <MenuButton icon={<IoIosSettings />} label="Profile" as={NavLink} to={'profile'} />
+            <MenuButton
+              icon={<IoIosSettings />}
+              label="Settings"
+              as={NavLink}
+              to={'settings'}
+              onClick={() => setIsOpen(false)}
+            />
           </li>
           <li>
             <LogoutButton />
