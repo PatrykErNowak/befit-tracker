@@ -9,7 +9,38 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      diets: {
+        Row: {
+          created_at: string
+          date: string | null
+          id: number
+          meals: Json | null
+          user: string | null
+        }
+        Insert: {
+          created_at?: string
+          date?: string | null
+          id?: number
+          meals?: Json | null
+          user?: string | null
+        }
+        Update: {
+          created_at?: string
+          date?: string | null
+          id?: number
+          meals?: Json | null
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "diets_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

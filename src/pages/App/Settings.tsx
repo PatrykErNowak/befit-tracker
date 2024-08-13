@@ -15,7 +15,7 @@ const Header = styled.header`
   background-color: var(--color-brand-200);
 
   h1 {
-    color: var(--color-brand-900);
+    color: var(--color-grey-700);
     font-weight: 800;
   }
 

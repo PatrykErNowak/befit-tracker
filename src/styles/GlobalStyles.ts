@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
   /* Brand color */
   --color-brand-50: #f0fdfa;
   --color-brand-100: #e8f8f6;
+  --color-brand-150: #d9efed;
   --color-brand-200: #b9eae4;
   --color-brand-300: #8adcd3;
   --color-brand-400: #2dd4bf;

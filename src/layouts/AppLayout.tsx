@@ -31,7 +31,7 @@ const SidebarExt = styled(Sidebar)`
 `;
 
 const Main = styled.main`
-  background-color: var(--color-brand-50);
+  background-color: var(--color-brand-100);
   overflow-y: auto;
 `;
 
