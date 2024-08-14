@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Meals from '../../features/diet/Meals';
 import { breakpoint } from '../../styles/configStyles';
-import HeaderApp from '../../ui/HeaderApp';
 
 const StyledDiet = styled.div`
   @media screen and (min-width: ${breakpoint.laptop}) {
@@ -15,7 +14,6 @@ const StyledDiet = styled.div`
 function Diet() {
   return (
     <>
-      <HeaderApp>Diet</HeaderApp>
       <StyledDiet>
         <Meals />
       </StyledDiet>

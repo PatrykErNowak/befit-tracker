@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { breakpoint } from '../styles/configStyles';
 
 const StyledHeaderApp = styled.header`
+  display: inline-block;
   margin-top: 1rem;
   padding: 1rem 3rem;
   width: max-content;
@@ -10,6 +11,7 @@ const StyledHeaderApp = styled.header`
 
   h1 {
     color: var(--color-brand-50);
+    font-size: clamp(2.5rem, 1.5rem + 1vw, 5rem);
     font-weight: 700;
     letter-spacing: 1px;
   }

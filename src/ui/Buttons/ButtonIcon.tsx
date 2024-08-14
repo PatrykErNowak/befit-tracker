@@ -3,6 +3,9 @@ import styled from 'styled-components';
 const ButtonIcon = styled.button<{
   $size?: number;
 }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   padding: 0.6rem;

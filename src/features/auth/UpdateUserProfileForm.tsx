@@ -17,10 +17,9 @@ import InputFile from '../../ui/Form/InputFile';
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Text from '../../ui/Text';
-import Heading from '../../ui/Heading';
 import Button from '../../ui/Buttons/Button';
 import BreakLine from '../../ui/BreakLine';
-import HeaderApp from '../../ui/HeaderAppSection';
+import HeaderAppSection from '../../ui/HeaderAppSection';
 
 const FormExt = styled(Form)`
   display: flex;
@@ -68,21 +67,17 @@ function UpdateUserProfileForm() {
 
   return (
     <>
-      <HeaderApp>
-        <div>
-          <Heading as="h2" $opacity={1}>
-            Profile Details
-          </Heading>
-          <Text $opacity={0.8}>
-            You can change your profile details here seamlessly.
-          </Text>
-        </div>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          disabled={isPending || !isDirty}>
-          Update
-        </Button>
-      </HeaderApp>
+      <HeaderAppSection
+        title="Profile Details"
+        desc="You can change your profile details here seamlessly."
+        btn={
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            disabled={isPending || !isDirty}>
+            Update
+          </Button>
+        }
+      />
       <FormExt>
         <FormRow label="Profile picture" id="avatar" vertical>
           <UserAvatar size="medium" />

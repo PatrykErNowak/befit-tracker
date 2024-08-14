@@ -9,8 +9,6 @@ import { breakpoint } from '../../styles/configStyles';
 import useUser from './useUser';
 import useUpdateUser from './useUpdateUser';
 
-import Heading from '../../ui/Heading';
-import Text from '../../ui/Text';
 import WeightActualInput from './UserInputs/WeightActualInput';
 import WeightGoalInput from './UserInputs/WeightGoalInput';
 import MovementLvlInput from './UserInputs/MovementLvlInput';
@@ -20,7 +18,7 @@ import FormRow from '../../ui/Form/FormRow';
 import Counter from '../../ui/Counter';
 import Button from '../../ui/Buttons/Button';
 import BreakLine from '../../ui/BreakLine';
-import HeaderApp from '../../ui/HeaderAppSection';
+import HeaderAppSection from '../../ui/HeaderAppSection';
 
 const BreakLineExt = styled(BreakLine)`
   @media screen and (min-width: ${breakpoint.laptop}) {
@@ -78,19 +76,17 @@ function UpdateUserGoalsForm() {
 
   return (
     <>
-      <HeaderApp>
-        <div>
-          <Heading as="h2" $opacity={1}>
-            Weight Goals
-          </Heading>
-          <Text $opacity={0.8}>You can change your weight goals here.</Text>
-        </div>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          disabled={isPending || !isDirty}>
-          Update
-        </Button>
-      </HeaderApp>
+      <HeaderAppSection
+        title="Weight Goals"
+        desc="You can change your weight goals here."
+        btn={
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            disabled={isPending || !isDirty}>
+            Update
+          </Button>
+        }
+      />
       <FormExt>
         <div>
           <WeightActualInput

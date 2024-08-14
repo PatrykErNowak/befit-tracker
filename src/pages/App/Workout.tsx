@@ -1,7 +1,13 @@
 import AvailableSoon from '../../ui/AvailableSoon';
+import HeaderApp from '../../ui/HeaderApp';
 
 function Workout() {
-  return <AvailableSoon />;
+  return (
+    <>
+      <HeaderApp>Workout</HeaderApp>
+      <AvailableSoon />
+    </>
+  );
 }
 
 export default Workout;

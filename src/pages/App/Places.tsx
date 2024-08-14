@@ -1,7 +1,13 @@
 import AvailableSoon from '../../ui/AvailableSoon';
+import HeaderApp from '../../ui/HeaderApp';
 
 function Places() {
-  return <AvailableSoon />;
+  return (
+    <>
+      <HeaderApp>Places</HeaderApp>
+      <AvailableSoon />
+    </>
+  );
 }
 
 export default Places;

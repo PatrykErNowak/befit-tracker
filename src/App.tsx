@@ -20,6 +20,7 @@ const CreateAccount = lazy(
 
 const Dashboard = lazy(() => import('./pages/App/Dashboard'));
 const Diet = lazy(() => import('./pages/App/Diet'));
+const ManageMeal = lazy(() => import('./pages/App/ManageMeal'));
 const Workout = lazy(() => import('./pages/App/Workout'));
 const Places = lazy(() => import('./pages/App/Places'));
 const Settings = lazy(() => import('./pages/App/Settings'));
@@ -28,6 +29,7 @@ import AuthLayout from './layouts/AuthLayout';
 import AppLayout from './layouts/AppLayout';
 import AuthProtectedRoute from './ui/AuthProtectedRoute';
 import LoadingPage from './pages/App/LoadingPage';
+import DietLayout from './layouts/DietLayout';
 
 const router = createBrowserRouter([
   {
@@ -78,8 +80,19 @@ const router = createBrowserRouter([
           },
           {
             path: 'diet',
-            element: <Diet />,
+            element: <DietLayout />,
+            children: [
+              {
+                index: true,
+                element: <Diet />,
+              },
+              {
+                path: 'meal',
+                element: <ManageMeal />,
+              },
+            ],
           },
+
           {
             path: 'workout',
             element: <Workout />,

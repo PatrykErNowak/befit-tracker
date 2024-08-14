@@ -1,16 +1,8 @@
 import styled, { css } from 'styled-components';
 import { FaCirclePlus } from 'react-icons/fa6';
 import ButtonIcon from '../../ui/Buttons/ButtonIcon';
-import { breakpoint } from '../../styles/configStyles';
-
-const ComponentAppWrapper = styled.div`
-  @media screen and (min-width: ${breakpoint.laptop}) {
-    padding: 2rem;
-    background-color: var(--color-brand-50);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-sm);
-  }
-`;
+import { useNavigate } from 'react-router-dom';
+import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
 
 const testMeal = [
   {
@@ -105,13 +97,16 @@ function sumMacroNutrients(foods: food[]) {
 function Meal({ name, mealFoods = [] }: MealProps) {
   const sumOfNutrients = sumMacroNutrients(mealFoods);
   const isMeal = mealFoods.length > 0 && Object.keys(mealFoods[0]).length > 0;
+  const navigate = useNavigate();
 
   return (
     <>
       <MealsRow
         label={name}
         btn={
-          <ButtonIcon $size={3}>
+          <ButtonIcon
+            $size={3}
+            onClick={() => navigate('meal', { state: { mealName: name } })}>
             <FaCirclePlus />
           </ButtonIcon>
         }
@@ -141,6 +136,9 @@ const StyledMealsRow = styled.tr<{
   td {
     padding: 1rem 0;
     color: var(--color-grey-400);
+    & > * {
+      width: 100%;
+    }
   }
 
   .meal-name {
