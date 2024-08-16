@@ -12,6 +12,17 @@ const StyledMeal = styled.div`
     padding: 2rem 3rem;
   }
 `;
+const ContentGrid = styled.div`
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+`;
+const AddCustomMealFormExt = styled(AddCustomMealForm)`
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    grid-column: 1/4;
+  }
+`;
 
 function ManageMeal() {
   const {
@@ -23,14 +34,16 @@ function ManageMeal() {
       <StyledMeal>
         <HeaderAppSection
           title={mealName}
-          desc={`Add a dish to your ${mealName} meal.`}
+          desc={`Add a dish to your meal.`}
           btn={
             <ButtonIcon as={Link} to={'../'} $size={4.5} title="Back to Diet">
               <IoArrowBackCircle />
             </ButtonIcon>
           }
         />
-        <AddCustomMealForm />
+        <ContentGrid>
+          <AddCustomMealFormExt />
+        </ContentGrid>
       </StyledMeal>
     </>
   );

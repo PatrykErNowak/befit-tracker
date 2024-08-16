@@ -26,6 +26,7 @@ const Error = styled.span`
 `;
 
 const ChildrenContainer = styled.div<{ $vertical?: boolean }>`
+  position: relative;
   display: flex;
   ${({ $vertical }) =>
     $vertical
@@ -36,6 +37,17 @@ const ChildrenContainer = styled.div<{ $vertical?: boolean }>`
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+
+  &::before {
+    position: absolute;
+    content: attr(data-label);
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    padding-right: 1rem;
+    opacity: 0.8;
+  }
+
   & > :first-child {
     flex-grow: 1;
   }
@@ -52,15 +64,25 @@ type FormRowProps = {
   error?: string;
   children: React.ReactElement<HTMLInputElement> | React.ReactNode[];
   vertical?: boolean;
+  unitLabel?: string;
 };
 
-function FormRow({ children, label, id, error, vertical = false }: FormRowProps) {
+function FormRow({
+  children,
+  label,
+  id,
+  error,
+  vertical = false,
+  unitLabel = '',
+}: FormRowProps) {
   // const htmlForAttribute = children.props.id;
 
   return (
     <StyledFormRow>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <ChildrenContainer $vertical={vertical}>{children}</ChildrenContainer>
+      <ChildrenContainer $vertical={vertical} data-label={unitLabel}>
+        {children}
+      </ChildrenContainer>
       {error && <Error>{error}</Error>}
     </StyledFormRow>
   );

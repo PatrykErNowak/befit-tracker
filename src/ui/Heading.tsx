@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 const Heading = styled.h1<{ $inverted?: boolean; $opacity?: number }>`
   letter-spacing: 1px;
+  text-transform: capitalize;
   span {
     font-weight: 600;
     color: var(--color-brand-500);

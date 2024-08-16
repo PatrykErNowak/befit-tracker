@@ -3,8 +3,7 @@ import { breakpoint } from '../../styles/configStyles';
 
 const Input = styled.input`
   padding: 1rem 1.5rem;
-  min-width: 8rem;
-
+  width: 4rem;
   font-size: inherit;
   font-weight: 500;
   color: var(--color-grey-600);

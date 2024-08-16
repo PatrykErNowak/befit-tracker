@@ -3,6 +3,7 @@ import { FaCirclePlus } from 'react-icons/fa6';
 import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import { useNavigate } from 'react-router-dom';
 import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
+import { Dish, MealName } from './Diet.types';
 
 const testMeal = [
   {
@@ -55,11 +56,11 @@ function Meals() {
           </MealsHeader>
         </thead>
         <tbody>
-          <Meal name="Breakfast" mealFoods={testMeal} />
-          <Meal name="Brunch" />
-          <Meal name="Lunch" />
-          <Meal name="Supper" />
-          <Meal name="Dinner" />
+          <Meal name="breakfast" mealFoods={testMeal} />
+          <Meal name="brunch" />
+          <Meal name="lunch" />
+          <Meal name="supper" />
+          <Meal name="dinner" />
         </tbody>
       </StyledMeals>
     </ComponentAppWrapper>
@@ -72,7 +73,7 @@ export default Meals;
 // Meal component
 
 type MealProps = {
-  name: 'Breakfast' | 'Brunch' | 'Lunch' | 'Supper' | 'Dinner';
+  name: MealName;
   mealFoods?: food[];
 };
 
@@ -145,6 +146,7 @@ const StyledMealsRow = styled.tr<{
     color: var(--color-grey-600);
     font-weight: 600;
     font-size: 1.3em;
+    text-transform: capitalize;
   }
 
   ${({ $nestedRow }) =>
@@ -174,7 +176,7 @@ const StyledMealsRow = styled.tr<{
 type MealsRowProps = {
   label?: string;
   btn?: React.ReactElement;
-  food: Partial<food> | undefined;
+  food: Partial<Dish> | undefined;
   nestedRow?: boolean;
 };
 

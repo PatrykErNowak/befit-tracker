@@ -3,44 +3,123 @@ import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
+import { breakpoint } from '../../styles/configStyles';
+import FormButtonsRow from '../../ui/Form/FormButtonsRow';
+import Button from '../../ui/Buttons/Button';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Dish } from './Diet.types';
+import useAddMeal from './useAddMeal';
 
 const MultiRow = styled.div`
   display: grid;
-  grid-template-rows: 1fr;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
-  gap: 2rem;
+  gap: 1rem;
+  grid-template-rows: 1fr;
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    gap: 2rem;
+  }
 `;
 
-function AddCustomMealForm() {
+type AddCustomMealInputs = Dish;
+
+function AddCustomMealForm({ ...props }) {
+  const { addMeal, isPending } = useAddMeal();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<AddCustomMealInputs>();
+
+  const onSubmit: SubmitHandler<AddCustomMealInputs> = (data) => {
+    addMeal({ name: 'breakfast', data }, { onSuccess: () => reset() });
+  };
+
   return (
-    <ComponentAppWrapper>
-      <Form>
-        <FormRow label="Title" id="dish-name">
-          <Input type="text" id="dish-name" name="dish-name" />
+    <ComponentAppWrapper {...props}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormRow label="Title" id="name" error={errors.name?.message}>
+          <Input
+            type="text"
+            id="name"
+            disabled={isPending}
+            placeholder="Pizza"
+            {...register('name', { required: 'Title is required' })}
+          />
         </FormRow>
-        <FormRow label="Description" id="dish-desc">
-          <Input type="text" id="dish-desc" name="dish-desc" />
+        <FormRow label="Description" id="desc">
+          <Input
+            type="text"
+            id="desc"
+            disabled={isPending}
+            {...register('desc')}
+          />
         </FormRow>
         <MultiRow>
-          <FormRow label="Calories" id="dish-kcal">
-            <Input type="number" id="dish-kcal" name="dish-kcal" />
+          <FormRow
+            label="Calories"
+            id="kcal"
+            unitLabel="kcal"
+            error={errors.kcal?.message}>
+            <Input
+              type="number"
+              id="kcal"
+              disabled={isPending}
+              placeholder="0"
+              {...register('kcal', { required: 'Calories is required' })}
+            />
           </FormRow>
-          <FormRow label="Weight" id="dish-weight">
-            <Input type="number" id="dish-weight" name="dish-weight" />
+          <FormRow
+            label="Weight"
+            id="weight"
+            unitLabel="g"
+            error={errors.weight?.message}>
+            <Input
+              type="number"
+              id="weight"
+              disabled={isPending}
+              placeholder="0"
+              {...register('weight', {
+                required: 'Weight is required',
+                min: { value: 1, message: 'Weight must be greater than 0' },
+              })}
+            />
           </FormRow>
         </MultiRow>
         <MultiRow>
-          <FormRow label="Protein" id="dish-protein">
-            <Input type="number" id="dish-protein" name="dish-protein" />
+          <FormRow label="Protein" id="protein" unitLabel="g">
+            <Input
+              type="number"
+              id="protein"
+              disabled={isPending}
+              placeholder="0"
+              {...register('protein', { required: 'Calories is required' })}
+            />
           </FormRow>
-          <FormRow label="Carbohydrates" id="dish-carbs">
-            <Input type="number" id="dish-carbs" name="dish-carbs" />
+          <FormRow label="Carbs" id="carbs" unitLabel="g">
+            <Input
+              type="number"
+              id="carbs"
+              disabled={isPending}
+              placeholder="0"
+              {...register('carbs', { required: 'Calories is required' })}
+            />
           </FormRow>
-          <FormRow label="Fat" id="dish-fat">
-            <Input type="number" id="dish-fat" name="dish-fat" />
+          <FormRow label="Fat" id="fat" unitLabel="g">
+            <Input
+              type="number"
+              id="fat"
+              disabled={isPending}
+              placeholder="0"
+              {...register('fat', { required: 'Calories is required' })}
+            />
           </FormRow>
         </MultiRow>
+        <FormButtonsRow>
+          <Button disabled={isPending}>ADD DISH</Button>
+        </FormButtonsRow>
       </Form>
     </ComponentAppWrapper>
   );
