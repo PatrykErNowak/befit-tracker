@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { breakpoint } from '../../styles/configStyles';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HeaderAppSection from '../../ui/HeaderAppSection';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import AddCustomMealForm from '../../features/diet/AddCustomMealForm';
+import useMealName from '../../features/diet/useMealName';
 
 const StyledMeal = styled.div`
   padding: 0 1rem;
@@ -25,25 +26,29 @@ const AddCustomMealFormExt = styled(AddCustomMealForm)`
 `;
 
 function ManageMeal() {
-  const {
-    state: { mealName },
-  } = useLocation();
+  const meal = useMealName();
 
   return (
     <>
       <StyledMeal>
         <HeaderAppSection
-          title={mealName}
-          desc={`Add a dish to your meal.`}
+          title={meal || 'Sorry'}
+          desc={
+            meal
+              ? `Add a dish or ingredient to your meal.`
+              : 'No such meal exists'
+          }
           btn={
             <ButtonIcon as={Link} to={'../'} $size={4.5} title="Back to Diet">
               <IoArrowBackCircle />
             </ButtonIcon>
           }
         />
-        <ContentGrid>
-          <AddCustomMealFormExt />
-        </ContentGrid>
+        {meal && (
+          <ContentGrid>
+            <AddCustomMealFormExt />
+          </ContentGrid>
+        )}
       </StyledMeal>
     </>
   );

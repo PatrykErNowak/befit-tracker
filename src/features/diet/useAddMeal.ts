@@ -17,7 +17,7 @@ export default function useAddMeal() {
       return createDiet(userId, date, name, data);
     },
     onSuccess: () => {
-      toast.success('Dish successfuly added!');
+      toast.success('Meal successfuly updated!');
     },
     onError: (error) => {
       toast.error(error.message);

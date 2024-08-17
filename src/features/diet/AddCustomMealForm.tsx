@@ -9,6 +9,7 @@ import Button from '../../ui/Buttons/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Dish } from './Diet.types';
 import useAddMeal from './useAddMeal';
+import useMealName from './useMealName';
 
 const MultiRow = styled.div`
   display: grid;
@@ -25,6 +26,7 @@ const MultiRow = styled.div`
 type AddCustomMealInputs = Dish;
 
 function AddCustomMealForm({ ...props }) {
+  const mealName = useMealName()!;
   const { addMeal, isPending } = useAddMeal();
   const {
     register,
@@ -34,7 +36,7 @@ function AddCustomMealForm({ ...props }) {
   } = useForm<AddCustomMealInputs>();
 
   const onSubmit: SubmitHandler<AddCustomMealInputs> = (data) => {
-    addMeal({ name: 'breakfast', data }, { onSuccess: () => reset() });
+    addMeal({ name: mealName, data }, { onSuccess: () => reset() });
   };
 
   return (
@@ -118,7 +120,7 @@ function AddCustomMealForm({ ...props }) {
           </FormRow>
         </MultiRow>
         <FormButtonsRow>
-          <Button disabled={isPending}>ADD DISH</Button>
+          <Button disabled={isPending}>Add</Button>
         </FormButtonsRow>
       </Form>
     </ComponentAppWrapper>

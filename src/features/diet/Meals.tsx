@@ -107,7 +107,7 @@ function Meal({ name, mealFoods = [] }: MealProps) {
         btn={
           <ButtonIcon
             $size={3}
-            onClick={() => navigate('meal', { state: { mealName: name } })}>
+            onClick={() => navigate(name, { state: { mealName: name } })}>
             <FaCirclePlus />
           </ButtonIcon>
         }

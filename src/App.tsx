@@ -87,7 +87,7 @@ const router = createBrowserRouter([
                 element: <Diet />,
               },
               {
-                path: 'meal',
+                path: ':meal',
                 element: <ManageMeal />,
               },
             ],
