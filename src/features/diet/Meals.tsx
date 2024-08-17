@@ -4,31 +4,8 @@ import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import { useNavigate } from 'react-router-dom';
 import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
 import { Dish, MealName } from './Diet.types';
-
-const testMeal = [
-  {
-    name: 'Pizza',
-    protein: 20,
-    fat: 30,
-    carbs: 100,
-    kcal: 836,
-  },
-  {
-    name: 'Hamburger',
-    protein: 10,
-    fat: 40,
-    carbs: 70,
-    kcal: 436,
-  },
-];
-
-type food = {
-  name: string;
-  protein: number;
-  fat: number;
-  carbs: number;
-  kcal: number;
-};
+import useDiet from './useDiet';
+import { sumMacroNutrients } from '../../utils/helpers';
 
 const StyledMeals = styled.table`
   width: 100%;
@@ -43,6 +20,8 @@ const MealsHeader = styled.tr`
 `;
 
 function Meals() {
+  const { diet } = useDiet();
+
   return (
     <ComponentAppWrapper>
       <StyledMeals role="table">
@@ -56,11 +35,11 @@ function Meals() {
           </MealsHeader>
         </thead>
         <tbody>
-          <Meal name="breakfast" mealFoods={testMeal} />
-          <Meal name="brunch" />
-          <Meal name="lunch" />
-          <Meal name="supper" />
-          <Meal name="dinner" />
+          <Meal name="breakfast" mealFoods={diet?.breakfast} />
+          <Meal name="brunch" mealFoods={diet?.brunch} />
+          <Meal name="lunch" mealFoods={diet?.lunch} />
+          <Meal name="supper" mealFoods={diet?.supper} />
+          <Meal name="dinner" mealFoods={diet?.dinner} />
         </tbody>
       </StyledMeals>
     </ComponentAppWrapper>
@@ -74,26 +53,8 @@ export default Meals;
 
 type MealProps = {
   name: MealName;
-  mealFoods?: food[];
+  mealFoods?: Dish[];
 };
-
-function sumMacroNutrients(foods: food[]) {
-  const init = {
-    kcal: 0,
-    protein: 0,
-    fat: 0,
-    carbs: 0,
-  };
-
-  return foods.reduce((prev, curr) => {
-    return {
-      kcal: prev.kcal + curr.kcal,
-      carbs: prev.carbs + curr.carbs,
-      fat: prev.fat + curr.fat,
-      protein: prev.protein + curr.protein,
-    };
-  }, init);
-}
 
 function Meal({ name, mealFoods = [] }: MealProps) {
   const sumOfNutrients = sumMacroNutrients(mealFoods);
@@ -105,9 +66,7 @@ function Meal({ name, mealFoods = [] }: MealProps) {
       <MealsRow
         label={name}
         btn={
-          <ButtonIcon
-            $size={3}
-            onClick={() => navigate(name, { state: { mealName: name } })}>
+          <ButtonIcon $size={3} onClick={() => navigate(name)}>
             <FaCirclePlus />
           </ButtonIcon>
         }
@@ -169,6 +128,7 @@ const StyledMealsRow = styled.tr<{
 
       .meal-name {
         font-size: clamp(1.3rem, 0.5rem + 0.6vw, 1.9rem);
+        font-weight: 500;
       }
     `}
 `;

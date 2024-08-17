@@ -1,6 +1,24 @@
 import { Diet, Dish, MealName } from '../features/diet/Diet.types';
 import supabase from './supabase';
 
+export async function getDiet(userId: string, date: string): Promise<Diet> {
+  const { data, error } = await supabase
+    .from('diets')
+    .select('meals')
+    .eq('user', userId)
+    .eq('date', date);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Diet could not be loaded');
+  }
+
+  // Parse JSON
+  const preparedData = JSON.parse(String(data.at(0)?.meals));
+
+  return preparedData;
+}
+
 export async function createDiet(
   userId: string,
   date: string,

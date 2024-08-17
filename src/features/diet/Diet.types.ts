@@ -6,12 +6,12 @@ export type MealName = MealsTuple[number];
 
 export type Dish = {
   name: string;
-  desc: string;
-  kcal: number;
-  weight: number;
-  protein: number;
-  carbs: number;
-  fat: number;
+  desc?: string;
+  kcal: string;
+  weight: string;
+  protein: string;
+  carbs: string;
+  fat: string;
 };
 
 export type Meal = Dish[];

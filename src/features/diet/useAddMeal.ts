@@ -1,14 +1,14 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createDiet } from '../../services/apiDiets';
 import useUser from '../auth/useUser';
 import { getTodayDate } from '../../utils/helpers';
 import { AddMealObject } from './Diet.types';
-import { User } from '@supabase/supabase-js';
 import toast from 'react-hot-toast';
 
 export default function useAddMeal() {
+  const queryClient = useQueryClient();
   const { user } = useUser();
-  const userId = user?.id as User['id'];
+  const userId = user!.id;
   const date = getTodayDate();
 
   const { mutate: addMeal, isPending } = useMutation({
@@ -18,6 +18,10 @@ export default function useAddMeal() {
     },
     onSuccess: () => {
       toast.success('Meal successfuly updated!');
+      queryClient.invalidateQueries({
+        queryKey: ['diet', date],
+        refetchType: 'all',
+      });
     },
     onError: (error) => {
       toast.error(error.message);
