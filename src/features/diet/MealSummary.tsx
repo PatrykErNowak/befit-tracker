@@ -8,6 +8,7 @@ import { breakpoint } from '../../styles/configStyles';
 import Text from '../../ui/Text';
 import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import { MdDeleteForever } from 'react-icons/md';
+import useDeleteDish from './useDeleteDish';
 
 const StyledMeals = styled.table`
   width: 100%;
@@ -36,6 +37,7 @@ const TextExt = styled(Text)`
 function MealSummary({ ...props }) {
   const { diet } = useDiet();
   const mealName = useMealName();
+  const { deleteDish } = useDeleteDish();
 
   const mealFoods = diet ? diet[mealName!] : undefined;
   const isMeal =
@@ -64,7 +66,8 @@ function MealSummary({ ...props }) {
                 key={i}
                 addWeight
                 btn={
-                  <ButtonIcon>
+                  <ButtonIcon
+                    onClick={() => deleteDish({ name: mealName!, data: food })}>
                     <MdDeleteForever />
                   </ButtonIcon>
                 }

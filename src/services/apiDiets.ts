@@ -86,3 +86,30 @@ export async function createDiet(
 
   return data;
 }
+
+export async function deleteDish(
+  userId: string,
+  date: string,
+  diet: Diet,
+  meal: MealName,
+  dishToDelete: Dish
+) {
+  const copyDiet = { ...diet };
+  copyDiet[meal] = copyDiet[meal].filter(
+    (dish) => dish.name !== dishToDelete.name
+  );
+
+  const { data, error } = await supabase
+    .from('diets')
+    .update({ meals: JSON.stringify(copyDiet) })
+    .eq('user', userId)
+    .eq('date', date)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Diet could not be updated');
+  }
+
+  return data;
+}
