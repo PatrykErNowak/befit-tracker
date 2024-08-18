@@ -1,4 +1,4 @@
-import { Dish } from '../features/diet/Diet.types';
+import { Diet, Dish, MealName, Nutrients } from '../features/diet/Diet.types';
 
 export function getTodayDate() {
   const today = new Date();
@@ -16,7 +16,10 @@ export function getCurrentYear() {
   return today.getFullYear();
 }
 
-export function sumMacroNutrients(foods: Dish[]) {
+export function sumDishesNutrients(
+  dishes: Dish[] | undefined,
+  initState?: Nutrients
+) {
   const init = {
     kcal: '0',
     protein: '0',
@@ -25,7 +28,9 @@ export function sumMacroNutrients(foods: Dish[]) {
     weight: '0',
   };
 
-  const data = foods.reduce((prev, curr) => {
+  if (dishes === undefined) return init;
+
+  const data = dishes.reduce((prev, curr) => {
     return {
       kcal: String(Number(prev.kcal) + Number(curr.kcal)),
       carbs: String(Number(prev.carbs) + Number(curr.carbs)),
@@ -33,7 +38,29 @@ export function sumMacroNutrients(foods: Dish[]) {
       protein: String(Number(prev.protein) + Number(curr.protein)),
       weight: String(Number(prev.weight) + Number(curr.weight)),
     };
-  }, init);
+  }, initState || init);
 
   return data;
+}
+
+export function sumMealsNutrients(meals: Diet | undefined) {
+  let meal = {
+    kcal: '0',
+    protein: '0',
+    fat: '0',
+    carbs: '0',
+    weight: '0',
+  };
+
+  if (meals === undefined) return meal;
+
+  if (meals)
+    for (const key in meals) {
+      if (Object.prototype.hasOwnProperty.call(meals, key)) {
+        const element = meals[key as MealName];
+        meal = sumDishesNutrients(element, meal);
+      }
+    }
+
+  return meal;
 }

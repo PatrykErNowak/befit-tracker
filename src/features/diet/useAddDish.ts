@@ -5,7 +5,7 @@ import { getTodayDate } from '../../utils/helpers';
 import { AddMealObject } from './Diet.types';
 import toast from 'react-hot-toast';
 
-export default function useAddMeal() {
+export default function useAddDish() {
   const queryClient = useQueryClient();
   const { user } = useUser();
   const userId = user!.id;

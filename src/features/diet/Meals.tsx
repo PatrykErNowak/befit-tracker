@@ -1,11 +1,13 @@
-import styled, { css } from 'styled-components';
-import { FaCirclePlus } from 'react-icons/fa6';
-import ButtonIcon from '../../ui/Buttons/ButtonIcon';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
-import { Dish, MealName } from './Diet.types';
 import useDiet from './useDiet';
-import { sumMacroNutrients } from '../../utils/helpers';
+import { Dish, MealName } from './Diet.types';
+import { sumDishesNutrients, sumMealsNutrients } from '../../utils/helpers';
+import { useNavigate } from 'react-router-dom';
+import MealsRow from './MealRow';
+import ButtonIcon from '../../ui/Buttons/ButtonIcon';
+import { FaCirclePlus } from 'react-icons/fa6';
+import { breakpoint } from '../../styles/configStyles';
 
 const StyledMeals = styled.table`
   width: 100%;
@@ -15,7 +17,13 @@ const StyledMeals = styled.table`
 const MealsHeader = styled.tr`
   th {
     padding-top: 0.5em;
-    color: var(--color-grey-600);
+    color: var(--color-brand-600);
+  }
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    th {
+      padding-bottom: 0.5em;
+    }
   }
 `;
 
@@ -40,6 +48,11 @@ function Meals() {
           <Meal name="lunch" mealFoods={diet?.lunch} />
           <Meal name="supper" mealFoods={diet?.supper} />
           <Meal name="dinner" mealFoods={diet?.dinner} />
+          <MealsRow
+            label="Total"
+            food={sumMealsNutrients(diet)}
+            type="summary"
+          />
         </tbody>
       </StyledMeals>
     </ComponentAppWrapper>
@@ -48,16 +61,13 @@ function Meals() {
 
 export default Meals;
 
-// ------------------------------------------------------------------
-// Meal component
-
 type MealProps = {
   name: MealName;
   mealFoods?: Dish[];
 };
 
 function Meal({ name, mealFoods = [] }: MealProps) {
-  const sumOfNutrients = sumMacroNutrients(mealFoods);
+  const sumOfNutrients = sumDishesNutrients(mealFoods);
   const isMeal = mealFoods.length > 0 && Object.keys(mealFoods[0]).length > 0;
   const navigate = useNavigate();
 
@@ -73,89 +83,9 @@ function Meal({ name, mealFoods = [] }: MealProps) {
         food={isMeal ? sumOfNutrients : undefined}
       />
       {isMeal &&
-        mealFoods.map((food, i) => <MealsRow food={food} nestedRow key={i} />)}
+        mealFoods.map((food, i) => (
+          <MealsRow food={food} type="nested" key={i} />
+        ))}
     </>
-  );
-}
-
-const StyledMealsRow = styled.tr<{
-  $nestedRow?: boolean;
-}>`
-  &:not(:first-of-type) {
-    border-top: 1px solid var(--color-grey-200);
-  }
-
-  td:first-of-type {
-    padding-left: 1rem;
-  }
-
-  td:not(:first-of-type) {
-    text-align: center;
-  }
-
-  td {
-    padding: 1rem 0;
-    color: var(--color-grey-400);
-    & > * {
-      width: 100%;
-    }
-  }
-
-  .meal-name {
-    color: var(--color-grey-600);
-    font-weight: 600;
-    font-size: 1.3em;
-    text-transform: capitalize;
-  }
-
-  ${({ $nestedRow }) =>
-    $nestedRow &&
-    css`
-      background-color: var(--color-brand-100);
-
-      &:not(:first-of-type) {
-        border-top: none;
-      }
-
-      td:first-of-type {
-        padding-left: 1.5rem;
-      }
-
-      td {
-        padding: 0.3rem 0;
-        font-size: 0.9em;
-      }
-
-      .meal-name {
-        font-size: clamp(1.3rem, 0.5rem + 0.6vw, 1.9rem);
-        font-weight: 500;
-      }
-    `}
-`;
-
-type MealsRowProps = {
-  label?: string;
-  btn?: React.ReactElement;
-  food: Partial<Dish> | undefined;
-  nestedRow?: boolean;
-};
-
-function MealsRow({ label, btn, food, nestedRow }: MealsRowProps) {
-  const { name, kcal = 0, fat, protein, carbs } = food || {};
-
-  return (
-    <StyledMealsRow $nestedRow={nestedRow}>
-      <td>
-        <p className="meal-name">{label || name}</p>
-        <p>
-          <span>{kcal || 0} </span>
-          kcal
-        </p>
-      </td>
-      <td>{protein && protein + ' g'}</td>
-      <td>{carbs && carbs + ' g'}</td>
-      <td>{fat && fat + ' g'}</td>
-      <td>{btn}</td>
-    </StyledMealsRow>
   );
 }

@@ -6,5 +6,5 @@ export default function useMealName() {
 
   const isMeal = meal && typeof meal === 'string' && isMealName(meal);
 
-  return isMeal ? meal : null;
+  if (isMeal) return meal;
 }

@@ -8,7 +8,7 @@ import FormButtonsRow from '../../ui/Form/FormButtonsRow';
 import Button from '../../ui/Buttons/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Dish } from './Diet.types';
-import useAddMeal from './useAddMeal';
+import useAddDish from './useAddDish';
 import useMealName from './useMealName';
 
 const MultiRow = styled.div`
@@ -27,7 +27,7 @@ type AddCustomMealInputs = Dish;
 
 function AddCustomMealForm({ ...props }) {
   const mealName = useMealName()!;
-  const { addMeal, isPending } = useAddMeal();
+  const { addMeal, isPending } = useAddDish();
   const {
     register,
     handleSubmit,
