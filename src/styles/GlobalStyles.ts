@@ -178,6 +178,15 @@ img {
   }
 }
 
+.calendar-container {
+  display: flex;
+  justify-content: space-around;
+
+  &::-webkit-scrollbar {
+  display: none;
+}
+}
+
 
 
 `;

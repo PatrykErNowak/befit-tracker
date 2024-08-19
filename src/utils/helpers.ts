@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Diet, Dish, MealName, Nutrients } from '../features/diet/Diet.types';
 
 export function getTodayDate() {
@@ -64,3 +65,23 @@ export function sumMealsNutrients(meals: Diet | undefined) {
 
   return meal;
 }
+
+export const getRangeOfDays = (
+  range: number,
+  referenceDay: dayjs.Dayjs = dayjs()
+) => {
+  const modifier = Math.floor(range / 2);
+
+  const days = [];
+  for (let i = modifier; i > 0; i--) {
+    days.push(referenceDay.subtract(i, 'days'));
+  }
+
+  days.push(referenceDay);
+
+  for (let i = 1; i <= modifier; i++) {
+    days.push(referenceDay.add(i, 'days'));
+  }
+
+  return days;
+};
