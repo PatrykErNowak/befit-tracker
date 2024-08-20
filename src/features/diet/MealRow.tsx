@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Dish } from './Diet.types';
+import { PiFireFill } from 'react-icons/pi';
+import { FaBowlFood } from 'react-icons/fa6';
 
 const StyledMealsRow = styled.tr<{
   $type: 'main' | 'nested' | 'summary';
@@ -18,6 +20,12 @@ const StyledMealsRow = styled.tr<{
   .meal-name {
     color: var(--color-grey-600);
     text-transform: capitalize;
+    margin-bottom: 0.2em;
+  }
+  .kcal {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
 
   ${({ $type }) =>
@@ -47,7 +55,7 @@ const StyledMealsRow = styled.tr<{
     css`
       position: relative;
 
-      &::after {
+      /* &::after {
         content: '';
         position: absolute;
         left: 1rem;
@@ -56,7 +64,7 @@ const StyledMealsRow = styled.tr<{
         height: 70%;
         width: 2px;
         background-color: var(--color-grey-400);
-      }
+      } */
 
       &:not(:first-of-type) {
         border-top: none;
@@ -69,6 +77,19 @@ const StyledMealsRow = styled.tr<{
       td {
         padding: 0 0 1rem;
         font-size: 0.9em;
+      }
+
+      .first-cell {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .dish-icon {
+        font-size: 2rem;
+        width: max-content;
+        transform: translateY(3px);
       }
 
       .meal-name {
@@ -117,12 +138,20 @@ export default function MealsRow({
 
   return (
     <StyledMealsRow $type={type} {...props}>
-      <td>
-        <p className="meal-name">{label || name}</p>
-        <p>
-          <span>{kcal || 0} </span>
-          kcal
-        </p>
+      <td className="first-cell">
+        {type === 'nested' && (
+          <div className="dish-icon">
+            <FaBowlFood />
+          </div>
+        )}
+        <div>
+          <p className="meal-name">{label || name}</p>
+          <p className="kcal">
+            <PiFireFill color={kcal ? '#dd524ba3' : '#ddd'} />
+            <span> {kcal || 0} </span>
+            kcal
+          </p>
+        </div>
       </td>
       <td>{protein && protein + ' g'}</td>
       <td>{carbs && carbs + ' g'}</td>
