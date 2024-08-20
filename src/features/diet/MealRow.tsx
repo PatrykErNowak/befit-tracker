@@ -103,7 +103,7 @@ type MealsRowProps = {
   food: Partial<Dish> | undefined;
   addWeight?: boolean;
   type?: 'main' | 'nested' | 'summary';
-};
+} & React.ComponentProps<'tr'>;
 
 export default function MealsRow({
   label,
@@ -111,11 +111,12 @@ export default function MealsRow({
   food,
   addWeight = false,
   type = 'main',
+  ...props
 }: MealsRowProps) {
   const { name, kcal = 0, fat, protein, carbs, weight } = food || {};
 
   return (
-    <StyledMealsRow $type={type}>
+    <StyledMealsRow $type={type} {...props}>
       <td>
         <p className="meal-name">{label || name}</p>
         <p>

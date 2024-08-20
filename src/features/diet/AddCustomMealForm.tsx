@@ -97,7 +97,7 @@ function AddCustomMealForm({ ...props }) {
               id="protein"
               disabled={isPending}
               placeholder="0"
-              {...register('protein', { required: 'Calories is required' })}
+              {...register('protein')}
             />
           </FormRow>
           <FormRow label="Carbs" id="carbs" unitLabel="g">
@@ -106,7 +106,7 @@ function AddCustomMealForm({ ...props }) {
               id="carbs"
               disabled={isPending}
               placeholder="0"
-              {...register('carbs', { required: 'Calories is required' })}
+              {...register('carbs')}
             />
           </FormRow>
           <FormRow label="Fat" id="fat" unitLabel="g">
@@ -115,7 +115,7 @@ function AddCustomMealForm({ ...props }) {
               id="fat"
               disabled={isPending}
               placeholder="0"
-              {...register('fat', { required: 'Calories is required' })}
+              {...register('fat')}
             />
           </FormRow>
         </MultiRow>

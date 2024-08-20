@@ -30,6 +30,7 @@ import AppLayout from './layouts/AppLayout';
 import AuthProtectedRoute from './ui/AuthProtectedRoute';
 import LoadingPage from './pages/App/LoadingPage';
 import DietLayout from './layouts/DietLayout';
+import { DateContextProvider } from './contexts/DateContext';
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,9 @@ const router = createBrowserRouter([
       {
         element: (
           <AuthProtectedRoute>
-            <AppLayout />
+            <DateContextProvider>
+              <AppLayout />
+            </DateContextProvider>
           </AuthProtectedRoute>
         ),
         children: [

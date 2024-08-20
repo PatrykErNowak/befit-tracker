@@ -1,28 +1,37 @@
 import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6';
 import ButtonIcon from './Buttons/ButtonIcon';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-import { getRangeOfDays } from '../utils/helpers';
+
 import { breakpoint } from '../styles/configStyles';
+import { useDateContext } from '../contexts/DateContext';
+import usePrefetchData from '../hooks/usePrefetchData';
 
 const ScrollContainer = styled.div`
   display: grid;
   grid-auto-columns: 4rem;
   grid-auto-flow: column;
   gap: 0.5rem;
-  padding: 2rem 0;
+
   overflow: hidden;
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    grid-auto-columns: 5rem;
+  }
+  @media screen and (min-width: ${breakpoint.desktop}) {
+    grid-auto-columns: 6rem;
+  }
 `;
 
 const StyledHorizontalCalendar = styled.div`
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
   max-width: 75rem;
   margin: 0 auto 2rem;
+  padding: 2rem 0;
   position: relative;
-  &::before {
+  /* &::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -32,26 +41,50 @@ const StyledHorizontalCalendar = styled.div`
     height: 3px;
     background-color: var(--color-brand-200);
     border-radius: 500px;
-  }
+  } */
 
   @media screen and (min-width: ${breakpoint.laptop}) {
-    &::before {
+    margin: 0 auto;
+    /* &::before {
       display: none;
-    }
+    } */
+  }
+  @media screen and (min-width: ${breakpoint.desktop}) {
+    max-width: 95rem;
+  }
+
+  position: relative;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 6rem;
+  }
+  &::before {
+    left: 3rem;
+    background: linear-gradient(
+      90deg,
+      var(--color-brand-100) 30%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+  &::after {
+    right: 3rem;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      var(--color-brand-100) 70%
+    );
   }
 `;
 
-type Select = string | number | undefined;
-
 const HorizontalCalendar = () => {
-  const daysRange = 40;
+  const fetchDataForDate = usePrefetchData();
+  const { days, selectedDate, selectNewDate, setNewDays } = useDateContext();
 
-  const [days, setDays] = useState<dayjs.Dayjs[]>(() =>
-    getRangeOfDays(daysRange)
-  );
-  const [selected, setSelected] = useState<Select>(() =>
-    dayjs().format('MM/DD/YYYY')
-  );
   const scrollableRef = useRef<null | HTMLDivElement>(null);
 
   const daysFormat = 'ddd';
@@ -59,10 +92,15 @@ const HorizontalCalendar = () => {
 
   useEffect(() => {
     if (scrollableRef.current) {
-      const element = document.querySelector(`[itemid='${selected}']`);
-      if (element) element.scrollIntoView({ inline: 'center' });
+      const element = document.querySelector(`[itemid='${selectedDate}']`);
+      if (element)
+        element.scrollIntoView({
+          inline: 'center',
+          block: 'center',
+          behavior: 'instant',
+        });
     }
-  }, [scrollableRef.current?.clientWidth, selected]);
+  }, [scrollableRef.current?.clientWidth, selectedDate]);
 
   function onScroll(offset: number) {
     if (scrollableRef.current) {
@@ -83,14 +121,15 @@ const HorizontalCalendar = () => {
             <DayCard
               day={day.format(daysFormat)}
               number={day.format('D')}
-              selected={selected === dayID}
+              selected={selectedDate === dayID}
               currentDay={currentDay === dayID}
               key={dayID}
               itemID={dayID}
               onClick={() => {
-                setDays(() => getRangeOfDays(daysRange, day));
-                setSelected(dayID);
+                setNewDays(day);
+                selectNewDate(day);
               }}
+              onMouseEnter={() => fetchDataForDate(dayID)}
             />
           );
         })}
@@ -116,6 +155,7 @@ const StyledDayCard = styled.div`
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 10px;
+  transition: none;
 
   &.active {
     background-color: var(--color-brand-600);
@@ -135,6 +175,7 @@ type DayCardProps = {
   selected: boolean;
   currentDay: boolean;
   onClick: () => void;
+  onMouseEnter: () => void;
   itemID: string;
 };
 
@@ -145,6 +186,7 @@ function DayCard({
   currentDay = false,
   onClick,
   itemID,
+  onMouseEnter,
 }: DayCardProps) {
   return (
     <StyledDayCard
@@ -153,7 +195,8 @@ function DayCard({
       tabIndex={0}
       onClick={onClick}
       className={`${selected ? 'active' : ''}
-      ${currentDay ? 'today' : ''}`}>
+      ${currentDay ? 'today' : ''}`}
+      onMouseEnter={onMouseEnter}>
       <h5>{day}</h5>
       <span>{number}</span>
     </StyledDayCard>

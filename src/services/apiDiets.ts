@@ -5,7 +5,7 @@ export async function getDiet(userId: string, date: string): Promise<Diet> {
   const { data, error } = await supabase
     .from('diets')
     .select('meals')
-    .eq('user', userId)
+    .eq('user_id', userId)
     .eq('date', date);
 
   if (error) {
@@ -30,7 +30,7 @@ export async function createDiet(
   const { data: userDiet, error: findRecordError } = await supabase
     .from('diets')
     .select('meals')
-    .eq('user', userId)
+    .eq('user_id', userId)
     .eq('date', date);
 
   if (findRecordError) {
@@ -49,7 +49,7 @@ export async function createDiet(
     const { data, error } = await supabase
       .from('diets')
       .update({ meals: JSON.stringify(meals) })
-      .eq('user', userId)
+      .eq('user_id', userId)
       .eq('date', date)
       .select();
 
@@ -76,7 +76,7 @@ export async function createDiet(
 
   const { data, error } = await supabase
     .from('diets')
-    .insert([{ user: userId, date, meals: JSON.stringify(defaultState) }])
+    .insert([{ user_id: userId, date, meals: JSON.stringify(defaultState) }])
     .select();
 
   if (error) {
@@ -102,7 +102,7 @@ export async function deleteDish(
   const { data, error } = await supabase
     .from('diets')
     .update({ meals: JSON.stringify(copyDiet) })
-    .eq('user', userId)
+    .eq('user_id', userId)
     .eq('date', date)
     .select();
 

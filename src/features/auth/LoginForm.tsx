@@ -52,37 +52,39 @@ function LoginForm() {
   }
 
   return (
-    <FormExt onSubmit={handleSubmit}>
-      <TestDataButton onClick={handleTestData}>
-        Enter Test User Credentials
-      </TestDataButton>
-      <FormRow label="Email address">
-        <Input
-          disabled={isPending}
-          type="email"
-          name="login"
-          id="login"
-          autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-      </FormRow>
-      <FormRow label="Password">
-        <Input
-          disabled={isPending}
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </FormRow>
-      <FormButtonsRow>
-        <Button $variation="primary" disabled={isPending}>
-          Sign in
-        </Button>
-      </FormButtonsRow>
-    </FormExt>
+    <>
+      <FormExt onSubmit={handleSubmit}>
+        <FormRow label="Email address">
+          <Input
+            disabled={isPending}
+            type="email"
+            name="login"
+            id="login"
+            autoComplete="username"
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+          />
+        </FormRow>
+        <FormRow label="Password">
+          <Input
+            disabled={isPending}
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormRow>
+        <FormButtonsRow>
+          <Button $variation="primary" type="submit" disabled={isPending}>
+            Sign in
+          </Button>
+        </FormButtonsRow>
+        <TestDataButton tabIndex={-1} onClick={handleTestData}>
+          Enter Test User Credentials
+        </TestDataButton>
+      </FormExt>
+    </>
   );
 }
 

@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteDish as deleteDishAPI } from '../../services/apiDiets';
 import useUser from '../auth/useUser';
-import { getTodayDate } from '../../utils/helpers';
 import useDiet from './useDiet';
 import { AddMealObject } from './Diet.types';
 import toast from 'react-hot-toast';
+import { useDateContext } from '../../contexts/DateContext';
 
 export default function useDeleteDish() {
   const queryClient = useQueryClient();
   const { diet } = useDiet();
   const { user } = useUser();
   const userId = user!.id;
-  const date = getTodayDate();
+  const { selectedDate: date } = useDateContext();
 
   const { mutate: deleteDish } = useMutation({
     mutationFn: (meal: AddMealObject) => {

@@ -1,20 +1,27 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createDiet } from '../../services/apiDiets';
 import useUser from '../auth/useUser';
-import { getTodayDate } from '../../utils/helpers';
 import { AddMealObject } from './Diet.types';
 import toast from 'react-hot-toast';
+import { useDateContext } from '../../contexts/DateContext';
 
 export default function useAddDish() {
   const queryClient = useQueryClient();
   const { user } = useUser();
   const userId = user!.id;
-  const date = getTodayDate();
+  const { selectedDate: date } = useDateContext();
 
   const { mutate: addMeal, isPending } = useMutation({
     mutationFn: (meal: AddMealObject) => {
       const { name, data } = meal;
-      return createDiet(userId, date, name, data);
+      const dish = {
+        ...data,
+        fat: data.fat || '0',
+        protein: data.protein || '0',
+        carbs: data.carbs || '0',
+      };
+
+      return createDiet(userId, date, name, dish);
     },
     onSuccess: () => {
       toast.success('Meal successfuly updated!');

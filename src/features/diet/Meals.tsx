@@ -74,9 +74,10 @@ function Meal({ name, mealFoods = [] }: MealProps) {
   return (
     <>
       <MealsRow
+        onClick={() => navigate(name)}
         label={name}
         btn={
-          <ButtonIcon $size={3} onClick={() => navigate(name)}>
+          <ButtonIcon $size={3}>
             <FaCirclePlus />
           </ButtonIcon>
         }
