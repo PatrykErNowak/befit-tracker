@@ -5,12 +5,13 @@ import { FcFlashOn } from 'react-icons/fc';
 import useDiet from './useDiet';
 import { sumMealsNutrients } from '../../utils/helpers';
 import { breakpoint } from '../../styles/configStyles';
+import useUserDietNutrients from './useUserDietNutrients';
 
 const StyledNutrientsDaySummary = styled(ComponentAppWrapper)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 3rem 1rem;
+  padding: 3rem 2rem;
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 2rem;
   }
@@ -27,6 +28,7 @@ const Footer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  margin-top: 1rem;
   color: var(--color-grey-600);
   background-color: var(--color-brand-100);
   border-radius: 15px;
@@ -46,10 +48,14 @@ const Footer = styled.div`
 `;
 
 function NutrientsDaySummary() {
+  const { bmr, carbsTarget, fatTarget, proteinTarget } =
+    useUserDietNutrients()!;
   const { diet } = useDiet();
   const nutrients = sumMealsNutrients(diet);
 
-  const kcalTarget = 2000;
+  if (!bmr) return null; // return information "Please set up your profile  for better experience and used all available features"
+
+  const kcalTarget = bmr;
   const kcalInPercentage = (
     (Number(nutrients.kcal) / kcalTarget) *
     100
@@ -64,7 +70,7 @@ function NutrientsDaySummary() {
         <Item
           title="Protein"
           currValue={Number(nutrients.protein)}
-          maxValue={100}
+          maxValue={proteinTarget}
           colors={{
             barColor: '#f98093',
             labelStartColor: '#c85ea0',
@@ -74,7 +80,7 @@ function NutrientsDaySummary() {
         <Item
           title="Carbs"
           currValue={Number(nutrients.carbs)}
-          maxValue={100}
+          maxValue={carbsTarget}
           colors={{
             barColor: '#86f6f7',
             labelStartColor: '#14ddd7',
@@ -84,7 +90,7 @@ function NutrientsDaySummary() {
         <Item
           title="Fat"
           currValue={Number(nutrients.fat)}
-          maxValue={100}
+          maxValue={fatTarget}
           colors={{
             barColor: '#f1b638',
             labelStartColor: '#f6b46a',
@@ -179,6 +185,9 @@ function Item({
   maxValue = 1,
   colors: { barColor, labelEndColor, labelStartColor },
 }: ItemProps) {
+  const checkIsOverTarger =
+    (currValue / maxValue) * 100 > 100 ? 100 : (currValue / maxValue) * 100;
+
   return (
     <StyledItem>
       <Header>
@@ -188,9 +197,7 @@ function Item({
         </Text>
       </Header>
       <ProgressBar>
-        <InnerProgessBar
-          $color={barColor}
-          $progress={(currValue / maxValue) * 100}>
+        <InnerProgessBar $color={barColor} $progress={checkIsOverTarger}>
           {currValue > 0 && (
             <Label $startColor={labelStartColor} $endColor={labelEndColor}>
               {currValue}

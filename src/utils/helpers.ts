@@ -85,3 +85,39 @@ export const getRangeOfDays = (
 
   return days;
 };
+
+type basalMetabolicRate = {
+  age: number;
+  gender: 'male' | 'female';
+  weight: number;
+  height: number;
+  activityLevel: number;
+};
+
+export function basalMetabolicRate({
+  age,
+  gender,
+  weight,
+  height,
+  activityLevel,
+}: basalMetabolicRate) {
+  if (gender === 'male') {
+    return (10 * weight + 6.25 * height - 5 * age + 5) * activityLevel;
+  }
+  if (gender === 'female') {
+    return (10 * weight + 6.25 * height - 5 * age - 161) * activityLevel;
+  }
+}
+
+export function getUserAge(birthdate: string) {
+  const today = dayjs();
+  return today.diff(birthdate, 'years');
+}
+
+export function physicalActivityRate(activityLevel: number) {
+  if (activityLevel === 0) return 1.2;
+  if (activityLevel === 1) return 1.375;
+  if (activityLevel === 2) return 1.55;
+  if (activityLevel === 3) return 1.725;
+  return 1.2;
+}

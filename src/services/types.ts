@@ -8,7 +8,7 @@ export type UserMetaData = {
 } & UserPhysicsData;
 
 export type UserPhysicsData = {
-  gender?: string;
+  gender?: 'male' | 'female';
   birthdate?: string;
   height?: {
     value: string;
