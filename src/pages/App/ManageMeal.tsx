@@ -9,7 +9,6 @@ import useMealName from '../../features/diet/useMealName';
 import MealSummary from '../../features/diet/MealSummary';
 
 const StyledMeal = styled.div`
-  padding: 0 1rem;
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 2rem 3rem;
   }
@@ -17,7 +16,7 @@ const StyledMeal = styled.div`
 const ContentGrid = styled.div`
   padding: 1rem 0 3rem;
   display: grid;
-  gap: 4rem;
+  gap: 2rem;
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     grid-template-columns: repeat(6, 1fr);

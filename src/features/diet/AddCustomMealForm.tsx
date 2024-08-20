@@ -11,6 +11,13 @@ import { Dish } from './Diet.types';
 import useAddDish from './useAddDish';
 import useMealName from './useMealName';
 
+const StyledAddCustoMealForm = styled(ComponentAppWrapper)`
+  padding: 2rem 1rem;
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    padding: 2rem;
+  }
+`;
+
 const MultiRow = styled.div`
   display: grid;
   grid-auto-columns: 1fr;
@@ -40,7 +47,7 @@ function AddCustomMealForm({ ...props }) {
   };
 
   return (
-    <ComponentAppWrapper {...props}>
+    <StyledAddCustoMealForm {...props}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormRow label="Title" id="name" error={errors.name?.message}>
           <Input
@@ -123,7 +130,7 @@ function AddCustomMealForm({ ...props }) {
           <Button disabled={isPending}>Add</Button>
         </FormButtonsRow>
       </Form>
-    </ComponentAppWrapper>
+    </StyledAddCustoMealForm>
   );
 }
 

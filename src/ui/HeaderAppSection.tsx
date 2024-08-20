@@ -10,6 +10,7 @@ const StyledHeaderAppSection = styled.header`
   align-items: end;
 
   position: relative;
+  padding-left: 1rem;
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
 

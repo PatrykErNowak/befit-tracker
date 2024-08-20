@@ -10,7 +10,14 @@ import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import { MdDeleteForever } from 'react-icons/md';
 import useDeleteDish from './useDeleteDish';
 
-const StyledMeals = styled.table`
+const StyledMealSummary = styled(ComponentAppWrapper)`
+  padding: 2rem 0;
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    padding: 2rem;
+  }
+`;
+
+const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 `;
@@ -46,8 +53,8 @@ function MealSummary({ ...props }) {
     Object.keys(mealFoods[0]).length > 0;
 
   return (
-    <ComponentAppWrapper {...props}>
-      <StyledMeals role="table">
+    <StyledMealSummary {...props}>
+      <Table role="table">
         <thead>
           <MealsHeader>
             <th></th>
@@ -83,13 +90,13 @@ function MealSummary({ ...props }) {
             }
           </tbody>
         )}
-      </StyledMeals>
+      </Table>
       {!isMeal && (
         <TextExt $opacity={0.8}>
           Add dish or ingredient to see the data...
         </TextExt>
       )}
-    </ComponentAppWrapper>
+    </StyledMealSummary>
   );
 }
 

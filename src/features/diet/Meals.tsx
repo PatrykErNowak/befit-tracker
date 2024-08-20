@@ -9,7 +9,14 @@ import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import { FaCirclePlus } from 'react-icons/fa6';
 import { breakpoint } from '../../styles/configStyles';
 
-const StyledMeals = styled.table`
+const StyledMeals = styled(ComponentAppWrapper)`
+  padding: 2rem 0;
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    padding: 2rem;
+  }
+`;
+
+const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 `;
@@ -31,8 +38,8 @@ function Meals() {
   const { diet } = useDiet();
 
   return (
-    <ComponentAppWrapper>
-      <StyledMeals role="table">
+    <StyledMeals>
+      <Table role="table">
         <thead>
           <MealsHeader>
             <th></th>
@@ -54,8 +61,8 @@ function Meals() {
             type="summary"
           />
         </tbody>
-      </StyledMeals>
-    </ComponentAppWrapper>
+      </Table>
+    </StyledMeals>
   );
 }
 
