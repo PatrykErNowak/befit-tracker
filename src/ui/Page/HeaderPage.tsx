@@ -4,7 +4,8 @@ import Wrapper from '../Wrapper';
 
 const Header = styled.header`
   width: 100%;
-  height: calc(100dvh - 7rem);
+  height: 100vh;
+  padding-top: 7rem;
   position: relative;
 
   @media screen and (min-width: ${breakpoint.laptop}) {

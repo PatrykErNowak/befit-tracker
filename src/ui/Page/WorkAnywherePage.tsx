@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 const StyledWorkAnywherePage = styled.section`
   display: grid;
-  margin: 5rem 0;
+  gap: 3rem;
+  margin: 8rem 0 5rem;
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     grid-template-columns: 1fr 1fr;
@@ -17,14 +18,12 @@ const StyledWorkAnywherePage = styled.section`
 `;
 
 const Hero = styled.div`
-  position: relative;
   display: flex;
   justify-content: center;
-  height: 50dvh;
-  width: 150%;
-  left: 50%;
+  height: 50vh;
+  width: 100%;
   background-color: #feeeef;
-  transform: translateX(-50%);
+  transform: scale(1.2);
   clip-path: polygon(0 0%, 100% 0, 100% 100%, 0% 80%);
 
   img {
@@ -34,6 +33,7 @@ const Hero = styled.div`
   }
 
   @media screen and (min-width: ${breakpoint.laptop}) {
+    transform: scale(1);
     align-items: center;
     width: 100%;
     clip-path: none;
