@@ -31,23 +31,9 @@ const StyledHorizontalCalendar = styled.div`
   margin: 0 auto 2rem;
   padding: 2rem 0;
   position: relative;
-  /* &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 3px;
-    background-color: var(--color-brand-200);
-    border-radius: 500px;
-  } */
 
   @media screen and (min-width: ${breakpoint.laptop}) {
     margin: 0 auto;
-    /* &::before {
-      display: none;
-    } */
   }
   @media screen and (min-width: ${breakpoint.desktop}) {
     max-width: 95rem;
@@ -110,7 +96,9 @@ const HorizontalCalendar = () => {
 
   return (
     <StyledHorizontalCalendar>
-      <ButtonIcon onClick={() => onScroll(-100)}>
+      <ButtonIcon
+        onClick={() => onScroll(-100)}
+        aria-label="Show more older dates">
         <FaAnglesLeft />
       </ButtonIcon>
       <ScrollContainer ref={scrollableRef}>
@@ -134,7 +122,9 @@ const HorizontalCalendar = () => {
           );
         })}
       </ScrollContainer>
-      <ButtonIcon onClick={() => onScroll(100)}>
+      <ButtonIcon
+        onClick={() => onScroll(100)}
+        aria-label="Show more recent dates">
         <FaAnglesRight />
       </ButtonIcon>
     </StyledHorizontalCalendar>
@@ -157,9 +147,13 @@ const StyledDayCard = styled.div`
   border-radius: 10px;
   transition: none;
 
+  p {
+    font-weight: 500;
+    font-size: 0.9em;
+  }
   &.active {
     background-color: var(--color-brand-600);
-    h5,
+    p,
     span {
       color: var(--color-brand-50);
     }
@@ -197,7 +191,7 @@ function DayCard({
       className={`${selected ? 'active' : ''}
       ${currentDay ? 'today' : ''}`}
       onMouseEnter={onMouseEnter}>
-      <h5>{day}</h5>
+      <p>{day}</p>
       <span>{number}</span>
     </StyledDayCard>
   );

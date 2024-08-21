@@ -13,17 +13,44 @@ const StyledNutrientsDaySummary = styled(ComponentAppWrapper)`
   gap: 2rem;
   padding: 3rem 2rem;
   @media screen and (min-width: ${breakpoint.laptop}) {
-    padding: 2rem;
+    padding: 3rem;
   }
 `;
 
 const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  position: relative;
+
+  &::before,
+  &::after {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 20%;
+  }
+  &::before {
+    content: '';
+    z-index: 10;
+    transform: translateX(50%);
+    height: 100%;
+    width: 5px;
+    border-right: 3px dashed var(--color-grey-400);
+  }
+  &::after {
+    content: 'Target';
+    transform: translate(50%, -100%);
+    padding-bottom: 0.3rem;
+    color: var(--color-grey-500);
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
 `;
 
-const Footer = styled.div`
+const Footer = styled.div<{
+  $progress: number;
+}>`
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,6 +59,7 @@ const Footer = styled.div`
   color: var(--color-grey-600);
   background-color: var(--color-brand-100);
   border-radius: 15px;
+
   .energy-score {
     font-size: 2rem;
     color: var(--color-grey-500);
@@ -44,6 +72,19 @@ const Footer = styled.div`
     & svg {
       font-size: 3.5rem;
     }
+  }
+
+  &::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: ${({ $progress }) => $progress || 0}%;
+    background-color: #ffe2a2;
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);
   }
 `;
 
@@ -98,7 +139,7 @@ function NutrientsDaySummary() {
           }}
         />
       </ContentContainer>
-      <Footer>
+      <Footer $progress={Number(kcalInPercentage)}>
         <div>
           <Text $grey $bold={500}>
             Total Energy
@@ -122,6 +163,7 @@ const StyledItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding-bottom: 1.5em;
   color: var(--color-grey-700);
 `;
 
@@ -152,12 +194,13 @@ const Label = styled.div<{
   $startColor: string;
   $endColor: string;
 }>`
+  z-index: 20;
   position: absolute;
   top: 50%;
   right: 0;
   display: inline-block;
   padding: 0.7rem 1.2rem;
-  transform: translateY(-50%);
+  transform: translate(50%, -50%);
   color: var(--color-brand-50);
   background: linear-gradient(90deg, #14ddd7 0%, #1be3b2 100%);
   background: linear-gradient(
@@ -186,18 +229,28 @@ function Item({
   colors: { barColor, labelEndColor, labelStartColor },
 }: ItemProps) {
   const checkIsOverTarger =
-    (currValue / maxValue) * 100 > 100 ? 100 : (currValue / maxValue) * 100;
+    ((currValue * 0.96) / (maxValue * 1.3)) * 100 > 100
+      ? 100
+      : ((currValue * 0.96) / (maxValue * 1.2)) * 100;
 
   return (
     <StyledItem>
       <Header>
-        <Text $bold={500}>{title}</Text>
+        <Text $bold={500} id={`${title}-progress`}>
+          {title}
+        </Text>
         <Text $bold={500} $opacity={0.6}>
           gram
         </Text>
       </Header>
       <ProgressBar>
-        <InnerProgessBar $color={barColor} $progress={checkIsOverTarger}>
+        <InnerProgessBar
+          role="progressbar"
+          $color={barColor}
+          $progress={checkIsOverTarger}
+          aria-labelledby={`${title}-progress`}
+          aria-valuemax={maxValue}
+          aria-valuenow={currValue}>
           {currValue > 0 && (
             <Label $startColor={labelStartColor} $endColor={labelEndColor}>
               {currValue}

@@ -84,7 +84,7 @@ function Meal({ name, mealFoods = [] }: MealProps) {
         onClick={() => navigate(name)}
         label={name}
         btn={
-          <ButtonIcon $size={3}>
+          <ButtonIcon $size={3} aria-label="Edit meal">
             <FaCirclePlus />
           </ButtonIcon>
         }
