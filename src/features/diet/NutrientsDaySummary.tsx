@@ -54,11 +54,19 @@ const Footer = styled.div<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 1.5rem;
   margin-top: 1rem;
-  color: var(--color-grey-600);
+  color: var(--color-grey-500);
   background-color: var(--color-brand-100);
   border-radius: 15px;
+
+  .divider {
+    /* font-size: 1.2em; */
+    display: inline-block;
+    transform: scale(1.5);
+    font-weight: 700;
+    color: var(--color-grey-400);
+  }
 
   .energy-score {
     font-size: 2rem;
@@ -89,16 +97,17 @@ const Footer = styled.div<{
 `;
 
 function NutrientsDaySummary() {
-  const { bmr, carbsTarget, fatTarget, proteinTarget } =
-    useUserDietNutrients()!;
   const { diet } = useDiet();
   const nutrients = sumMealsNutrients(diet);
+  const nutrientsDemands = useUserDietNutrients();
 
-  if (!bmr) return null; // return information "Please set up your profile  for better experience and used all available features"
+  if (!nutrientsDemands) return null; // return information "Please set up your profile  for better experience and used all available features"
 
-  const kcalTarget = bmr;
+  const { kcalDemand, carbsTarget, fatTarget, proteinTarget } =
+    nutrientsDemands;
+
   const kcalInPercentage = (
-    (Number(nutrients.kcal) / kcalTarget) *
+    (Number(nutrients.kcal) / kcalDemand) *
     100
   ).toFixed(2);
 
@@ -141,11 +150,12 @@ function NutrientsDaySummary() {
       </ContentContainer>
       <Footer $progress={Number(kcalInPercentage)}>
         <div>
-          <Text $grey $bold={500}>
+          <Text $grey $bold={600}>
             Total Energy
           </Text>
-          <Text $bold={600}>
-            {nutrients.kcal}/{kcalTarget} calories
+          <Text $bold={500}>
+            {nutrients.kcal} <span className="divider">/</span> {kcalDemand}{' '}
+            calories
           </Text>
         </div>
         <div className="energy-score">

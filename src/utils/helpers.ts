@@ -1,6 +1,14 @@
 import dayjs from 'dayjs';
 import { Diet, Dish, MealName, Nutrients } from '../features/diet/Diet.types';
 
+// -----------------------------------------------------------
+// Dates
+
+export function getUserAge(birthdate: string) {
+  const today = dayjs();
+  return today.diff(birthdate, 'years');
+}
+
 export function getTodayDate() {
   const today = new Date();
   return (
@@ -16,6 +24,29 @@ export function getCurrentYear() {
   const today = new Date();
   return today.getFullYear();
 }
+
+export const getRangeOfDays = (
+  range: number,
+  referenceDay: dayjs.Dayjs = dayjs()
+) => {
+  const modifier = Math.floor(range / 2);
+
+  const days = [];
+  for (let i = modifier; i > 0; i--) {
+    days.push(referenceDay.subtract(i, 'days'));
+  }
+
+  days.push(referenceDay);
+
+  for (let i = 1; i <= modifier; i++) {
+    days.push(referenceDay.add(i, 'days'));
+  }
+
+  return days;
+};
+
+// -----------------------------------------------------------
+// Suming nutrients
 
 export function sumDishesNutrients(
   dishes: Dish[] | undefined,
@@ -66,32 +97,14 @@ export function sumMealsNutrients(meals: Diet | undefined) {
   return meal;
 }
 
-export const getRangeOfDays = (
-  range: number,
-  referenceDay: dayjs.Dayjs = dayjs()
-) => {
-  const modifier = Math.floor(range / 2);
-
-  const days = [];
-  for (let i = modifier; i > 0; i--) {
-    days.push(referenceDay.subtract(i, 'days'));
-  }
-
-  days.push(referenceDay);
-
-  for (let i = 1; i <= modifier; i++) {
-    days.push(referenceDay.add(i, 'days'));
-  }
-
-  return days;
-};
+// ------------------------------------------------------------------
+// Diet rates and calcs
 
 type basalMetabolicRate = {
   age: number;
   gender: 'male' | 'female';
   weight: number;
   height: number;
-  activityLevel: number;
 };
 
 export function basalMetabolicRate({
@@ -99,25 +112,23 @@ export function basalMetabolicRate({
   gender,
   weight,
   height,
-  activityLevel,
 }: basalMetabolicRate) {
-  if (gender === 'male') {
-    return (10 * weight + 6.25 * height - 5 * age + 5) * activityLevel;
-  }
-  if (gender === 'female') {
-    return (10 * weight + 6.25 * height - 5 * age - 161) * activityLevel;
-  }
+  const rate = 10 * weight + 6.25 * height - 5 * age;
+
+  return gender === 'male' ? rate + 5 : rate - 161;
 }
 
-export function getUserAge(birthdate: string) {
-  const today = dayjs();
-  return today.diff(birthdate, 'years');
-}
-
-export function physicalActivityRate(activityLevel: number) {
+export function physicalActivityRate(
+  activityLevel: number,
+  movementLevel: number
+) {
   if (activityLevel === 0) return 1.2;
-  if (activityLevel === 1) return 1.375;
-  if (activityLevel === 2) return 1.55;
+  if (activityLevel === 1 || movementLevel === 2) return 1.375;
+  if (activityLevel === 2 || movementLevel === 3) return 1.55;
   if (activityLevel === 3) return 1.725;
   return 1.2;
+}
+
+export function caloricDemandWithActivity(bmr: number, activityRate: number) {
+  return bmr * activityRate;
 }
