@@ -1,10 +1,13 @@
 import { Diet, Dish, MealName } from '../features/diet/Diet.types';
 import supabase from './supabase';
 
-export async function getDiet(userId: string, date: string): Promise<Diet> {
+export async function getDiet(
+  userId: string,
+  date: string
+): Promise<{ diet: Diet; note: string | undefined | null }> {
   const { data, error } = await supabase
     .from('diets')
-    .select('meals')
+    .select('meals, note')
     .eq('user_id', userId)
     .eq('date', date);
 
@@ -14,9 +17,10 @@ export async function getDiet(userId: string, date: string): Promise<Diet> {
   }
 
   // Parse JSON
-  const preparedData = JSON.parse(String(data.at(0)?.meals));
+  const preparedMeals = JSON.parse(String(data.at(0)?.meals));
+  const preparedNote = data.at(0)?.note;
 
-  return preparedData;
+  return { diet: preparedMeals, note: preparedNote };
 }
 
 export async function createDiet(
@@ -109,6 +113,26 @@ export async function deleteDish(
   if (error) {
     console.error(error);
     throw new Error('Diet could not be updated');
+  }
+
+  return data;
+}
+
+export async function createUpdateDietNote(
+  userId: string,
+  date: string,
+  note: string
+) {
+  const { data, error } = await supabase
+    .from('diets')
+    .update({ note })
+    .eq('user_id', userId)
+    .eq('date', date)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Note could not be updated');
   }
 
   return data;

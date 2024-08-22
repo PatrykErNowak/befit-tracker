@@ -96,7 +96,7 @@ const Footer = styled.div<{
   }
 `;
 
-function NutrientsDaySummary() {
+function NutrientsDaySummary({ ...props }) {
   const { diet } = useDiet();
   const nutrients = sumMealsNutrients(diet);
   const nutrientsDemands = useUserDietNutrients();
@@ -112,7 +112,7 @@ function NutrientsDaySummary() {
   ).toFixed(2);
 
   return (
-    <StyledNutrientsDaySummary>
+    <StyledNutrientsDaySummary {...props}>
       <Text $grey $bold={600}>
         Macros per Day
       </Text>

@@ -15,26 +15,29 @@ export type Database = {
           date: string | null
           id: number
           meals: Json | null
-          user: string | null
+          note: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           date?: string | null
           id?: number
           meals?: Json | null
-          user?: string | null
+          note?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           date?: string | null
           id?: number
           meals?: Json | null
-          user?: string | null
+          note?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "diets_user_fkey"
-            columns: ["user"]
+            foreignKeyName: "diets_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]

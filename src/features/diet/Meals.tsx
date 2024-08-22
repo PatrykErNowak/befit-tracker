@@ -34,11 +34,11 @@ const MealsHeader = styled.tr`
   }
 `;
 
-function Meals() {
+function Meals({ ...props }) {
   const { diet } = useDiet();
 
   return (
-    <StyledMeals>
+    <StyledMeals {...props}>
       <Table role="table">
         <thead>
           <MealsHeader>

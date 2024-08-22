@@ -55,17 +55,6 @@ const StyledMealsRow = styled.tr<{
     css`
       position: relative;
 
-      /* &::after {
-        content: '';
-        position: absolute;
-        left: 1rem;
-        top: 40%;
-        transform: translateY(-50%);
-        height: 70%;
-        width: 2px;
-        background-color: var(--color-grey-400);
-      } */
-
       &:not(:first-of-type) {
         border-top: none;
       }

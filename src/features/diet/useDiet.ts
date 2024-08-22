@@ -8,15 +8,11 @@ export default function useDiet() {
   const userId = user!.id;
   const { selectedDate: date } = useDateContext();
 
-  const {
-    data: diet,
-    isPending,
-    error,
-  } = useQuery({
+  const { data, isPending, error } = useQuery({
     queryKey: ['diet', date],
     queryFn: () => getDiet(userId, date),
     retry: false,
   });
 
-  return { diet, isPending, error };
+  return { diet: data?.diet, note: data?.note, isPending, error };
 }
