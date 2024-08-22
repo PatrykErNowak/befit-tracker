@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { Dish } from './Diet.types';
 import { PiFireFill } from 'react-icons/pi';
 import { FaBowlFood } from 'react-icons/fa6';
+import { breakpoint } from '../../styles/configStyles';
 
 const StyledMealsRow = styled.tr<{
   $type: 'main' | 'nested' | 'summary';
@@ -47,6 +48,12 @@ const StyledMealsRow = styled.tr<{
         color: var(--color-brand-600);
         font-weight: 600;
         font-size: clamp(1.4rem, 0.5rem + 0.75vw, 2rem);
+      }
+
+      @media screen and (min-width: ${breakpoint.laptop}) {
+        td {
+          padding: 2rem 0;
+        }
       }
     `}
 
