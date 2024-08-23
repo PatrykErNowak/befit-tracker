@@ -132,3 +132,11 @@ export function physicalActivityRate(
 export function caloricDemandWithActivity(bmr: number, activityRate: number) {
   return bmr * activityRate;
 }
+
+export function calcCaloriesByNutrients(
+  protein: number,
+  carbs: number,
+  fat: number
+) {
+  return protein * 4 + carbs * 4 + fat * 9;
+}

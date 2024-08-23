@@ -10,6 +10,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Dish } from './Diet.types';
 import useAddDish from './useAddDish';
 import useMealName from './useMealName';
+import { calcCaloriesByNutrients } from '../../utils/helpers';
 
 const StyledAddCustoMealForm = styled(ComponentAppWrapper)`
   padding: 2rem 1rem;
@@ -40,11 +41,21 @@ function AddCustomMealForm({ ...props }) {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    getValues,
   } = useForm<AddCustomMealInputs>();
 
   const onSubmit: SubmitHandler<AddCustomMealInputs> = (data) => {
     addMeal({ name: mealName, data }, { onSuccess: () => reset() });
   };
+
+  function calcCaloriesDynamically() {
+    const preparedNutrients = getValues(['protein', 'carbs', 'fat']).map(
+      (val) => Number(val)
+    ) as [number, number, number];
+
+    setValue('kcal', String(calcCaloriesByNutrients(...preparedNutrients)));
+  }
 
   return (
     <StyledAddCustoMealForm {...props}>
@@ -66,6 +77,42 @@ function AddCustomMealForm({ ...props }) {
             {...register('desc')}
           />
         </FormRow>
+
+        <MultiRow>
+          <FormRow label="Protein" id="protein" unitLabel="g">
+            <Input
+              type="number"
+              id="protein"
+              disabled={isPending}
+              placeholder="0"
+              {...register('protein', {
+                onBlur: calcCaloriesDynamically,
+              })}
+            />
+          </FormRow>
+          <FormRow label="Carbs" id="carbs" unitLabel="g">
+            <Input
+              type="number"
+              id="carbs"
+              disabled={isPending}
+              placeholder="0"
+              {...register('carbs', {
+                onBlur: calcCaloriesDynamically,
+              })}
+            />
+          </FormRow>
+          <FormRow label="Fat" id="fat" unitLabel="g">
+            <Input
+              type="number"
+              id="fat"
+              disabled={isPending}
+              placeholder="0"
+              {...register('fat', {
+                onBlur: calcCaloriesDynamically,
+              })}
+            />
+          </FormRow>
+        </MultiRow>
         <MultiRow>
           <FormRow
             label="Calories"
@@ -94,35 +141,6 @@ function AddCustomMealForm({ ...props }) {
                 required: 'Weight is required',
                 min: { value: 1, message: 'Weight must be greater than 0' },
               })}
-            />
-          </FormRow>
-        </MultiRow>
-        <MultiRow>
-          <FormRow label="Protein" id="protein" unitLabel="g">
-            <Input
-              type="number"
-              id="protein"
-              disabled={isPending}
-              placeholder="0"
-              {...register('protein')}
-            />
-          </FormRow>
-          <FormRow label="Carbs" id="carbs" unitLabel="g">
-            <Input
-              type="number"
-              id="carbs"
-              disabled={isPending}
-              placeholder="0"
-              {...register('carbs')}
-            />
-          </FormRow>
-          <FormRow label="Fat" id="fat" unitLabel="g">
-            <Input
-              type="number"
-              id="fat"
-              disabled={isPending}
-              placeholder="0"
-              {...register('fat')}
             />
           </FormRow>
         </MultiRow>
