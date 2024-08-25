@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
@@ -11,13 +10,6 @@ import { Dish } from './Diet.types';
 import useAddDish from './useAddDish';
 import useMealName from './useMealName';
 import { calcCaloriesByNutrients } from '../../utils/helpers';
-
-const StyledAddCustoMealForm = styled(ComponentAppWrapper)`
-  padding: 2rem 1rem;
-  @media screen and (min-width: ${breakpoint.laptop}) {
-    padding: 2rem;
-  }
-`;
 
 const MultiRow = styled.div`
   display: grid;
@@ -33,7 +25,7 @@ const MultiRow = styled.div`
 
 type AddCustomMealInputs = Dish;
 
-function AddCustomMealForm({ ...props }) {
+function AddCustomMealForm() {
   const mealName = useMealName()!;
   const { addMeal, isPending } = useAddDish();
   const {
@@ -58,97 +50,95 @@ function AddCustomMealForm({ ...props }) {
   }
 
   return (
-    <StyledAddCustoMealForm {...props}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormRow label="Title" id="name" error={errors.name?.message}>
-          <Input
-            type="text"
-            id="name"
-            disabled={isPending}
-            placeholder="Pizza"
-            {...register('name', { required: 'Title is required' })}
-          />
-        </FormRow>
-        <FormRow label="Description" id="desc">
-          <Input
-            type="text"
-            id="desc"
-            disabled={isPending}
-            {...register('desc')}
-          />
-        </FormRow>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormRow label="Title" id="name" error={errors.name?.message}>
+        <Input
+          type="text"
+          id="name"
+          disabled={isPending}
+          placeholder="Pizza"
+          {...register('name', { required: 'Title is required' })}
+        />
+      </FormRow>
+      <FormRow label="Description" id="desc">
+        <Input
+          type="text"
+          id="desc"
+          disabled={isPending}
+          {...register('desc')}
+        />
+      </FormRow>
 
-        <MultiRow>
-          <FormRow label="Protein" id="protein" unitLabel="g">
-            <Input
-              type="number"
-              id="protein"
-              disabled={isPending}
-              placeholder="0"
-              {...register('protein', {
-                onBlur: calcCaloriesDynamically,
-              })}
-            />
-          </FormRow>
-          <FormRow label="Carbs" id="carbs" unitLabel="g">
-            <Input
-              type="number"
-              id="carbs"
-              disabled={isPending}
-              placeholder="0"
-              {...register('carbs', {
-                onBlur: calcCaloriesDynamically,
-              })}
-            />
-          </FormRow>
-          <FormRow label="Fat" id="fat" unitLabel="g">
-            <Input
-              type="number"
-              id="fat"
-              disabled={isPending}
-              placeholder="0"
-              {...register('fat', {
-                onBlur: calcCaloriesDynamically,
-              })}
-            />
-          </FormRow>
-        </MultiRow>
-        <MultiRow>
-          <FormRow
-            label="Calories"
+      <MultiRow>
+        <FormRow label="Protein" id="protein" unitLabel="g">
+          <Input
+            type="number"
+            id="protein"
+            disabled={isPending}
+            placeholder="0"
+            {...register('protein', {
+              onBlur: calcCaloriesDynamically,
+            })}
+          />
+        </FormRow>
+        <FormRow label="Carbs" id="carbs" unitLabel="g">
+          <Input
+            type="number"
+            id="carbs"
+            disabled={isPending}
+            placeholder="0"
+            {...register('carbs', {
+              onBlur: calcCaloriesDynamically,
+            })}
+          />
+        </FormRow>
+        <FormRow label="Fat" id="fat" unitLabel="g">
+          <Input
+            type="number"
+            id="fat"
+            disabled={isPending}
+            placeholder="0"
+            {...register('fat', {
+              onBlur: calcCaloriesDynamically,
+            })}
+          />
+        </FormRow>
+      </MultiRow>
+      <MultiRow>
+        <FormRow
+          label="Calories"
+          id="kcal"
+          unitLabel="kcal"
+          error={errors.kcal?.message}>
+          <Input
+            type="number"
             id="kcal"
-            unitLabel="kcal"
-            error={errors.kcal?.message}>
-            <Input
-              type="number"
-              id="kcal"
-              disabled={isPending}
-              placeholder="0"
-              {...register('kcal', { required: 'Calories is required' })}
-            />
-          </FormRow>
-          <FormRow
-            label="Weight"
+            disabled={isPending}
+            placeholder="0"
+            {...register('kcal', { required: 'Calories is required' })}
+          />
+        </FormRow>
+        <FormRow
+          label="Weight"
+          id="weight"
+          unitLabel="g"
+          error={errors.weight?.message}>
+          <Input
+            type="number"
             id="weight"
-            unitLabel="g"
-            error={errors.weight?.message}>
-            <Input
-              type="number"
-              id="weight"
-              disabled={isPending}
-              placeholder="0"
-              {...register('weight', {
-                required: 'Weight is required',
-                min: { value: 1, message: 'Weight must be greater than 0' },
-              })}
-            />
-          </FormRow>
-        </MultiRow>
-        <FormButtonsRow>
-          <Button disabled={isPending}>Add</Button>
-        </FormButtonsRow>
-      </Form>
-    </StyledAddCustoMealForm>
+            disabled={isPending}
+            placeholder="0"
+            {...register('weight', {
+              required: 'Weight is required',
+              min: { value: 1, message: 'Weight must be greater than 0' },
+            })}
+          />
+        </FormRow>
+      </MultiRow>
+      <FormButtonsRow>
+        <Button disabled={isPending}>Add</Button>
+      </FormButtonsRow>
+    </Form>
   );
 }
 

@@ -34,28 +34,6 @@ const NavMenu = styled.div`
   display: flex;
 `;
 
-const MenuButton = styled.button`
-  padding: 0.5rem 2rem;
-  font-weight: 600;
-  background-color: transparent;
-  border: transparent;
-  border-bottom: 3px solid var(--color-brand-300);
-
-  &:focus,
-  &:hover {
-    outline: none;
-    border-color: var(--color-brand-400);
-  }
-
-  &.active {
-    border-color: var(--color-brand-500);
-  }
-
-  @media screen and (min-width: ${breakpoint.laptop}) {
-    border-width: 4px;
-  }
-`;
-
 const Content = styled.div`
   padding: 2rem;
 
@@ -74,10 +52,10 @@ function Settings() {
         <Heading $opacity={1}>Settings</Heading>
         <NavMenu>
           <Tabs.Label opens="profile">
-            <MenuButton>Profile</MenuButton>
+            <Tabs.Button>Profile</Tabs.Button>
           </Tabs.Label>
           <Tabs.Label opens="goals">
-            <MenuButton>Goals</MenuButton>
+            <Tabs.Button>Goals</Tabs.Button>
           </Tabs.Label>
         </NavMenu>
       </Header>

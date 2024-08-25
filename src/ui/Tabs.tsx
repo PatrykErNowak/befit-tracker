@@ -1,4 +1,12 @@
-import { cloneElement, createContext, SyntheticEvent, useContext, useState } from 'react';
+import {
+  cloneElement,
+  createContext,
+  SyntheticEvent,
+  useContext,
+  useState,
+} from 'react';
+import styled from 'styled-components';
+import { breakpoint } from '../styles/configStyles';
 
 // ------------------------------------------------------
 // Context
@@ -21,7 +29,11 @@ type TabsProps = {
 function Tabs({ children, defaultTabOpen = '' }: TabsProps) {
   const [tab, setTab] = useState(defaultTabOpen);
 
-  return <TabsContext.Provider value={{ tab, setTab }}>{children}</TabsContext.Provider>;
+  return (
+    <TabsContext.Provider value={{ tab, setTab }}>
+      {children}
+    </TabsContext.Provider>
+  );
 }
 
 // ------------------------------------------------------
@@ -40,8 +52,36 @@ function Label({ opens, children }: LabelProps) {
     setTab(opens);
   }
 
-  return cloneElement(children, { onClick: handleClick, className: tab === opens ? 'active' : '' });
+  return cloneElement(children, {
+    onClick: handleClick,
+    className: tab === opens ? 'active' : '',
+  });
 }
+
+// ------------------------------------------------------
+// Label Button Component - Child
+
+const MenuButton = styled.button`
+  padding: 0.5rem 2rem;
+  font-weight: 600;
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 3px solid var(--color-brand-300);
+
+  &:focus,
+  &:hover {
+    outline: none;
+    border-color: var(--color-brand-400);
+  }
+
+  &.active {
+    border-color: var(--color-brand-500);
+  }
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    border-width: 4px;
+  }
+`;
 
 // ------------------------------------------------------
 // Content Component - Child
@@ -63,6 +103,7 @@ function Content({ name, children }: ContentProps) {
 // Setup
 
 Tabs.Label = Label;
+Tabs.Button = MenuButton;
 Tabs.Content = Content;
 
 export default Tabs;

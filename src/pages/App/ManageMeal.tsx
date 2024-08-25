@@ -7,6 +7,9 @@ import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import AddCustomMealForm from '../../features/diet/AddCustomMealForm';
 import useMealName from '../../features/diet/useMealName';
 import MealSummary from '../../features/diet/MealSummary';
+import InstantSearch from '../../features/diet/InstantSearch';
+import ComponentAppWrapper from '../../ui/ComponentAppWrapper';
+import Tabs from '../../ui/Tabs';
 
 const StyledMeal = styled.div`
   @media screen and (min-width: ${breakpoint.laptop}) {
@@ -24,7 +27,8 @@ const ContentGrid = styled.div`
     gap: 2rem;
   }
 `;
-const AddCustomMealFormExt = styled(AddCustomMealForm)`
+
+const AddMealExt = styled(AddMeal)`
   @media screen and (min-width: ${breakpoint.laptop}) {
     grid-column: 1/4;
     grid-row: 1/2;
@@ -58,7 +62,7 @@ function ManageMeal() {
         {meal && (
           <ContentGrid>
             <MealSummaryExt />
-            <AddCustomMealFormExt />
+            <AddMealExt />
           </ContentGrid>
         )}
       </StyledMeal>
@@ -67,3 +71,47 @@ function ManageMeal() {
 }
 
 export default ManageMeal;
+
+// ----------------------------------------------------------------
+// Add Meal Component
+
+const Header = styled.header`
+  display: flex;
+  padding: 1.5rem 1rem 0;
+
+  @media screen and (min-width: ${breakpoint.laptop}) {
+    padding: 2.5rem 5rem 0;
+  }
+  @media screen and (min-width: ${breakpoint.desktop}) {
+    padding: 3.5rem 6rem 0;
+  }
+`;
+
+const Content = styled.div`
+  padding: 2rem;
+`;
+
+function AddMeal({ ...props }) {
+  return (
+    <ComponentAppWrapper {...props}>
+      <Tabs defaultTabOpen="instant">
+        <Header>
+          <Tabs.Label opens="instant">
+            <Tabs.Button>Search Dish</Tabs.Button>
+          </Tabs.Label>
+          <Tabs.Label opens="custom">
+            <Tabs.Button>Add Custom</Tabs.Button>
+          </Tabs.Label>
+        </Header>
+        <Content>
+          <Tabs.Content name="instant">
+            <InstantSearch />
+          </Tabs.Content>
+          <Tabs.Content name="custom">
+            <AddCustomMealForm />
+          </Tabs.Content>
+        </Content>
+      </Tabs>
+    </ComponentAppWrapper>
+  );
+}
