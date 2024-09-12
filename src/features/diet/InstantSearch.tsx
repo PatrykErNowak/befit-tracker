@@ -1,33 +1,37 @@
 import styled from 'styled-components';
 import Form from '../../ui/Form/Form';
-import Input from '../../ui/Form/Input';
-import { CiSearch } from 'react-icons/ci';
-import { ChangeEventHandler, SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { getInstantFoods } from '../../services/apiNutritionix';
 import { InstantSearchType } from '../../services/types';
+import { breakpoint } from '../../styles/configStyles';
+import SearchBar from '../../ui/SearchBar';
+import InstantFoodItem from '../../ui/FoodListItem';
+import Button from '../../ui/Buttons/Button';
+import Text from '../../ui/Text';
 
-const testData: InstantSearchType = {
-  common: [
-    {
-      food_name: 'hamburger',
-      serving_unit: 'sandwich',
-      tag_name: 'hamburger',
-      serving_qty: 1,
-      common_type: null,
-      tag_id: '608',
-      photo: {
-        thumb: 'https://nix-tag-images.s3.amazonaws.com/608_thumb.jpg',
-      },
-      locale: 'en_US',
-    },
-  ],
-  branded: [],
-};
+const InstantList = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+
+  /* @media screen and (min-width: ${breakpoint.laptop}) {
+    gap: 3rem;
+  } */
+`;
+
+const ListFiltersBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  font-size: 0.7em;
+`;
 
 function InstantSearch() {
   const [query, setQuery] = useState('');
-  // const [data, setData] = useState<InstantSearchType | null>(null);
-  const [data, setData] = useState<InstantSearchType | null>(testData);
+  const [foodType, setFoodType] = useState<'branded' | 'common'>('common');
+  const [data, setData] = useState<InstantSearchType | null>(null);
 
   async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
@@ -47,56 +51,53 @@ function InstantSearch() {
           onChange={(e) => setQuery(e.currentTarget.value)}
         />
       </Form>
+      <ListFiltersBox>
+        <Button
+          $variation={
+            foodType === 'common' ? 'primaryActive' : 'primaryInactive'
+          }
+          onClick={() => setFoodType('common')}>
+          Common
+        </Button>
+        <Button
+          $variation={
+            foodType === 'branded' ? 'primaryActive' : 'primaryInactive'
+          }
+          onClick={() => setFoodType('branded')}>
+          Branded
+        </Button>
+      </ListFiltersBox>
       {data && (
-        <ul>
-          {data.common.map((food) => (
-            <li>{food.food_name}</li>
-          ))}
-        </ul>
+        <InstantList>
+          {(foodType === 'common' &&
+            data.common.length > 0 &&
+            data.common.map((food) => (
+              <InstantFoodItem
+                img={food.photo.thumb}
+                name={food.food_name}
+                quantityNumb={food.serving_qty}
+                quantityUnit={food.serving_unit}
+                key={food.food_name}
+              />
+            ))) ||
+            (foodType === 'common' && <Text>No results</Text>)}
+          {(foodType === 'branded' &&
+            data.branded.length > 0 &&
+            data.branded.map((food) => (
+              <InstantFoodItem
+                img={food.photo.thumb}
+                name={food.food_name}
+                quantityNumb={food.serving_qty}
+                quantityUnit={food.serving_unit}
+                kcal={food?.nf_calories}
+                key={food.food_name}
+              />
+            ))) ||
+            (foodType === 'branded' && <Text>No results</Text>)}
+        </InstantList>
       )}
     </>
   );
 }
 
 export default InstantSearch;
-
-// -------------------------------------------------------------
-
-const StyledSearchBar = styled.div`
-  position: relative;
-  input {
-    width: 100%;
-  }
-`;
-const Button = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  transform: translateY(-50%);
-  font-size: 3rem;
-  color: var(--color-brand-600);
-
-  border: transparent;
-  background: transparent;
-`;
-
-type SearchBarProps = {
-  value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-};
-
-function SearchBar({ value, onChange }: SearchBarProps) {
-  return (
-    <StyledSearchBar>
-      <Input
-        type="search"
-        placeholder="Search food..."
-        value={value}
-        onChange={onChange}
-      />
-      <Button>
-        <CiSearch />
-      </Button>
-    </StyledSearchBar>
-  );
-}
