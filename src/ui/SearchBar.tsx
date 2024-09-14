@@ -9,6 +9,11 @@ const StyledSearchBar = styled.div`
     width: 100%;
   }
 `;
+
+const SearchInput = styled(Input)`
+  padding-right: 5rem;
+`;
+
 const Button = styled.button`
   position: absolute;
   top: 50%;
@@ -29,7 +34,7 @@ type SearchBarProps = {
 export default function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <StyledSearchBar>
-      <Input
+      <SearchInput
         type="search"
         placeholder="Search food..."
         value={value}

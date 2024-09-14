@@ -77,13 +77,24 @@ export default ManageMeal;
 
 const Header = styled.header`
   display: flex;
-  padding: 1.5rem 1rem 0;
+  padding: 1.5rem 1rem 2rem;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 2px;
+    width: 120%;
+    transform: translateX(-50%);
+    background-color: var(--color-grey-200);
+  }
 
   @media screen and (min-width: ${breakpoint.laptop}) {
-    padding: 2.5rem 5rem 0;
+    padding: 0 0 2rem;
   }
   @media screen and (min-width: ${breakpoint.desktop}) {
-    padding: 3.5rem 6rem 0;
+    padding: 0 0 3rem;
   }
 `;
 

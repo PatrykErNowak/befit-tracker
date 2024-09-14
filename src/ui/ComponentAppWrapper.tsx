@@ -5,6 +5,7 @@ const ComponentAppWrapper = styled.div`
   background-color: var(--color-brand-50);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
   @media screen and (min-width: ${breakpoint.laptop}) {
     padding: 2rem;
   }
