@@ -64,15 +64,15 @@ const StyledInstantFoodItem = styled.li`
   }
 `;
 
-type CommonFood = {
+type InstantFoodItemProps = {
+  id: string;
   img: string;
   name: string;
   quantityNumb: number;
   quantityUnit: string;
-  kcal?: number | null;
-};
-
-type InstantFoodItemProps = CommonFood;
+  kcal: number | null;
+  // onClick?: (e: string) => void;
+} & React.ComponentProps<'div'>;
 
 export default function InstantFoodItem({
   img,
