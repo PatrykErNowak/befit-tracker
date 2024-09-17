@@ -2,7 +2,8 @@ import { FoodItem, InstantSearchType } from './types';
 
 const InstantSearchURL =
   'https://trackapi.nutritionix.com/v2/search/instant/?query=';
-const FoodItemURL = 'https://trackapi.nutritionix.com/v2/search/item/?upc=';
+const FoodItemURL =
+  'https://trackapi.nutritionix.com/v2/search/item/?nix_item_id=';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -34,6 +35,7 @@ export async function getInstantFoods(
 
 export async function getFoodItem(query: string): Promise<FoodItem> {
   try {
+    console.log(query);
     const response = await fetch(FoodItemURL + query, {
       method: 'GET',
       headers,

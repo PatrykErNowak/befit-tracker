@@ -8,6 +8,7 @@ import Pagination from '../../ui/Pagination';
 import Text from '../../ui/Text';
 import useInstantSearchFood from './useInstantSearchFood';
 import Spinner from '../../ui/Spinner';
+import FoodModal from './FoodModal';
 
 const itemsPerPage = 5;
 
@@ -34,7 +35,7 @@ function InstantSearch() {
   const searchQuery = !query || query.length < 3 ? '' : query;
   const { data, isPending, error } = useInstantSearchFood(searchQuery);
   const [activePage, setActivePage] = useState(1);
-  // const [foodModal, setFoodModal] = useState('');
+  const [foodModal, setFoodModal] = useState('');
 
   const branded = data?.branded.slice(
     (activePage - 1) * itemsPerPage,
@@ -64,15 +65,13 @@ function InstantSearch() {
               data.branded.length > 0 &&
               branded.map((food) => (
                 <InstantFoodItem
-                  id={food.nix_brand_id}
                   img={food.photo.thumb}
                   name={food.food_name}
                   quantityNumb={food.serving_qty}
                   quantityUnit={food.serving_unit}
                   kcal={food?.nf_calories}
                   key={food.food_name}
-
-                  // onClick={(id) => setFoodModal(id)}
+                  onClick={() => setFoodModal(food.nix_item_id)}
                 />
               ))) || <NoResultsMessage>No results found.</NoResultsMessage>}
           </InstantList>
@@ -83,23 +82,11 @@ function InstantSearch() {
           />
         </>
       )}
-      {/* {foodModal && <FoodModal />} */}
+      {foodModal && (
+        <FoodModal id={foodModal} onClose={() => setFoodModal('')} />
+      )}
     </>
   );
 }
 
 export default InstantSearch;
-
-// const StyledFoodModal = styled.div`
-//   position: fixed;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   background-color: red;
-//   width: 10rem;
-//   height: 10rem;
-// `;
-
-// function FoodModal() {
-//   return <StyledFoodModal></StyledFoodModal>;
-// }

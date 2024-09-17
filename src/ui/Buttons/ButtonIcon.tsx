@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const ButtonIcon = styled.button<{
   $size?: number;
+  $errorColor?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -19,7 +20,8 @@ const ButtonIcon = styled.button<{
   & svg {
     width: ${({ $size = 2.4 }) => $size + 'rem'};
     height: ${({ $size = 2.4 }) => $size + 'rem'};
-    color: var(--color-brand-600);
+    color: ${({ $errorColor }) =>
+      $errorColor ? 'var(--error-color)' : 'var(--color-brand-600)'};
   }
 `;
 

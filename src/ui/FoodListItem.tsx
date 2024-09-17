@@ -65,14 +65,12 @@ const StyledInstantFoodItem = styled.li`
 `;
 
 type InstantFoodItemProps = {
-  id: string;
   img: string;
   name: string;
   quantityNumb: number;
   quantityUnit: string;
   kcal: number | null;
-  // onClick?: (e: string) => void;
-} & React.ComponentProps<'div'>;
+} & React.ComponentProps<'li'>;
 
 export default function InstantFoodItem({
   img,
@@ -80,9 +78,10 @@ export default function InstantFoodItem({
   quantityNumb,
   quantityUnit,
   kcal = null,
+  ...props
 }: InstantFoodItemProps) {
   return (
-    <StyledInstantFoodItem tabIndex={1}>
+    <StyledInstantFoodItem tabIndex={1} {...props}>
       <div className="img-box">
         <img src={img} alt="" />
       </div>

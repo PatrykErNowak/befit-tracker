@@ -9,6 +9,7 @@ export default function useInstantSearchFood(query: string) {
       return getInstantFoods(query);
     },
     retry: false,
+    staleTime: Infinity,
   });
 
   return { data, isPending, error };

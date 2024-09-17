@@ -140,3 +140,10 @@ export function calcCaloriesByNutrients(
 ) {
   return protein * 4 + carbs * 4 + fat * 9;
 }
+
+// ------------------------------------------------------------------
+// Food item nutrients calcs
+
+export function calcFoodItemNutrient(portionWeight: number, nutrient: number) {
+  return (100 / portionWeight) * nutrient;
+}
