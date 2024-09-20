@@ -4,13 +4,15 @@ import ButtonIcon from '../../ui/Buttons/ButtonIcon';
 import useSearchFoodItem from './useSearchFoodItem';
 import Form from '../../ui/Form/Form';
 import Spinner from '../../ui/Spinner';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { calcFoodItemNutrient } from '../../utils/helpers';
 import ShowExtraInfoOnClick from '../../ui/ShowExtraInfoOnHover';
 import FormRow from '../../ui/Form/FormRow';
 import Input from '../../ui/Form/Input';
 import Button from '../../ui/Buttons/Button';
 import { IoCloseSharp } from 'react-icons/io5';
+import useAddDish from './useAddDish';
+import useMealName from './useMealName';
 
 const StyledFoodModal = styled.div`
   position: absolute;
@@ -22,7 +24,7 @@ const StyledFoodModal = styled.div`
   gap: 2rem;
   width: 100vw;
   height: 100vh;
-  padding: 2rem 2rem 6rem;
+  padding: 2rem 2rem 8rem;
   overflow: auto;
   background-color: var(--color-brand-50);
   box-shadow: var(--shadow-md);
@@ -117,6 +119,8 @@ const ServingForm = styled(Form)`
 function FoodModal({ id, onClose }: { id: string; onClose: () => void }) {
   const { data, isPending } = useSearchFoodItem(id);
   const [serving, setServing] = useState(1);
+  const { addMeal, isPending: isAddingDish } = useAddDish();
+  const mealName = useMealName()!;
 
   if (isPending)
     return (
@@ -128,18 +132,22 @@ function FoodModal({ id, onClose }: { id: string; onClose: () => void }) {
   if (!data) return null;
 
   const {
-    serving_weight_grams,
     nf_calories,
     nf_total_fat,
     nf_total_carbohydrate,
     nf_protein,
     nf_ingredient_statement,
+    brand_name,
+    food_name,
+    photo,
+    nf_metric_uom,
+    nf_metric_qty,
   } = data;
 
   const calcServing = (nutrient: number) =>
-    calcFoodItemNutrient(serving_weight_grams, nutrient);
+    calcFoodItemNutrient(nf_metric_qty, nutrient);
 
-  const servingWeight = Math.floor(serving_weight_grams * serving);
+  const servingWeight = Math.floor(nf_metric_qty * serving);
 
   const kcal100 = calcServing(nf_calories).toFixed(0);
   const kcalServing = (nf_calories * serving).toFixed(0);
@@ -156,27 +164,38 @@ function FoodModal({ id, onClose }: { id: string; onClose: () => void }) {
   function closeModal() {
     onClose();
   }
-
+  function onAddDish(e: SyntheticEvent) {
+    e.preventDefault();
+    const data = {
+      name: food_name,
+      weight: String(servingWeight),
+      kcal: kcalServing,
+      protein: proteinServing,
+      fat: fatServing,
+      carbs: carbsServing,
+    };
+    addMeal({ name: mealName, data }, { onSuccess: () => onClose() });
+  }
   console.log(data);
   return (
     <StyledFoodModal>
       <InfoBox>
-        <p className="brand-name">{data?.brand_name}</p>
-        <p className="food-name">{data?.food_name}</p>
+        <p className="brand-name">{brand_name}</p>
+        <p className="food-name">{food_name}</p>
         <ShowExtraInfoOnClick label="Ingredients">
           {nf_ingredient_statement}
         </ShowExtraInfoOnClick>
         <div className="photo">
-          <img src={data?.photo.thumb} alt="" />
+          <img src={photo.thumb} alt="" />
         </div>
       </InfoBox>
       <NutritionTable>
         <thead>
           <tr>
             <th></th>
-            <th>100g</th>
+            <th>100{nf_metric_uom}</th>
             <th>
-              Serving <br /> ({servingWeight} g)
+              Serving <br /> ({servingWeight} {nf_metric_uom})
             </th>
           </tr>
         </thead>
@@ -192,36 +211,36 @@ function FoodModal({ id, onClose }: { id: string; onClose: () => void }) {
             <td>{proteinServing} g</td>
           </tr>
           <tr>
-            <th>Fat</th>
-            <td>{fat100} g</td>
-            <td>{fatServing} g</td>
-          </tr>
-          <tr>
             <th>Carbs</th>
             <td>{carbs100} g</td>
             <td>{carbsServing} g</td>
           </tr>
+          <tr>
+            <th>Fat</th>
+            <td>{fat100} g</td>
+            <td>{fatServing} g</td>
+          </tr>
         </tbody>
       </NutritionTable>
-      <ServingForm>
-        <FormRow label="Set serving weight (g)">
+      <ServingForm onSubmit={onAddDish}>
+        <FormRow label={`Set serving weight (${nf_metric_uom})`}>
           <Input
             type="number"
             list="serving"
             onChange={(e) => {
               if (e.target.value)
-                setServing(Number(e.target.value) / serving_weight_grams);
+                setServing(Number(e.target.value) / nf_metric_qty);
             }}
           />
           <datalist id="serving">
-            <option value={0.5 * serving_weight_grams}>0.5 Serving</option>
-            <option value={serving_weight_grams}>1 Serving</option>
-            <option value={2 * serving_weight_grams}>2 Servings</option>
-            <option value={3 * serving_weight_grams}>3 Servings</option>
+            <option value={0.5 * nf_metric_qty}>0.5 Serving</option>
+            <option value={nf_metric_qty}>1 Serving</option>
+            <option value={2 * nf_metric_qty}>2 Servings</option>
+            <option value={3 * nf_metric_qty}>3 Servings</option>
           </datalist>
         </FormRow>
 
-        <Button>Add</Button>
+        <Button disabled={isAddingDish}>Add</Button>
       </ServingForm>
       <ButtonClose $errorColor $size={3} onClick={closeModal}>
         <IoCloseSharp />
