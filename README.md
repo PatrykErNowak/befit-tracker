@@ -87,7 +87,7 @@ View where you can manage diet by adding new meals manualy or search and add exi
 - Display all meals for specific date ✅
 - Display macronutrients intake summary for specific date ✅
 - Add custom meal ✅
-- Add meal from database based on search input ❌
+- Add meal from database based on search input ✅
 - Add meal from database based on natural language input, for example - '1 cup mashed potatoes and 2 tbsp gravy' ❌
 - Add Note for specific day ⚠️
 - Edit meal ⚠️
